@@ -8,7 +8,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { CustomLoader } from './shared/i18n.service';
 
-import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatButtonModule } from  '@angular/material';
+
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -29,7 +30,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       headerName: 'X-CSRF-TOKEN',
     }),
     BrowserAnimationsModule,
-    MatToolbarModule,
+    MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatButtonModule,
     FormsModule,
     ReactiveFormsModule,
     TranslateModule.forRoot({

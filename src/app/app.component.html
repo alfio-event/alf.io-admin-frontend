@@ -1,3 +1,14 @@
 <mat-toolbar color="primary">
-  
+    <mat-toolbar-row>
+        <h1>Alf.io</h1>
+        <a mat-button [routerLink]="['/']">Events</a>
+        <a mat-button [routerLink]="['/']">Organizations</a>
+        <a mat-button [routerLink]="['/']">Users</a>
+        <a mat-button [routerLink]="['/']">Api Keys</a>
+        <a mat-button [routerLink]="['/']">Groups</a>
+        <a mat-button [routerLink]="['/']">Configuration</a>
+        <a mat-button [routerLink]="['/']">Extension</a>
+    </mat-toolbar-row>
 </mat-toolbar>
+
+<router-outlet></router-outlet>
