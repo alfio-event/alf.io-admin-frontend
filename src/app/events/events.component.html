@@ -1,5 +1,17 @@
 <h1 class="mat-display-1">Events</h1>
 
+<mat-form-field>
+    <input matInput placeholder="Search" >
+</mat-form-field>
+<mat-form-field>
+    <mat-label>Status</mat-label>
+    <mat-select multiple>
+        <mat-option>Published</mat-option>
+        <mat-option>Draft</mat-option>
+        <mat-option>Past</mat-option>
+    </mat-select>
+</mat-form-field>
+
 <mat-list *ngIf="events != null">
     <mat-list-item *ngFor="let event of events">
         <img matListAvatar [src]="'/file/'+event.fileBlobId" alt="logo">
