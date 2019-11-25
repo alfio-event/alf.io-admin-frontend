@@ -63,8 +63,17 @@ export class EventsComponent implements OnInit {
   private filterFetched() {
     const formValue = this.searchForm.value;
     if (this.allFetched) {
-      this.events = this.allFetched.filter(e => (formValue.search == null || e.displayName.indexOf(formValue.search) >= 0) && formValue.status.includes(e.status));
+      const toSearch = trimToNull(formValue.search);
+      this.events = this.allFetched.filter(e => (toSearch == null || e.displayName.indexOf(toSearch) >= 0) && formValue.status.includes(e.status));
     }
   }
 
+}
+
+function trimToNull(s: string): string {
+  if (s == null) {
+    return null;
+  }
+  s = s.trim();
+  return s.length === 0 ? null : s;
 }
