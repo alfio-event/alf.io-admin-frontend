@@ -1,1 +1,11 @@
-<p>events works!</p>
+<h1 class="mat-display-1">Events</h1>
+
+<mat-list *ngIf="events != null">
+    <mat-list-item *ngFor="let event of events">
+        <img matListAvatar [src]="'/file/'+event.fileBlobId" alt="logo">
+        <h3 matLine>{{event.displayName}}</h3>
+        <p matLine>
+            {{event.formattedBegin}} / {{event.formattedEnd}}
+        </p>
+    </mat-list-item>
+</mat-list>

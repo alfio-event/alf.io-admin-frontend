@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EventService } from '../shared/event.service';
+import { EventStatistic } from '../model/event-statistic';
 
 @Component({
   selector: 'app-events',
@@ -8,7 +9,18 @@ import { EventService } from '../shared/event.service';
 })
 export class EventsComponent implements OnInit {
 
-  constructor(private eventService: EventService) { }
+
+  events: EventStatistic[];
+
+  constructor(private eventService: EventService) {
+    this.loadEvents();
+  }
+
+  private loadEvents() {
+    this.eventService.getActiveEvents().subscribe(events => {
+      this.events = events;
+    })
+  }
 
   ngOnInit() {
   }
