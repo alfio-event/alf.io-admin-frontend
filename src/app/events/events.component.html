@@ -1,21 +1,23 @@
 <h1 class="mat-display-1">Events</h1>
 
-<mat-form-field>
-    <input matInput placeholder="Search" >
-</mat-form-field>
-<mat-form-field>
-    <mat-label>Status</mat-label>
-    <mat-select multiple>
-        <mat-option>Published</mat-option>
-        <mat-option>Draft</mat-option>
-        <mat-option>Past</mat-option>
-    </mat-select>
-</mat-form-field>
+<form [formGroup]="searchForm">
+    <mat-form-field>
+        <input matInput placeholder="Search" formControlName="search" (keyup)="handleSearch()">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Status</mat-label>
+        <mat-select multiple formControlName="status" (selectionChange)="loadEvents()">
+            <mat-option value="PUBLIC">Published</mat-option>
+            <mat-option value="DRAFT">Draft</mat-option>
+            <mat-option value="PAST">Past</mat-option>
+        </mat-select>
+    </mat-form-field>
+</form>
 
 <mat-list *ngIf="events != null">
     <mat-list-item *ngFor="let event of events">
         <img matListAvatar [src]="'/file/'+event.fileBlobId" alt="logo">
-        <h3 matLine>{{event.displayName}}</h3>
+        <h3 matLine>{{event.displayName}} <span *ngIf="event.status === 'DRAFT'">(draft)</span></h3>
         <p matLine>
             {{event.formattedBegin}} / {{event.formattedEnd}}
         </p>

@@ -1,5 +1,6 @@
 export enum EventStatus {
     DRAFT = 'DRAFT', 
     PUBLIC = 'PUBLIC', 
-    DISABLED = 'DISABLED'
+    DISABLED = 'DISABLED',
+    PAST = 'PAST'
 }
