@@ -9,6 +9,13 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { CustomLoader } from './shared/i18n.service';
 
 import { MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatButtonModule } from  '@angular/material';
+import { EventsComponent } from './events/events.component';
+import { OrganizationsComponent } from './organizations/organizations.component';
+import { UsersComponent } from './users/users.component';
+import { ApiKeysComponent } from './api-keys/api-keys.component';
+import { GroupsComponent } from './groups/groups.component';
+import { ConfigurationComponent } from './configuration/configuration.component';
+import { ExtensionComponent } from './extension/extension.component';
 
 
 // AoT requires an exported function for factories
@@ -19,7 +26,14 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    EventsComponent,
+    OrganizationsComponent,
+    UsersComponent,
+    ApiKeysComponent,
+    GroupsComponent,
+    ConfigurationComponent,
+    ExtensionComponent
   ],
   imports: [
     BrowserModule,
