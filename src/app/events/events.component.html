@@ -1,17 +1,20 @@
-<h1 class="mat-display-1">Events</h1>
+<h2>Events</h2>
 
 <form [formGroup]="searchForm">
-    <mat-form-field>
-        <input matInput placeholder="Search" formControlName="search" (keyup)="handleSearch()">
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>Status</mat-label>
-        <mat-select multiple formControlName="status" (selectionChange)="loadEvents()">
-            <mat-option value="PUBLIC">Published</mat-option>
-            <mat-option value="DRAFT">Draft</mat-option>
-            <mat-option value="PAST">Past</mat-option>
-        </mat-select>
-    </mat-form-field>
+    <div fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="10px">
+        <mat-form-field>
+            <input matInput formControlName="search" (keyup)="handleSearch()">
+            <mat-label><mat-icon matPrefix>search</mat-icon> Search</mat-label>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Status</mat-label>
+            <mat-select multiple formControlName="status" (selectionChange)="loadEvents()">
+                <mat-option value="PUBLIC">Published</mat-option>
+                <mat-option value="DRAFT">Draft</mat-option>
+                <mat-option value="PAST">Past</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
 </form>
 
 <mat-list *ngIf="events != null">
