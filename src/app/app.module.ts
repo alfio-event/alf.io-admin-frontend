@@ -9,6 +9,8 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { CustomLoader } from './shared/i18n.service';
 
 import { MatToolbarModule, MatIconModule, MatInputModule, MatSidenavModule, MatListModule, MatButtonModule, MatSelectModule } from  '@angular/material';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { EventsComponent } from './events/events.component';
 import { OrganizationsComponent } from './organizations/organizations.component';
 import { UsersComponent } from './users/users.component';
@@ -45,6 +47,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     }),
     BrowserAnimationsModule,
     MatToolbarModule, MatIconModule, MatInputModule, MatSidenavModule, MatListModule, MatButtonModule, MatSelectModule,
+    FlexLayoutModule,
     FormsModule,
     ReactiveFormsModule,
     TranslateModule.forRoot({
