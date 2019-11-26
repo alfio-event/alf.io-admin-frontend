@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { CustomLoader } from './shared/i18n.service';
 
-import { MatToolbarModule, MatIconModule, MatInputModule, MatSidenavModule, MatListModule, MatButtonModule, MatSelectModule } from  '@angular/material';
+import { MatToolbarModule, MatIconModule, MatInputModule, MatSidenavModule, MatListModule, MatButtonModule, MatSelectModule, MatTableModule } from  '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { EventsComponent } from './events/events.component';
@@ -46,7 +46,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       headerName: 'X-CSRF-TOKEN',
     }),
     BrowserAnimationsModule,
-    MatToolbarModule, MatIconModule, MatInputModule, MatSidenavModule, MatListModule, MatButtonModule, MatSelectModule,
+    MatToolbarModule, MatIconModule, MatInputModule, MatSidenavModule, MatListModule, MatButtonModule, MatSelectModule, MatTableModule,
     FlexLayoutModule,
     FormsModule,
     ReactiveFormsModule,
