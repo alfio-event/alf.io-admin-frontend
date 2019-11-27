@@ -4,11 +4,11 @@ import { Organization } from '../model/organization';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-organizations',
-  templateUrl: './organizations.component.html',
-  styleUrls: ['./organizations.component.scss']
+  selector: 'app-my-organization',
+  templateUrl: './my-organization.component.html',
+  styleUrls: ['./my-organization.component.scss']
 })
-export class OrganizationsComponent implements OnInit {
+export class MyOrganizationComponent implements OnInit {
 
   organizations: Organization[] = [];
 

@@ -14,7 +14,7 @@ import { MatToolbarModule, MatIconModule, MatInputModule, MatSidenavModule,
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { EventsComponent } from './events/events.component';
-import { OrganizationsComponent } from './organizations/organizations.component';
+import { MyOrganizationComponent } from './my-organization/my-organization.component';
 import { UsersComponent } from './users/users.component';
 import { ApiKeysComponent } from './api-keys/api-keys.component';
 import { GroupsComponent } from './groups/groups.component';
@@ -32,7 +32,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   declarations: [
     AppComponent,
     EventsComponent,
-    OrganizationsComponent,
+    MyOrganizationComponent,
     UsersComponent,
     ApiKeysComponent,
     GroupsComponent,
