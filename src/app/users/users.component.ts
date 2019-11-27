@@ -12,7 +12,7 @@ import { map } from 'rxjs/operators';
 export class UsersComponent implements OnInit {
 
   users: User[] = [];
-  usersDisplayColumns = ['username', 'name', 'role', 'memberOf'];
+  usersDisplayColumns = ['enabled', 'username', 'name', 'role', 'memberOf'];
 
   rolesDescriptor$: Observable<{[key in Role]?: RoleDescriptor}>
 
