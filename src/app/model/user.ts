@@ -15,6 +15,17 @@ export class User {
     memberOf: Organization[];
 }
 
+export class UserInfo {
+    id: number;
+    type: UserType;
+    username: string;
+    description: string;
+    firstName: string;
+    lastName: string;
+    emailAddress: string;
+    role: Role;
+}
+
 export enum UserType {
     INTERNAL = 'INTERNAL',
     DEMO = 'DEMO',

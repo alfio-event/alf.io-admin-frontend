@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { User, RoleDescriptor, UserType, Role } from '../model/user';
+import { User, RoleDescriptor, UserType, Role, UserInfo } from '../model/user';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -29,5 +29,9 @@ export class UserService {
             });
             return res;
         }));
+    }
+
+    getCurrent(): Observable<UserInfo> {
+        return this.http.get<UserInfo>('/admin/api/users/current');
     }
 }

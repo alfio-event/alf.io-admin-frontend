@@ -3,6 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { OrganizationService } from './shared/organization.service';
 import { Organization } from './model/organization';
 import { Router } from '@angular/router';
+import { UserService } from './shared/user.service';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,7 @@ export class AppComponent implements OnInit {
   constructor(
     translate: TranslateService, 
     private organizationService: OrganizationService,
-    
+    private userService: UserService,
     private router: Router) {
     translate.setDefaultLang('en');
   }
@@ -42,6 +43,10 @@ export class AppComponent implements OnInit {
         }
       }
     });
+
+    this.userService.getCurrent().subscribe(u => {
+      console.log(u);
+    })
   }
 
   navigateToOrg(route?: string) {
