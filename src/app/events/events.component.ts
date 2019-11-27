@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { EventStatus } from '../model/event-status';
 import { forkJoin, Subject } from 'rxjs';
 import { map, debounceTime } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-events',
@@ -20,7 +21,8 @@ export class EventsComponent implements OnInit {
   private searchTerm: Subject<string> = new Subject();
 
 
-  constructor(private eventService: EventService, private formBuilder: FormBuilder) {
+  constructor(private eventService: EventService, private formBuilder: FormBuilder, router: Router) {
+    router.routeReuseStrategy.shouldReuseRoute = () => false;
 
     this.searchTerm.pipe(debounceTime(500)).subscribe(term => {
       this.filterFetched();

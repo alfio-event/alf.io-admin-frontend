@@ -10,7 +10,7 @@ import { CustomLoader } from './shared/i18n.service';
 
 import { MatToolbarModule, MatIconModule, MatInputModule, MatSidenavModule,
   MatListModule, MatButtonModule, MatSelectModule, MatTableModule,
-  MatChipsModule } from  '@angular/material';
+  MatChipsModule, MatFormFieldModule } from  '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { EventsComponent } from './events/events.component';
@@ -51,7 +51,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     //
     MatToolbarModule, MatIconModule, MatInputModule, MatSidenavModule,
     MatListModule, MatButtonModule, MatSelectModule, MatTableModule,
-    MatChipsModule,
+    MatChipsModule, MatFormFieldModule,
     //
     FlexLayoutModule,
     FormsModule,
