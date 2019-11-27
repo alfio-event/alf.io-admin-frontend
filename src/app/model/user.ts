@@ -2,7 +2,7 @@ import { Organization } from './organization';
 
 export class User {
     id: number;
-    type: string;
+    type: UserType;
     enabled: boolean;
     description: string;
     username: string;
@@ -13,6 +13,12 @@ export class User {
     validTo: string;
     roles: Role[];
     memberOf: Organization[];
+}
+
+export enum UserType {
+    INTERNAL = 'INTERNAL',
+    DEMO = 'DEMO',
+    API_KEY = 'API_KEY'
 }
 
 export enum Role {

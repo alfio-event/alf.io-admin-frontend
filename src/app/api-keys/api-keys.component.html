@@ -1,1 +1,35 @@
-<p>api-keys works!</p>
+<h2>Api keys</h2>
+
+<table mat-table [dataSource]="apiKeys" class="full-width">
+    <ng-container matColumnDef="enabled">
+        <th mat-header-cell *matHeaderCellDef>Enabled</th>
+        <td mat-cell *matCellDef="let apiKey">{{apiKey.enabled}}</td>
+    </ng-container>
+    <ng-container matColumnDef="apiKey">
+        <th mat-header-cell *matHeaderCellDef>Api key</th>
+        <td mat-cell *matCellDef="let apiKey">{{apiKey.username}}</td>
+    </ng-container>
+    <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef>Description</th>
+        <td mat-cell *matCellDef="let apiKey">{{apiKey.description}}</td>
+    </ng-container>
+    <ng-container matColumnDef="role">
+        <th mat-header-cell *matHeaderCellDef>Role</th>
+        <td mat-cell *matCellDef="let apiKey">
+            <ng-container *ngIf="(rolesDescriptor$ | async) as rolesDescriptor">
+                <span *ngFor="let role of apiKey.roles">{{rolesDescriptor[role].description}}</span>
+            </ng-container>
+        </td>
+    </ng-container>
+    <ng-container matColumnDef="memberOf">
+        <th mat-header-cell *matHeaderCellDef>Member of</th>
+        <td mat-cell *matCellDef="let apiKey">
+            <mat-chip-list>
+                <mat-chip *ngFor="let org of apiKey.memberOf">{{org.name}}</mat-chip>
+            </mat-chip-list>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="apiKeysDisplayColumns"></tr>
+    <tr mat-row *matRowDef="let myRowData; columns: apiKeysDisplayColumns"></tr>
+</table>
