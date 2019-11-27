@@ -14,13 +14,12 @@
     <mat-sidenav-container fxFlex="auto">
         <mat-sidenav opened mode="side">
             <mat-nav-list>
-                <a mat-list-item (click)="navigateTo()" >Events</a>
-                <a mat-list-item (click)="navigateTo('organizations')">Organizations</a>
-                <a mat-list-item (click)="navigateTo('users')" >Users</a>
-                <a mat-list-item (click)="navigateTo('api-keys')">Api Keys</a>
-                <a mat-list-item (click)="navigateTo('groups')">Groups</a>
-                <a mat-list-item (click)="navigateTo('configuration')">Configuration</a>
-                <a mat-list-item (click)="navigateTo('extension')" >Extension</a>
+                <a mat-list-item (click)="navigateToOrg('')" >Events</a>
+                <a mat-list-item (click)="navigateToOrg('organizations')">Organizations</a>
+                <a mat-list-item (click)="navigateToOrg('users')" >Users</a>
+                <a mat-list-item (click)="navigateToOrg('api-keys')">Api Keys</a>
+                <a mat-list-item (click)="navigateToOrg('groups')">Groups</a>
+                <a mat-list-item (click)="navigateToOrg('configuration')">Configuration</a>
             </mat-nav-list>
         </mat-sidenav>
         <mat-sidenav-content>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { OrganizationService } from './shared/organization.service';
 import { Organization } from './model/organization';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
   constructor(
     translate: TranslateService, 
     private organizationService: OrganizationService,
+    
     private router: Router) {
     translate.setDefaultLang('en');
   }
@@ -27,14 +28,24 @@ export class AppComponent implements OnInit {
       if (orgs.length === 0) {
         console.log('create new org!')
       } else if (orgs.length >= 1) {
-        this.selected = orgs[0];
-        this.router.navigate([this.selected.name], {replaceUrl: true});
+        const matched = window.location.pathname.match(/^\/organization\/([^\/]*)/)
+        if (matched && matched.length == 2) {
+          this.selected = orgs.find(o => o.name == matched[1]);
+        }
+
+        if (!this.selected) {
+          this.selected = orgs[0];
+        }
+
+        if (!matched) {
+          this.navigateToOrg();
+        }
       }
     });
   }
 
-  navigateTo(route?: string) {
-    const r = [this.selected.name];
+  navigateToOrg(route?: string) {
+    const r = ['organization', this.selected.name];
     if (route) {
       r.push(route);
     }
@@ -42,7 +53,6 @@ export class AppComponent implements OnInit {
   }
 
   changeOrganization() {
-    console.log('change')
-    this.navigateTo();
+    this.navigateToOrg();
   }
 }

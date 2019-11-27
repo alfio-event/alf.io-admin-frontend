@@ -10,13 +10,14 @@ import { ExtensionComponent } from './extension/extension.component';
 
 
 const routes: Routes = [
-  { path: ':org', component: EventsComponent },
-  { path: ':org/organizations', component: OrganizationsComponent },
-  { path: ':org/users', component: UsersComponent },
-  { path: ':org/api-keys', component: ApiKeysComponent },
-  { path: ':org/groups', component: GroupsComponent },
-  { path: ':org/configuration', component: ConfigurationComponent },
-  { path: ':org/extension', component: ExtensionComponent }
+  { path: 'organization/:org', component: EventsComponent },
+  { path: 'organization/:org/organizations', component: OrganizationsComponent },
+  { path: 'organization/:org/users', component: UsersComponent },
+  { path: 'organization/:org/api-keys', component: ApiKeysComponent },
+  { path: 'organization/:org/groups', component: GroupsComponent },
+  { path: 'organization/:org/configuration', component: ConfigurationComponent },
+  { path: 'extension', component: ExtensionComponent },
+  { path: 'configuration', component: ConfigurationComponent },
 ];
 
 @NgModule({
