@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 export class UsersComponent implements OnInit {
 
   users: User[] = [];
-  usersDisplayColumns = ['enabled', 'username', 'name', 'role', 'memberOf'];
+  usersDisplayColumns = ['enabled', 'username', 'name', 'role'];
 
   rolesDescriptor$: Observable<{[key in Role]?: RoleDescriptor}>
 

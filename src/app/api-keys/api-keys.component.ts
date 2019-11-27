@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 export class ApiKeysComponent implements OnInit {
 
   apiKeys: User[];
-  apiKeysDisplayColumns = ['enabled', 'apiKey', 'description', 'role', 'memberOf'];
+  apiKeysDisplayColumns = ['enabled', 'apiKey', 'description', 'role'];
 
   rolesDescriptor$: Observable<{[key in Role]?: RoleDescriptor}>
 
