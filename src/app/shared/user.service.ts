@@ -10,12 +10,15 @@ export class UserService {
     constructor(private http: HttpClient) {
     }
 
-    getUsers(): Observable<User[]> {
-        return this.http.get<User[]>('/admin/api/users').pipe(map(users => users.filter(u => u.type !== UserType.API_KEY)));
+    getUsers(orgName: string): Observable<User[]> {
+        
+        return this.http.get<User[]>('/admin/api/users').pipe(
+            map(users => users.filter(u => u.type !== UserType.API_KEY).filter(u => u.memberOf.find(org => org.name === orgName))));
     }
 
-    getApiKeys(): Observable<User[]> {
-        return this.http.get<User[]>('/admin/api/users').pipe(map(users => users.filter(u => u.type === UserType.API_KEY)));
+    getApiKeys(orgName: string): Observable<User[]> {
+        return this.http.get<User[]>('/admin/api/users').pipe(
+            map(users => users.filter(u => u.type === UserType.API_KEY).filter(u => u.memberOf.find(org => org.name === orgName))));
     }
 
     getRolesDescriptor(): Observable<{[key in Role]?: RoleDescriptor}> {

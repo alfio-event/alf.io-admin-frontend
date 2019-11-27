@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { OrganizationService } from './shared/organization.service';
 import { Organization } from './model/organization';
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',

@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { EventStatus } from '../model/event-status';
 import { forkJoin, Subject } from 'rxjs';
 import { map, debounceTime } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-events',
@@ -21,7 +21,11 @@ export class EventsComponent implements OnInit {
   private searchTerm: Subject<string> = new Subject();
 
 
-  constructor(private eventService: EventService, private formBuilder: FormBuilder, router: Router) {
+  constructor(
+    private eventService: EventService, 
+    private formBuilder: FormBuilder, 
+    router: Router,
+    private route: ActivatedRoute) {
     router.routeReuseStrategy.shouldReuseRoute = () => false;
 
     this.searchTerm.pipe(debounceTime(500)).subscribe(term => {
@@ -43,12 +47,14 @@ export class EventsComponent implements OnInit {
     const formValue = this.searchForm.value;
     const searches = [];
 
+    const orgName = this.route.snapshot.paramMap.get('org');
+
     if (formValue.status.includes(EventStatus.PUBLIC) || formValue.status.includes(EventStatus.DRAFT)) {
-      searches.push(this.eventService.getActiveEvents());
+      searches.push(this.eventService.getActiveEvents(orgName));
     }
 
     if (formValue.status.includes(EventStatus.PAST)) {
-      searches.push(this.eventService.getExpiredEvents().pipe(map(r => {r.forEach(e => e.status = EventStatus.PAST); return r;})));
+      searches.push(this.eventService.getExpiredEvents(orgName).pipe(map(r => {r.forEach(e => e.status = EventStatus.PAST); return r;})));
     }
 
     forkJoin(searches).subscribe(res => {

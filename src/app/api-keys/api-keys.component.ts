@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../shared/user.service';
 import { User, Role, RoleDescriptor } from '../model/user';
 import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-api-keys',
@@ -16,10 +17,16 @@ export class ApiKeysComponent implements OnInit {
   rolesDescriptor$: Observable<{[key in Role]?: RoleDescriptor}>
 
 
-  constructor(private userService: UserService) { }
+  constructor(
+    private userService: UserService,
+    private route: ActivatedRoute
+    ) { }
 
   ngOnInit() {
-    this.userService.getApiKeys().subscribe(apiKeys => {
+
+    const orgName = this.route.snapshot.paramMap.get('org');
+
+    this.userService.getApiKeys(orgName).subscribe(apiKeys => {
       this.apiKeys = apiKeys;
     });
     this.rolesDescriptor$ = this.userService.getRolesDescriptor();

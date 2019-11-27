@@ -1,21 +1,30 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 import { EventStatistic } from '../model/event-statistic';
+import { OrganizationService } from './organization.service';
+import { map } from 'rxjs/operators';
 
 @Injectable({providedIn: 'root'})
 export class EventService {
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private organizationService: OrganizationService) {
     }
 
 
-    getActiveEvents(): Observable<EventStatistic[]> {
-        return this.http.get<EventStatistic[]>('/admin/api/active-events');
+    getActiveEvents(orgName: string): Observable<EventStatistic[]> {
+        return forkJoin(this.organizationService.getOrganizationId(orgName), this.http.get<EventStatistic[]>('/admin/api/active-events'))
+            .pipe(map(([orgId, events]) => 
+                events.filter(e => e.organizationId == orgId)
+            ));
     }
 
-    getExpiredEvents(): Observable<EventStatistic[]> {
-        return this.http.get<EventStatistic[]>('/admin/api/expired-events');
+    getExpiredEvents(orgName: string): Observable<EventStatistic[]> {
+        return forkJoin(this.organizationService.getOrganizationId(orgName),this.http.get<EventStatistic[]>('/admin/api/expired-events'))
+            .pipe(map(([orgId, events]) => 
+                events.filter(e => e.organizationId == orgId)
+            ));
+
     }
 
 }

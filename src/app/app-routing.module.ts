@@ -6,7 +6,6 @@ import { UsersComponent } from './users/users.component';
 import { ApiKeysComponent } from './api-keys/api-keys.component';
 import { GroupsComponent } from './groups/groups.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
-import { ExtensionComponent } from './extension/extension.component';
 
 
 const routes: Routes = [
@@ -16,8 +15,6 @@ const routes: Routes = [
   { path: 'organization/:org/api-keys', component: ApiKeysComponent },
   { path: 'organization/:org/groups', component: GroupsComponent },
   { path: 'organization/:org/configuration', component: ConfigurationComponent },
-  { path: 'extension', component: ExtensionComponent },
-  { path: 'configuration', component: ConfigurationComponent },
 ];
 
 @NgModule({
