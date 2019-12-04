@@ -64,7 +64,12 @@ export class AppComponent implements OnInit {
   }
 
   openOrganizationSelector() {
-    this.dialog.open(OrganizationSelectDialogComponent, {width: '600px'})
+    this.dialog.open(OrganizationSelectDialogComponent, {width: '600px'}).afterClosed().subscribe((res: Organization) => {
+      if (res) {
+        this.selected = res;
+        this.navigateToOrg();
+      }
+    });
   }
 
   navigateToOrg(route?: string) {
@@ -73,9 +78,5 @@ export class AppComponent implements OnInit {
       r.push(route);
     }
     this.router.navigate(r);
-  }
-
-  changeOrganization() {
-    this.navigateToOrg();
   }
 }

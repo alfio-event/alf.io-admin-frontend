@@ -1,8 +1,20 @@
 <h1 mat-dialog-title>Select organization</h1>
 <div mat-dialog-content>
-  select
+    <table mat-table *ngIf="organizations" [dataSource]="organizations" class="full-width">
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Name</th>
+            <td mat-cell *matCellDef="let org"><button mat-flat-button (click)="selectOrg(org)" class="button-as-link">{{org.name}}</button></td>
+        </ng-container>
+        <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef>Email </th>
+            <td mat-cell *matCellDef="let org">{{org.email}}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="orgDisplayColumns"></tr>
+        <tr mat-row *matRowDef="let d; columns: orgDisplayColumns"></tr>
+    </table>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="cancel()">Cancel</button>
-  <button mat-button [mat-dialog-close]="" cdkFocusInitial>Ok</button>
+    <button mat-button (click)="cancel()">Cancel</button>
+    <button mat-button [mat-dialog-close]="" cdkFocusInitial>Ok</button>
 </div>

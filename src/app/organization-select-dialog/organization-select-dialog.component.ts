@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { OrganizationService } from '../shared/organization.service';
+import { Organization } from '../model/organization';
+import { MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-organization-select-dialog',
@@ -7,12 +10,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrganizationSelectDialogComponent implements OnInit {
 
-  constructor() { }
+  organizations: Organization[];
+
+  orgDisplayColumns = ['name', 'email'];
+
+  constructor(private dialogRef: MatDialogRef<OrganizationSelectDialogComponent>, private organizationService: OrganizationService) { }
 
   ngOnInit() {
+    this.organizationService.getOrganizations().subscribe(orgs => {
+      this.organizations = orgs;
+    });
+  }
+
+  selectOrg(org: Organization) {
+    this.dialogRef.close(org);
   }
 
   cancel() {
+    this.dialogRef.close();
   }
 
 }
