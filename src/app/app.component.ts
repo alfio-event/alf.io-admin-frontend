@@ -64,7 +64,8 @@ export class AppComponent implements OnInit {
   }
 
   openOrganizationSelector() {
-    this.dialog.open(OrganizationSelectDialogComponent, {width: '600px'}).afterClosed().subscribe((res: Organization) => {
+    const currentOrgId = this.selected ? this.selected.id : undefined;
+    this.dialog.open(OrganizationSelectDialogComponent, {width: '600px', data: { currentOrgId: currentOrgId}}).afterClosed().subscribe((res: Organization) => {
       if (res) {
         this.selected = res;
         this.navigateToOrg();

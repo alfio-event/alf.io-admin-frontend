@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { OrganizationService } from '../shared/organization.service';
 import { Organization } from '../model/organization';
-import { MatDialogRef, MatTableDataSource, MatPaginator } from '@angular/material';
+import { MatDialogRef, MatTableDataSource, MatPaginator, MAT_DIALOG_DATA } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
@@ -19,13 +19,19 @@ export class OrganizationSelectDialogComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) 
   paginator: MatPaginator;
 
-  constructor(private dialogRef: MatDialogRef<OrganizationSelectDialogComponent>, private organizationService: OrganizationService) { }
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private dialogRef: MatDialogRef<OrganizationSelectDialogComponent>, 
+    private organizationService: OrganizationService) { }
 
   ngOnInit() {
     this.organizationService.getOrganizations().subscribe(orgs => {
       this.organizations = new MatTableDataSource<Organization>(orgs);
       this.organizations.paginator = this.paginator;
-      this.selection = new SelectionModel<Organization>(false, []);
+
+      const currentOrg = orgs.find(o => this.data.currentOrgId === o.id);
+      const selectionModel = currentOrg ? [currentOrg] : [];
+      this.selection = new SelectionModel<Organization>(false, selectionModel);
     });
   }
 
