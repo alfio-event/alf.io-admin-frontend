@@ -2,17 +2,18 @@
     <mat-toolbar color="primary">
         <mat-toolbar-row>
             <h1 class="application-title">Alf.io</h1>
-            <div class="organization-selector">
-                <span *ngIf="organizations && selected">
-                    <button mat-button (click)="openOrganizationSelector()">
-                        <mat-icon>business</mat-icon> 
-                        {{selected.name}}
-                        <mat-icon>arrow_drop_down</mat-icon>
-                    </button>
-                </span>
-            </div>
+                
+            <button mat-button (click)="openOrganizationSelector()" *ngIf="organizations && selected">
+                <mat-icon>business</mat-icon> 
+                {{selected.name}}
+                <mat-icon>arrow_drop_down</mat-icon>
+            </button>
+
             <div fxFlex></div>
-            <mat-icon>person</mat-icon><span *ngIf="userInfo">{{userInfo.username}}</span>
+            
+            <button mat-button>
+                <mat-icon>person</mat-icon><span *ngIf="userInfo">{{userInfo.username}}</span>
+            </button>
         </mat-toolbar-row>
     </mat-toolbar>
     <mat-sidenav-container fxFlex="auto">
