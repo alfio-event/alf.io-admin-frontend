@@ -20,6 +20,7 @@ import { ApiKeysComponent } from './api-keys/api-keys.component';
 import { GroupsComponent } from './groups/groups.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { ExtensionComponent } from './extension/extension.component';
+import { OrganizationSelectDialogComponent } from './organization-select-dialog/organization-select-dialog.component';
 
 
 // AoT requires an exported function for factories
@@ -37,7 +38,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ApiKeysComponent,
     GroupsComponent,
     ConfigurationComponent,
-    ExtensionComponent
+    ExtensionComponent,
+    OrganizationSelectDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -64,6 +66,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     }),
   ],
+  entryComponents: [OrganizationSelectDialogComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

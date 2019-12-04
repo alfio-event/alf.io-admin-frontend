@@ -5,7 +5,9 @@ import { Organization } from './model/organization';
 import { Router } from '@angular/router';
 import { UserService } from './shared/user.service';
 import { UserInfo } from './model/user';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialog } from '@angular/material';
+import { ConfigurationService } from './shared/configuration.service';
+import { OrganizationSelectDialogComponent } from './organization-select-dialog/organization-select-dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +24,9 @@ export class AppComponent implements OnInit {
     translate: TranslateService, 
     private organizationService: OrganizationService,
     private userService: UserService,
+    private configurationService: ConfigurationService,
     private router: Router,
+    private dialog: MatDialog,
     private snackBar: MatSnackBar) {
     translate.setDefaultLang('en');
   }
@@ -53,9 +57,14 @@ export class AppComponent implements OnInit {
     this.userService.getCurrent().subscribe(u => {
       this.userInfo = u;
     });
+
+    this.configurationService.isBasicConfigurationNeeded().subscribe(res => {
+      console.log('basic conf needed:', res);
+    })
   }
 
   openOrganizationSelector() {
+    this.dialog.open(OrganizationSelectDialogComponent, {width: '600px'})
   }
 
   navigateToOrg(route?: string) {
