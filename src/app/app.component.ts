@@ -4,6 +4,8 @@ import { OrganizationService } from './shared/organization.service';
 import { Organization } from './model/organization';
 import { Router } from '@angular/router';
 import { UserService } from './shared/user.service';
+import { UserInfo } from './model/user';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-root',
@@ -14,12 +16,14 @@ export class AppComponent implements OnInit {
 
   organizations: Organization[];
   selected: Organization;
+  userInfo: UserInfo;
 
   constructor(
     translate: TranslateService, 
     private organizationService: OrganizationService,
     private userService: UserService,
-    private router: Router) {
+    private router: Router,
+    private snackBar: MatSnackBar) {
     translate.setDefaultLang('en');
   }
 
@@ -27,7 +31,9 @@ export class AppComponent implements OnInit {
     this.organizationService.getOrganizations().subscribe(orgs => {
       this.organizations = orgs;
       if (orgs.length === 0) {
-        console.log('create new org!')
+        this.snackBar.open('No organizations found', 'Create a new one').onAction().subscribe(() => {
+          console.log('navigate to organization creation')
+        });
       } else if (orgs.length >= 1) {
         const matched = window.location.pathname.match(/^\/organization\/([^\/]*)/)
         if (matched && matched.length == 2) {
@@ -45,8 +51,11 @@ export class AppComponent implements OnInit {
     });
 
     this.userService.getCurrent().subscribe(u => {
-      console.log(u);
-    })
+      this.userInfo = u;
+    });
+  }
+
+  openOrganizationSelector() {
   }
 
   navigateToOrg(route?: string) {

@@ -1,26 +1,38 @@
 <div fxLayout="column" fxFill >
     <mat-toolbar color="primary">
         <mat-toolbar-row>
-            <mat-form-field *ngIf="organizations && selected">
-                <mat-select [(ngModel)]="selected" (selectionChange)="changeOrganization()">
-                    <mat-select-trigger>
-                        <mat-icon>business</mat-icon> {{selected.name}}
-                    </mat-select-trigger>
-                    <mat-option *ngFor="let org of organizations" [value]="org"><mat-icon>business</mat-icon> {{org.name}}</mat-option>
-                </mat-select>
-            </mat-form-field>
+            <h1 class="application-title">Alf.io</h1>
+            <div class="organization-selector">
+                <span *ngIf="organizations && selected">
+                    <button mat-button (click)="openOrganizationSelector()">
+                        <mat-icon>business</mat-icon> 
+                        {{selected.name}}
+                        <mat-icon>arrow_drop_down</mat-icon>
+                    </button>
+                </span>
+            </div>
+            <div fxFlex></div>
+            <mat-icon>person</mat-icon><span *ngIf="userInfo">{{userInfo.username}}</span>
         </mat-toolbar-row>
     </mat-toolbar>
     <mat-sidenav-container fxFlex="auto">
         <mat-sidenav opened mode="side">
-            <mat-nav-list *ngIf="selected">
-                <a mat-list-item (click)="navigateToOrg('')" >Events</a>
-                <a mat-list-item (click)="navigateToOrg('organization')">Organization</a>
-                <a mat-list-item (click)="navigateToOrg('users')" >Users</a>
-                <a mat-list-item (click)="navigateToOrg('api-keys')">Api Keys</a>
-                <a mat-list-item (click)="navigateToOrg('groups')">Groups</a>
-                <a mat-list-item (click)="navigateToOrg('configuration')">Configuration</a>
-            </mat-nav-list>
+            <div class="sidenav-content">
+                <mat-nav-list *ngIf="selected">
+                    <a mat-list-item (click)="navigateToOrg('')" >Events</a>
+                    <a mat-list-item (click)="navigateToOrg('organization')">My organization</a>
+                    <a mat-list-item (click)="navigateToOrg('users')" >Users</a>
+                    <a mat-list-item (click)="navigateToOrg('api-keys')">Api Keys</a>
+                    <a mat-list-item (click)="navigateToOrg('groups')">Groups</a>
+                    <a mat-list-item (click)="navigateToOrg('configuration')">Configuration</a>
+                </mat-nav-list>
+                <mat-nav-list *ngIf="userInfo && userInfo.role === 'ADMIN'">
+                    <mat-divider *ngIf="selected"></mat-divider>
+                    <a mat-list-item>Organizations</a>
+                    <a mat-list-item>System configuration</a>
+                    <a mat-list-item>All users</a>
+                </mat-nav-list>
+            </div>
         </mat-sidenav>
         <mat-sidenav-content>
             <div class="main-content">
