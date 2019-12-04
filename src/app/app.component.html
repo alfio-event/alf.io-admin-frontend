@@ -1,7 +1,7 @@
 <div fxLayout="column" fxFill >
     <mat-toolbar color="primary">
         <mat-toolbar-row>
-            <mat-form-field *ngIf="organizations">
+            <mat-form-field *ngIf="organizations && selected">
                 <mat-select [(ngModel)]="selected" (selectionChange)="changeOrganization()">
                     <mat-select-trigger>
                         <mat-icon>business</mat-icon> {{selected.name}}
@@ -13,7 +13,7 @@
     </mat-toolbar>
     <mat-sidenav-container fxFlex="auto">
         <mat-sidenav opened mode="side">
-            <mat-nav-list>
+            <mat-nav-list *ngIf="selected">
                 <a mat-list-item (click)="navigateToOrg('')" >Events</a>
                 <a mat-list-item (click)="navigateToOrg('organization')">Organization</a>
                 <a mat-list-item (click)="navigateToOrg('users')" >Users</a>
