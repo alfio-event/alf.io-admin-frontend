@@ -22,6 +22,7 @@ import { GroupsComponent } from './organization/groups/groups.component';
 import { ConfigurationComponent } from './organization/configuration/configuration.component';
 import { ExtensionComponent } from './admin/extension/extension.component';
 import { OrganizationSelectDialogComponent } from './organization-select-dialog/organization-select-dialog.component';
+import { BasicConfigurationDialogComponent } from './basic-configuration-dialog/basic-configuration-dialog.component';
 
 
 // AoT requires an exported function for factories
@@ -40,7 +41,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     GroupsComponent,
     ConfigurationComponent,
     ExtensionComponent,
-    OrganizationSelectDialogComponent
+    OrganizationSelectDialogComponent,
+    BasicConfigurationDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -68,7 +70,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     }),
   ],
-  entryComponents: [OrganizationSelectDialogComponent],
+  entryComponents: [OrganizationSelectDialogComponent, BasicConfigurationDialogComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

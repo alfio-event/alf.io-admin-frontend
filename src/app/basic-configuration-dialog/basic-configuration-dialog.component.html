@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>Basic Configuration</h1>
+<div mat-dialog-content>
+    <p>You should take a look at the "System Configuration" section, however here below you can find the minimum, required configuration in order to run Alf.io</p>
+
+
+    <form [formGroup]="basicConfiguration" fxLayout="column">
+        <h2>General</h2>
+        <mat-form-field>
+            <mat-label>Supported translations</mat-label>
+            <mat-select formControlName="selectedLanguages" multiple>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input formControlName="baseUrl" matInput placeholder="Base application url">
+        </mat-form-field>
+
+        <h2>Email</h2>
+
+        <h2>Map</h2>
+    </form>
+</div>
+<div mat-dialog-actions>
+    
+</div>

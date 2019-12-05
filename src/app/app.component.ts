@@ -8,6 +8,7 @@ import { UserInfo } from './model/user';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { ConfigurationService } from './shared/configuration.service';
 import { OrganizationSelectDialogComponent } from './organization-select-dialog/organization-select-dialog.component';
+import { BasicConfigurationDialogComponent } from './basic-configuration-dialog/basic-configuration-dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -59,8 +60,8 @@ export class AppComponent implements OnInit {
     });
 
     this.configurationService.isBasicConfigurationNeeded().subscribe(res => {
-      console.log('basic conf needed:', res);
-    })
+      this.dialog.open(BasicConfigurationDialogComponent, {width: '80%'});
+    });
   }
 
   openOrganizationSelector() {
