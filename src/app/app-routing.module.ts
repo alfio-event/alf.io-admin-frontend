@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { EventsComponent } from './events/events.component';
-import { MyOrganizationComponent } from './my-organization/my-organization.component';
-import { UsersComponent } from './users/users.component';
-import { ApiKeysComponent } from './api-keys/api-keys.component';
-import { GroupsComponent } from './groups/groups.component';
-import { ConfigurationComponent } from './configuration/configuration.component';
+import { EventsComponent } from './organization/events/events.component';
+import { MyOrganizationComponent } from './organization/my-organization/my-organization.component';
+import { UsersComponent } from './organization/users/users.component';
+import { ApiKeysComponent } from './organization/api-keys/api-keys.component';
+import { GroupsComponent } from './organization/groups/groups.component';
+import { ConfigurationComponent } from './organization/configuration/configuration.component';
 
 
 const routes: Routes = [

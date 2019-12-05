@@ -1,20 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../shared/user.service';
-import { User, RoleDescriptor, Role } from '../model/user';
+import { UserService } from '../../shared/user.service';
+import { User, Role, RoleDescriptor } from '../../model/user';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-users',
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss']
+  selector: 'app-api-keys',
+  templateUrl: './api-keys.component.html',
+  styleUrls: ['./api-keys.component.scss']
 })
-export class UsersComponent implements OnInit {
+export class ApiKeysComponent implements OnInit {
 
-  users: User[] = [];
-  usersDisplayColumns = ['enabled', 'username', 'name', 'role'];
+  apiKeys: User[];
+  apiKeysDisplayColumns = ['enabled', 'apiKey', 'description', 'role'];
 
   rolesDescriptor$: Observable<{[key in Role]?: RoleDescriptor}>
+
 
   constructor(
     private userService: UserService,
@@ -25,8 +26,8 @@ export class UsersComponent implements OnInit {
 
     const orgName = this.route.snapshot.paramMap.get('org');
 
-    this.userService.getUsers(orgName).subscribe(users => {
-      this.users = users;
+    this.userService.getApiKeys(orgName).subscribe(apiKeys => {
+      this.apiKeys = apiKeys;
     });
     this.rolesDescriptor$ = this.userService.getRolesDescriptor();
   }

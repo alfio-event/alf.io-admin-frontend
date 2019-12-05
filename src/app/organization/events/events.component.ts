@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { EventService } from '../shared/event.service';
-import { EventStatistic } from '../model/event-statistic';
+import { EventService } from '../../shared/event.service';
+import { EventStatistic } from '../../model/event-statistic';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { EventStatus } from '../model/event-status';
+import { EventStatus } from '../../model/event-status';
 import { forkJoin, Subject } from 'rxjs';
 import { map, debounceTime } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';

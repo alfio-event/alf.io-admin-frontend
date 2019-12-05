@@ -14,13 +14,13 @@ import { MatToolbarModule, MatIconModule, MatInputModule, MatSidenavModule,
   MatCheckboxModule, MatPaginatorModule} from  '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
-import { EventsComponent } from './events/events.component';
-import { MyOrganizationComponent } from './my-organization/my-organization.component';
-import { UsersComponent } from './users/users.component';
-import { ApiKeysComponent } from './api-keys/api-keys.component';
-import { GroupsComponent } from './groups/groups.component';
-import { ConfigurationComponent } from './configuration/configuration.component';
-import { ExtensionComponent } from './extension/extension.component';
+import { EventsComponent } from './organization/events/events.component';
+import { MyOrganizationComponent } from './organization/my-organization/my-organization.component';
+import { UsersComponent } from './organization/users/users.component';
+import { ApiKeysComponent } from './organization/api-keys/api-keys.component';
+import { GroupsComponent } from './organization/groups/groups.component';
+import { ConfigurationComponent } from './organization/configuration/configuration.component';
+import { ExtensionComponent } from './admin/extension/extension.component';
 import { OrganizationSelectDialogComponent } from './organization-select-dialog/organization-select-dialog.component';
 
 
