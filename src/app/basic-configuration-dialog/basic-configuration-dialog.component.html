@@ -16,8 +16,20 @@
         </mat-form-field>
 
         <h2>Email</h2>
+        <mat-radio-group>
+            <mat-radio-button value="smtp">SMTP</mat-radio-button>
+            <mat-radio-button value="mailgun">Mailgun</mat-radio-button>
+            <mat-radio-button value="mailjet">Mailjet</mat-radio-button>
+            <mat-radio-button value="sendgrid">Sendgrid</mat-radio-button>
+            <mat-radio-button value="disabled">Disabled</mat-radio-button>
+        </mat-radio-group>
 
         <h2>Map</h2>
+        <mat-radio-group>
+            <mat-radio-button value="NONE">None</mat-radio-button>
+            <mat-radio-button value="GOOGLE">Google maps</mat-radio-button>
+            <mat-radio-button value="HERE">Here maps</mat-radio-button>
+        </mat-radio-group>
     </form>
 </div>
 <div mat-dialog-actions>
