@@ -24,9 +24,6 @@ export class BasicConfigurationDialogComponent implements OnInit {
       if (!isNaN(currentLang)) {
         selectedLanguages = configurationService.mapLanguagesConfigurationValueToLanguages(currentLang, languages).map(l => l.value);
       }
-
-      console.log(allConf);
-
       this.basicConfiguration = fb.group({
         GENERAL: fb.group({
           SUPPORTED_LANGUAGES: [selectedLanguages],
