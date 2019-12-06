@@ -23,6 +23,9 @@ import { ConfigurationComponent } from './organization/configuration/configurati
 import { ExtensionComponent } from './admin/extension/extension.component';
 import { OrganizationSelectDialogComponent } from './organization-select-dialog/organization-select-dialog.component';
 import { BasicConfigurationDialogComponent } from './basic-configuration-dialog/basic-configuration-dialog.component';
+import { OrganizationComponent } from './admin/organization/organization.component';
+import { ConfigurationComponent as AdminConfigurationComponent } from './admin/configuration/configuration.component';
+import { UsersComponent as AdminUsersComponent } from './admin/users/users.component';
 
 
 // AoT requires an exported function for factories
@@ -42,7 +45,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     ConfigurationComponent,
     ExtensionComponent,
     OrganizationSelectDialogComponent,
-    BasicConfigurationDialogComponent
+    BasicConfigurationDialogComponent,
+    OrganizationComponent,
+    AdminConfigurationComponent,
+    AdminUsersComponent
   ],
   imports: [
     BrowserModule,

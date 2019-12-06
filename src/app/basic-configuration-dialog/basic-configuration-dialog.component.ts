@@ -21,18 +21,21 @@ export class BasicConfigurationDialogComponent implements OnInit {
   constructor(
     private configurationService: ConfigurationService,
     private dialogRef: MatDialogRef<BasicConfigurationDialogComponent>,
-    fb: FormBuilder) {
-    forkJoin(configurationService.getAllLanguages(), configurationService.loadAllSystemLevel()).subscribe(([languages, allConf]) => {
+    private fb: FormBuilder) {
+  }
+
+  ngOnInit() {
+    forkJoin(this.configurationService.getAllLanguages(), this.configurationService.loadAllSystemLevel()).subscribe(([languages, allConf]) => {
       this.allLanguages = languages;
       this.allConf = allConf;
       const currentLang = parseInt(allConf.GENERAL.SUPPORTED_LANGUAGES.value);
       let selectedLanguages: number[] = [];
       if (!isNaN(currentLang)) {
-        selectedLanguages = configurationService.mapLanguagesConfigurationValueToLanguages(currentLang, languages).map(l => l.value);
+        selectedLanguages = this.configurationService.mapLanguagesConfigurationValueToLanguages(currentLang, languages).map(l => l.value);
       }
 
-      this.basicConfiguration = fb.group({
-        GENERAL: fb.group({
+      this.basicConfiguration = this.fb.group({
+        GENERAL: this.fb.group({
           SUPPORTED_LANGUAGES: [selectedLanguages],
           BASE_URL: allConf.GENERAL.BASE_URL.value,
         }),
@@ -40,9 +43,6 @@ export class BasicConfigurationDialogComponent implements OnInit {
         MAP: this.configurationService.buildGroupFor(allConf.MAP)
       });
     });
-  }
-
-  ngOnInit() {
   }
 
   saveConfiguration() {
@@ -72,5 +72,4 @@ export class BasicConfigurationDialogComponent implements OnInit {
       })
     })
   }
-
 }
