@@ -20,34 +20,93 @@
 
         <h2>Email</h2>
         <div formGroupName="MAIL" fxLayout="column">
-            <mat-radio-group formControlName="MAILER_TYPE">
-                <mat-radio-button value="smtp">SMTP</mat-radio-button>
-                <mat-radio-button value="mailgun">Mailgun</mat-radio-button>
-                <mat-radio-button value="mailjet">Mailjet</mat-radio-button>
-                <mat-radio-button value="sendgrid">Sendgrid</mat-radio-button>
-                <mat-radio-button value="disabled">Disabled</mat-radio-button>
-            </mat-radio-group>
+            <p>
+                <mat-radio-group formControlName="MAILER_TYPE">
+                    <mat-radio-button value="smtp">SMTP</mat-radio-button>
+                    <mat-radio-button value="mailgun">Mailgun</mat-radio-button>
+                    <mat-radio-button value="mailjet">Mailjet</mat-radio-button>
+                    <mat-radio-button value="sendgrid">Sendgrid</mat-radio-button>
+                    <mat-radio-button value="disabled">Disabled</mat-radio-button>
+                </mat-radio-group>
+            </p>
             <div *ngIf="basicConfiguration.value.MAIL.MAILER_TYPE === 'smtp'" fxLayout="column">
-
+                <mat-form-field>
+                    <input formControlName="SMTP_HOST" matInput [placeholder]="allConf.MAIL.SMTP_HOST.description">
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="SMTP_PORT" matInput [placeholder]="allConf.MAIL.SMTP_PORT.description">
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="SMTP_PROTOCOL" matInput [placeholder]="allConf.MAIL.SMTP_PROTOCOL.description">
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="SMTP_USERNAME" matInput [placeholder]="allConf.MAIL.SMTP_USERNAME.description">
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="SMTP_PASSWORD" matInput [placeholder]="allConf.MAIL.SMTP_PASSWORD.description">
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="SMTP_FROM_EMAIL" matInput [placeholder]="allConf.MAIL.SMTP_FROM_EMAIL.description">
+                </mat-form-field>
+                <mat-form-field>
+                    <textarea formControlName="SMTP_PROPERTIES" matInput [placeholder]="allConf.MAIL.SMTP_PROPERTIES.description"></textarea>
+                </mat-form-field>
             </div>
             <div *ngIf="basicConfiguration.value.MAIL.MAILER_TYPE === 'mailgun'" fxLayout="column">
-
+                <mat-form-field>
+                    <input formControlName="MAILGUN_KEY" matInput [placeholder]="allConf.MAIL.MAILGUN_KEY.description">
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="MAILGUN_DOMAIN" matInput [placeholder]="allConf.MAIL.MAILGUN_DOMAIN.description">
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="MAILGUN_FROM" matInput [placeholder]="allConf.MAIL.MAILGUN_FROM.description">
+                </mat-form-field>
+                <p>
+                    <mat-slide-toggle formControlName="MAILGUN_EU">
+                      {{allConf.MAIL.MAILGUN_EU.description}}
+                    </mat-slide-toggle>
+                </p>
             </div>
             <div *ngIf="basicConfiguration.value.MAIL.MAILER_TYPE === 'mailjet'" fxLayout="column">
-
+                <mat-form-field>
+                    <input formControlName="MAILJET_APIKEY_PUBLIC" matInput [placeholder]="allConf.MAIL.MAILJET_APIKEY_PUBLIC.description">
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="MAILJET_APIKEY_PRIVATE" matInput [placeholder]="allConf.MAIL.MAILJET_APIKEY_PRIVATE.description">
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="MAILJET_FROM" matInput [placeholder]="allConf.MAIL.MAILJET_FROM.description">
+                </mat-form-field>
             </div>
             <div *ngIf="basicConfiguration.value.MAIL.MAILER_TYPE === 'sendgrid'" fxLayout="column">
+                <mat-form-field>
+                    <input formControlName="SENDGRID_API_KEY" matInput [placeholder]="allConf.MAIL.SENDGRID_API_KEY.description">
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="SENDGRID_FROM" matInput [placeholder]="allConf.MAIL.SENDGRID_FROM.description">
+                </mat-form-field>
+            </div>
 
+            <div *ngIf="basicConfiguration.value.MAIL.MAILER_TYPE !== 'disabled'" fxLayout="column">
+                <mat-form-field>
+                        <input formControlName="MAX_EMAIL_PER_CYCLE" matInput [placeholder]="allConf.MAIL.MAX_EMAIL_PER_CYCLE.description">
+                </mat-form-field>
+                <mat-form-field>
+                        <input formControlName="MAIL_REPLY_TO" matInput [placeholder]="allConf.MAIL.MAIL_REPLY_TO.description">
+                </mat-form-field>
             </div>
         </div>
 
         <h2>Map</h2>
         <div formGroupName="MAP" fxLayout="column">
-            <mat-radio-group formControlName="MAPS_PROVIDER">
-                <mat-radio-button value="NONE">None</mat-radio-button>
-                <mat-radio-button value="GOOGLE">Google maps</mat-radio-button>
-                <mat-radio-button value="HERE">Here maps</mat-radio-button>
-            </mat-radio-group>
+            <p>
+                <mat-radio-group formControlName="MAPS_PROVIDER">
+                    <mat-radio-button value="NONE">None</mat-radio-button>
+                    <mat-radio-button value="GOOGLE">Google maps</mat-radio-button>
+                    <mat-radio-button value="HERE">Here maps</mat-radio-button>
+                </mat-radio-group>
+            </p>
 
             <div *ngIf="basicConfiguration.value.MAP.MAPS_PROVIDER === 'GOOGLE'" fxLayout="column">
                 <mat-form-field>
