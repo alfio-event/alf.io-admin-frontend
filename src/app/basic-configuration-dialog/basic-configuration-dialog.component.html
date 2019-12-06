@@ -2,6 +2,7 @@
 <div mat-dialog-content>
     <p>You should take a look at the "System Configuration" section, however here below you can find the minimum, required configuration in order to run Alf.io</p>
 
+    <p *ngIf="notCompleteAfterSave">Still missing some configuration!</p>
 
     <form *ngIf="basicConfiguration" [formGroup]="basicConfiguration" fxLayout="column">
         <h2>General</h2>
@@ -122,10 +123,8 @@
                 </mat-form-field>
             </div>
         </div>
-
-        <pre>{{basicConfiguration.value|json}}</pre>
     </form>
 </div>
 <div mat-dialog-actions fxLayoutAlign="end center">
-    <button mat-button color="primary">Save</button>
+    <button mat-button color="primary" (click)="saveConfiguration()">Save</button>
 </div>

@@ -35,6 +35,17 @@ export class ConfigurationService {
         return r;
     }
 
+    fromLanguagesToSingleValue(languages: number[]) : number | null {
+        let ret = null;
+        if (languages.length > 0) {
+            ret = 0;
+            for (let i = 0; i < languages.length; i++) {
+                ret = ret | languages[i];
+            }
+        }
+        return ret;
+    }
+
     updateSystemBulk(toUpdate: {[key in SettingCategory]?: ConfigurationModification[]}): Observable<boolean> {
         return this.http.post<boolean>('/admin/api/configuration/update-bulk', toUpdate);
     }
