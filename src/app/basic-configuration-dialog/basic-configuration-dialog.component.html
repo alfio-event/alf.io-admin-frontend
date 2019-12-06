@@ -27,6 +27,18 @@
                 <mat-radio-button value="sendgrid">Sendgrid</mat-radio-button>
                 <mat-radio-button value="disabled">Disabled</mat-radio-button>
             </mat-radio-group>
+            <div *ngIf="basicConfiguration.value.MAIL.MAILER_TYPE === 'smtp'" fxLayout="column">
+
+            </div>
+            <div *ngIf="basicConfiguration.value.MAIL.MAILER_TYPE === 'mailgun'" fxLayout="column">
+
+            </div>
+            <div *ngIf="basicConfiguration.value.MAIL.MAILER_TYPE === 'mailjet'" fxLayout="column">
+
+            </div>
+            <div *ngIf="basicConfiguration.value.MAIL.MAILER_TYPE === 'sendgrid'" fxLayout="column">
+                
+            </div>
         </div>
 
         <h2>Map</h2>

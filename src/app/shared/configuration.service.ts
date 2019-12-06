@@ -4,13 +4,14 @@ import { Observable } from 'rxjs';
 import { Language } from '../model/language';
 import { ConfigurationKeyValue, SettingCategory, ConfigurationKey } from '../model/configuration';
 import { map } from 'rxjs/operators';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 export type ConfigurationMap = {[key in SettingCategory]?: {[k2 in ConfigurationKey]? : ConfigurationKeyValue}};
 
 @Injectable({providedIn: 'root'})
 export class ConfigurationService {
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, private fb: FormBuilder) {}
 
     getAllLanguages(): Observable<Language[]> {
         return this.http.get<Language[]>('/admin/api/events-all-languages');
@@ -32,6 +33,14 @@ export class ConfigurationService {
             }
         })
         return r;
+    }
+
+    buildGroupFor(configurationGroup: {[k2 in ConfigurationKey]? : ConfigurationKeyValue}): FormGroup {
+        var g = {};
+        Object.keys(configurationGroup).forEach(k => {
+            g[k] = [configurationGroup[k].value]
+        });
+        return this.fb.group(g);
     }
 }
 
