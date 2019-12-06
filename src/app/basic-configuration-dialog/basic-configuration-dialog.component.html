@@ -5,20 +5,22 @@
 
     <form *ngIf="basicConfiguration" [formGroup]="basicConfiguration" fxLayout="column">
         <h2>General</h2>
-        <mat-form-field>
-            <mat-label>Supported translations</mat-label>
-            <mat-select formControlName="selectedLanguages" multiple>
-                <mat-option *ngFor="let lang of allLanguages" [value]="lang.value">{{lang.displayLanguage}}</mat-option>
-            </mat-select>
-        </mat-form-field>
+        <div formGroupName="GENERAL" fxLayout="column">
+            <mat-form-field>
+                <mat-label>Supported translations</mat-label>
+                <mat-select formControlName="SUPPORTED_LANGUAGES" multiple>
+                    <mat-option *ngFor="let lang of allLanguages" [value]="lang.value">{{lang.displayLanguage}}</mat-option>
+                </mat-select>
+            </mat-form-field>
 
-        <mat-form-field>
-            <input formControlName="baseUrl" matInput [placeholder]="allConf.GENERAL.BASE_URL.description">
-        </mat-form-field>
+            <mat-form-field>
+                <input formControlName="BASE_URL" matInput [placeholder]="allConf.GENERAL.BASE_URL.description">
+            </mat-form-field>
+        </div>
 
         <h2>Email</h2>
-        <div formGroupName="mail" fxLayout="column">
-            <mat-radio-group formControlName="type">
+        <div formGroupName="MAIL" fxLayout="column">
+            <mat-radio-group formControlName="MAILER_TYPE">
                 <mat-radio-button value="smtp">SMTP</mat-radio-button>
                 <mat-radio-button value="mailgun">Mailgun</mat-radio-button>
                 <mat-radio-button value="mailjet">Mailjet</mat-radio-button>
@@ -28,19 +30,19 @@
         </div>
 
         <h2>Map</h2>
-        <div formGroupName="map" fxLayout="column">
-            <mat-radio-group formControlName="provider">
+        <div formGroupName="MAP" fxLayout="column">
+            <mat-radio-group formControlName="MAPS_PROVIDER">
                 <mat-radio-button value="NONE">None</mat-radio-button>
                 <mat-radio-button value="GOOGLE">Google maps</mat-radio-button>
                 <mat-radio-button value="HERE">Here maps</mat-radio-button>
             </mat-radio-group>
 
-            <div *ngIf="basicConfiguration.value.map.provider === 'GOOGLE'" fxLayout="column">
+            <div *ngIf="basicConfiguration.value.MAP.MAPS_PROVIDER === 'GOOGLE'" fxLayout="column">
                 <mat-form-field>
                     <input formControlName="MAPS_CLIENT_API_KEY" matInput [placeholder]="allConf.MAP.MAPS_CLIENT_API_KEY.description">
                 </mat-form-field>
             </div>
-            <div *ngIf="basicConfiguration.value.map.provider === 'HERE'" fxLayout="column">
+            <div *ngIf="basicConfiguration.value.MAP.MAPS_PROVIDER === 'HERE'" fxLayout="column">
                 <mat-form-field>
                     <input formControlName="MAPS_HERE_APP_ID" matInput [placeholder]="allConf.MAP.MAPS_HERE_APP_ID.description">
                 </mat-form-field>

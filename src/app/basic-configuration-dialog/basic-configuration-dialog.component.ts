@@ -28,13 +28,15 @@ export class BasicConfigurationDialogComponent implements OnInit {
       console.log(allConf);
 
       this.basicConfiguration = fb.group({
-        selectedLanguages: [selectedLanguages],
-        baseUrl: allConf.GENERAL.BASE_URL.value,
-        mail: fb.group({
-          type: allConf.MAIL.MAILER_TYPE.value
+        GENERAL: fb.group({
+          SUPPORTED_LANGUAGES: [selectedLanguages],
+          BASE_URL: allConf.GENERAL.BASE_URL.value,
         }),
-        map: fb.group({
-          provider: allConf.MAP.MAPS_PROVIDER.value,
+        MAIL: fb.group({
+          MAILER_TYPE: allConf.MAIL.MAILER_TYPE.value
+        }),
+        MAP: fb.group({
+          MAPS_PROVIDER: allConf.MAP.MAPS_PROVIDER.value,
           MAPS_CLIENT_API_KEY: allConf.MAP.MAPS_CLIENT_API_KEY.value,
           MAPS_HERE_APP_ID: allConf.MAP.MAPS_HERE_APP_ID.value,
           MAPS_HERE_APP_CODE: allConf.MAP.MAPS_HERE_APP_CODE.value
