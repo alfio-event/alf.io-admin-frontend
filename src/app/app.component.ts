@@ -60,7 +60,9 @@ export class AppComponent implements OnInit {
     });
 
     this.configurationService.isBasicConfigurationNeeded().subscribe(res => {
-      this.dialog.open(BasicConfigurationDialogComponent, {width: '80%'});
+      if (res) {
+        this.dialog.open(BasicConfigurationDialogComponent, {width: '80%'});
+      }
     });
   }
 
