@@ -13,11 +13,11 @@
         </mat-form-field>
 
         <mat-form-field>
-            <input formControlName="baseUrl" matInput placeholder="Base application url">
+            <input formControlName="baseUrl" matInput [placeholder]="allConf.GENERAL.BASE_URL.description">
         </mat-form-field>
 
         <h2>Email</h2>
-        <div formGroupName="mail">
+        <div formGroupName="mail" fxLayout="column">
             <mat-radio-group formControlName="type">
                 <mat-radio-button value="smtp">SMTP</mat-radio-button>
                 <mat-radio-button value="mailgun">Mailgun</mat-radio-button>
@@ -28,14 +28,29 @@
         </div>
 
         <h2>Map</h2>
-        <div formGroupName="map">
+        <div formGroupName="map" fxLayout="column">
             <mat-radio-group formControlName="provider">
                 <mat-radio-button value="NONE">None</mat-radio-button>
                 <mat-radio-button value="GOOGLE">Google maps</mat-radio-button>
                 <mat-radio-button value="HERE">Here maps</mat-radio-button>
             </mat-radio-group>
+
+            <div *ngIf="basicConfiguration.value.map.provider === 'GOOGLE'" fxLayout="column">
+                <mat-form-field>
+                    <input formControlName="MAPS_CLIENT_API_KEY" matInput [placeholder]="allConf.MAP.MAPS_CLIENT_API_KEY.description">
+                </mat-form-field>
+            </div>
+            <div *ngIf="basicConfiguration.value.map.provider === 'HERE'" fxLayout="column">
+                <mat-form-field>
+                    <input formControlName="MAPS_HERE_APP_ID" matInput [placeholder]="allConf.MAP.MAPS_HERE_APP_ID.description">
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="MAPS_HERE_APP_CODE" matInput [placeholder]="allConf.MAP.MAPS_HERE_APP_CODE.description">
+                </mat-form-field>
+            </div>
         </div>
-        {{basicConfiguration.value|json}}
+
+        <pre>{{basicConfiguration.value|json}}</pre>
     </form>
 </div>
 <div mat-dialog-actions>
