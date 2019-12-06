@@ -27,7 +27,7 @@
 
     <mat-paginator [pageSizeOptions]="[5, 10]" showFirstLastButtons></mat-paginator>
 </div>
-<div mat-dialog-actions>
+<div mat-dialog-actions fxLayoutAlign="end center">
     <button mat-button (click)="cancel()">Cancel</button>
-    <button mat-button [mat-dialog-close]="selection.selected[0]" cdkFocusInitial>Ok</button>
+    <button mat-button [mat-dialog-close]="selection.selected[0]" cdkFocusInitial color="primary">Select</button>
 </div>
