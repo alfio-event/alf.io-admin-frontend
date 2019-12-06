@@ -21,6 +21,16 @@ export class ConfigurationService {
     loadAllSystemLevel(): Observable<{[key in SettingCategory]?: {[k2 in ConfigurationKey]? : ConfigurationKeyValue}}> {
         return this.http.get<{[key in SettingCategory]?: ConfigurationKeyValue[]}>('/admin/api/configuration/load').pipe(map(transformConfRes));
     }
+
+    mapLanguagesConfigurationValueToLanguages(languagesValue: number, languages: Language[]): Language[] {
+        const r = [];
+        languages.forEach(l => {
+            if ((l.value & languagesValue) == l.value) {
+                r.push(l);
+            }
+        })
+        return r;
+    }
 }
 
 // transform a Map<SettingCategory, ConfigurationKeyValue[]> in Map<SettingCategory, Map<SettingCategory, ConfigurationKeyValue>>

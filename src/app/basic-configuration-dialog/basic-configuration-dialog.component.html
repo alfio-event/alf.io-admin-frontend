@@ -3,11 +3,12 @@
     <p>You should take a look at the "System Configuration" section, however here below you can find the minimum, required configuration in order to run Alf.io</p>
 
 
-    <form [formGroup]="basicConfiguration" fxLayout="column">
+    <form *ngIf="basicConfiguration" [formGroup]="basicConfiguration" fxLayout="column">
         <h2>General</h2>
         <mat-form-field>
             <mat-label>Supported translations</mat-label>
             <mat-select formControlName="selectedLanguages" multiple>
+                <mat-option *ngFor="let lang of allLanguages" [value]="lang.value">{{lang.displayLanguage}}</mat-option>
             </mat-select>
         </mat-form-field>
 
@@ -16,20 +17,25 @@
         </mat-form-field>
 
         <h2>Email</h2>
-        <mat-radio-group>
-            <mat-radio-button value="smtp">SMTP</mat-radio-button>
-            <mat-radio-button value="mailgun">Mailgun</mat-radio-button>
-            <mat-radio-button value="mailjet">Mailjet</mat-radio-button>
-            <mat-radio-button value="sendgrid">Sendgrid</mat-radio-button>
-            <mat-radio-button value="disabled">Disabled</mat-radio-button>
-        </mat-radio-group>
+        <div formGroupName="mail">
+            <mat-radio-group formControlName="type">
+                <mat-radio-button value="smtp">SMTP</mat-radio-button>
+                <mat-radio-button value="mailgun">Mailgun</mat-radio-button>
+                <mat-radio-button value="mailjet">Mailjet</mat-radio-button>
+                <mat-radio-button value="sendgrid">Sendgrid</mat-radio-button>
+                <mat-radio-button value="disabled">Disabled</mat-radio-button>
+            </mat-radio-group>
+        </div>
 
         <h2>Map</h2>
-        <mat-radio-group>
-            <mat-radio-button value="NONE">None</mat-radio-button>
-            <mat-radio-button value="GOOGLE">Google maps</mat-radio-button>
-            <mat-radio-button value="HERE">Here maps</mat-radio-button>
-        </mat-radio-group>
+        <div formGroupName="map">
+            <mat-radio-group formControlName="provider">
+                <mat-radio-button value="NONE">None</mat-radio-button>
+                <mat-radio-button value="GOOGLE">Google maps</mat-radio-button>
+                <mat-radio-button value="HERE">Here maps</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        {{basicConfiguration.value|json}}
     </form>
 </div>
 <div mat-dialog-actions>

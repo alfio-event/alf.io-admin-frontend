@@ -20,7 +20,7 @@ export class EventService {
     }
 
     getExpiredEvents(orgName: string): Observable<EventStatistic[]> {
-        return forkJoin(this.organizationService.getOrganizationId(orgName),this.http.get<EventStatistic[]>('/admin/api/expired-events'))
+        return forkJoin(this.organizationService.getOrganizationId(orgName), this.http.get<EventStatistic[]>('/admin/api/expired-events'))
             .pipe(map(([orgId, events]) => 
                 events.filter(e => e.organizationId == orgId)
             ));
