@@ -18,6 +18,11 @@ export class ConfigurationKeyValue {
     componentType: ComponentType;
 }
 
+export class ConfigurationModification {
+    id: number;
+    key: string;
+    value: string;
+}
 
 //
 export type ConfigurationKey =

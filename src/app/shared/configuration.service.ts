@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Language } from '../model/language';
-import { ConfigurationKeyValue, SettingCategory, ConfigurationKey } from '../model/configuration';
+import { ConfigurationKeyValue, SettingCategory, ConfigurationKey, ConfigurationModification } from '../model/configuration';
 import { map } from 'rxjs/operators';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
@@ -33,6 +33,10 @@ export class ConfigurationService {
             }
         })
         return r;
+    }
+
+    updateSystemBulk(toUpdate: {[key in SettingCategory]?: ConfigurationModification[]}): Observable<boolean> {
+        return this.http.post<boolean>('/admin/api/configuration/update-bulk', toUpdate);
     }
 
     buildGroupFor(configurationGroup: {[k2 in ConfigurationKey]? : ConfigurationKeyValue}): FormGroup {
