@@ -49,7 +49,9 @@ export class AppComponent implements OnInit {
           this.selected = orgs[0];
         }
 
-        if (!matched) {
+        if (window.location.pathname.match(/^\/admin\/.*$/)) {
+          return;
+        } else if (!matched) {
           this.navigateToOrg();
         }
       }

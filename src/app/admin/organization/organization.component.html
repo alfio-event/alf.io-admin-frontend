@@ -1,1 +1,18 @@
-<p>admin organization works!</p>
+<h2>Organizations</h2>
+
+<table mat-table [dataSource]="organizations | async" class="full-width">
+    <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>name</th>
+        <td mat-cell *matCellDef="let organization">{{organization.name}}</td>
+    </ng-container>
+    <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef>description</th>
+        <td mat-cell *matCellDef="let organization">{{organization.description}}</td>
+    </ng-container>
+    <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef>email</th>
+        <td mat-cell *matCellDef="let organization">{{organization.email}}</td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="organizationsDisplayColumns"></tr>
+    <tr mat-row *matRowDef="let myRowData; columns: organizationsDisplayColumns"></tr>
+</table>
