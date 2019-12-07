@@ -1,4 +1,7 @@
-<h1 mat-dialog-title>Add new organization</h1>
+<h1 mat-dialog-title>
+    <ng-container *ngIf="!orgToEdit; else elseTitle">Add new organization</ng-container>
+    <ng-template #elseTitle>Edit organization {{orgToEdit.name}}</ng-template>
+</h1>
 <div mat-dialog-content>
     <form [formGroup]="newOrgForm" fxLayout="column">
         <mat-form-field>
@@ -14,5 +17,6 @@
 </div>
 <div mat-dialog-actions fxLayoutAlign="end center">
     <button mat-button (click)="cancel()">Cancel</button>
-    <button mat-button color="primary" (click)="create()">Create</button>
+    <button *ngIf="!orgToEdit; else elseButton" mat-button color="primary" (click)="create()">Create</button>
+    <ng-template #elseButton><button mat-button color="primary" (click)="update()">Update</button></ng-template>
 </div>

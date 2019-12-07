@@ -38,7 +38,11 @@ export class OrganizationComponent implements OnInit {
   }
 
   edit(organization: Organization) {
-    console.log('edit org', organization);
+    this.dialog.open(NewEditOrganizationDialogComponent, { width: '600px', data: organization }).afterClosed().subscribe(o => {
+      if (o) {
+        this.loadOrgs();
+      }
+    });
   }
 
   newOrganization() {
