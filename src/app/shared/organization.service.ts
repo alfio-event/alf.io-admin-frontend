@@ -21,4 +21,12 @@ export class OrganizationService {
     getOrganizationId(orgName: string): Observable<number> {
         return this.getOrganization(orgName).pipe(map(orgs => orgs[0].id));
     }
+
+    check(newOrg: {name: string, email: string, description: string}): Observable<any> {
+        return this.http.post('/admin/api/organizations/check', newOrg);
+    }
+
+    createNew(newOrg: {name: string, email: string, description: string}): Observable<string> {
+        return this.http.post<string>('/admin/api/organizations/new', newOrg);
+    }
 }

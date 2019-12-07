@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OrganizationService } from 'src/app/shared/organization.service';
 import { Organization } from 'src/app/model/organization';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { NewOrganizationDialogComponent } from './new-organization-dialog/new-organization-dialog.component';
 
@@ -19,6 +19,7 @@ export class OrganizationComponent implements OnInit {
   constructor(
     private organizationService: OrganizationService,
     private route: ActivatedRoute,
+    private router: Router,
     private dialog: MatDialog,
     ) { }
 
@@ -38,9 +39,11 @@ export class OrganizationComponent implements OnInit {
   }
 
   newOrganization() {
-    console.log('open new org dialog');
     this.dialog.open(NewOrganizationDialogComponent, { width: '600px' }).afterClosed().subscribe(o => {
-      this.loadOrgs();
+      if (o) {
+        this.router.navigate([]); //clear up the query params, if any
+        this.loadOrgs();
+      }
     });
   }
 
