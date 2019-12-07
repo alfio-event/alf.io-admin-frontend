@@ -4,16 +4,15 @@ import { OrganizationService } from 'src/app/shared/organization.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'app-new-organization-dialog',
-  templateUrl: './new-organization-dialog.component.html',
-  styleUrls: ['./new-organization-dialog.component.scss']
+  selector: 'app-new-edit-organization-dialog',
+  templateUrl: './new-edit-organization-dialog.component.html'
 })
-export class NewOrganizationDialogComponent implements OnInit {
+export class NewEditOrganizationDialogComponent implements OnInit {
 
   newOrgForm: FormGroup;
 
   constructor(
-    private dialogRef: MatDialogRef<NewOrganizationDialogComponent>,
+    private dialogRef: MatDialogRef<NewEditOrganizationDialogComponent>,
     private organizationService: OrganizationService,
     fb: FormBuilder
   ) { 

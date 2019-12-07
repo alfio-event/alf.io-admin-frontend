@@ -9,7 +9,7 @@ import { MatSnackBar, MatDialog, MatIconRegistry } from '@angular/material';
 import { ConfigurationService } from './shared/configuration.service';
 import { OrganizationSelectDialogComponent } from './organization-select-dialog/organization-select-dialog.component';
 import { BasicConfigurationDialogComponent } from './basic-configuration-dialog/basic-configuration-dialog.component';
-import { business, arrow_drop_down, search, add, person }  from './icons';
+import { business, arrow_drop_down, search, add, person, edit }  from './icons';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -40,6 +40,7 @@ export class AppComponent implements OnInit {
     iconRegistry.addSvgIconLiteral('search', sanitizer.bypassSecurityTrustHtml(search));
     iconRegistry.addSvgIconLiteral('add', sanitizer.bypassSecurityTrustHtml(add));
     iconRegistry.addSvgIconLiteral('person', sanitizer.bypassSecurityTrustHtml(person));
+    iconRegistry.addSvgIconLiteral('edit', sanitizer.bypassSecurityTrustHtml(edit));
   }
 
   ngOnInit() {
