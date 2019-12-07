@@ -7,8 +7,7 @@ import { NewEditOrganizationDialogComponent } from './new-edit-organization-dial
 
 @Component({
   selector: 'app-organization',
-  templateUrl: './organization.component.html',
-  styleUrls: ['./organization.component.scss']
+  templateUrl: './organization.component.html'
 })
 export class OrganizationComponent implements OnInit {
 

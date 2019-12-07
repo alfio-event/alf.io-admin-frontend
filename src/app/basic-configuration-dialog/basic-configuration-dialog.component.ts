@@ -8,8 +8,7 @@ import { MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-basic-configuration-dialog',
-  templateUrl: './basic-configuration-dialog.component.html',
-  styleUrls: ['./basic-configuration-dialog.component.scss']
+  templateUrl: './basic-configuration-dialog.component.html'
 })
 export class BasicConfigurationDialogComponent implements OnInit {
 

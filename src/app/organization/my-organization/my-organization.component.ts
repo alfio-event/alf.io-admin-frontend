@@ -5,8 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-my-organization',
-  templateUrl: './my-organization.component.html',
-  styleUrls: ['./my-organization.component.scss']
+  templateUrl: './my-organization.component.html'
 })
 export class MyOrganizationComponent implements OnInit {
 
