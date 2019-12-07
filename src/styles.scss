@@ -5,6 +5,30 @@
 @import "./fonts.scss";
 /**/
 
+/* https://stackoverflow.com/a/49541553 */
+
+@import '~@angular/material/theming';
+
+$app-typography: mat-typography-config($font-family: '"Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+    $display-4:     mat-typography-level(112px, 112px, 400),
+    $display-3:     mat-typography-level(56px, 56px, 400),
+    $display-2:     mat-typography-level(45px, 48px, 400),
+    $display-1:     mat-typography-level(34px, 40px, 400),
+    $headline:      mat-typography-level(24px, 32px, 400),
+    $title:         mat-typography-level(22px, 32px, 400),
+    $subheading-2:  mat-typography-level(18px, 28px, 400),
+    $subheading-1:  mat-typography-level(16px, 24px, 400),
+    $body-2:        mat-typography-level(14px, 24px, 400),
+    $body-1:        mat-typography-level(14px, 20px, 400),
+    $caption:       mat-typography-level(14px, 20px, 400),
+    $button:        mat-typography-level(16px, 18px, 400),
+    // Line-height must be unit-less fraction of the font-size.
+    $input:         mat-typography-level(16px, 1.25, 400)
+);
+@include mat-core($app-typography);
+
+/**/
+
 .material-icons {
     font-family: 'Material Icons';
     font-weight: normal;
@@ -24,7 +48,12 @@
 /**/
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { 
+    margin: 0;
+    font-size: mat-font-size($app-typography, body-1);
+    font-family: mat-font-family($app-typography);
+    line-height: mat-line-height($app-typography, body-1);
+}
 
 .main-content {
     box-sizing: border-box;
