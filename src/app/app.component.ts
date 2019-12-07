@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { OrganizationService } from './shared/organization.service';
 import { Organization } from './model/organization';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from './shared/user.service';
 import { UserInfo } from './model/user';
 import { MatSnackBar, MatDialog } from '@angular/material';
@@ -34,13 +34,14 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.organizationService.getOrganizations().subscribe(orgs => {
+      const currentUrl = this.router.url;
       this.organizations = orgs;
-      if (orgs.length === 0) {
+      if (orgs.length === 0 && !currentUrl.startsWith('/admin/organization')) {
         this.snackBar.open('No organizations found', 'Create a new one').onAction().subscribe(() => {
           this.router.navigate(['admin', 'organization'], { queryParams: { new: 'true' } })
         });
       } else if (orgs.length >= 1) {
-        const matched = window.location.pathname.match(/^\/organization\/([^\/]*)/)
+        const matched = currentUrl.match(/^\/organization\/([^\/]*)/)
         if (matched && matched.length == 2) {
           this.selected = orgs.find(o => o.name == matched[1]);
         }
@@ -49,7 +50,7 @@ export class AppComponent implements OnInit {
           this.selected = orgs[0];
         }
 
-        if (window.location.pathname.match(/^\/admin\/.*$/)) {
+        if (currentUrl.match(/^\/admin\/.*$/)) {
           return;
         } else if (!matched) {
           this.navigateToOrg();

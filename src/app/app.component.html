@@ -17,7 +17,7 @@
         </mat-toolbar-row>
     </mat-toolbar>
     <mat-sidenav-container fxFlex="auto">
-        <mat-sidenav opened mode="side">
+        <mat-sidenav opened mode="side" [disableClose]="true">
             <div class="sidenav-content">
                 <mat-nav-list *ngIf="selected">
                     <a mat-list-item (click)="navigateToOrg('')" >Events</a>
