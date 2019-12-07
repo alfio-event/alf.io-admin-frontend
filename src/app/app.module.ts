@@ -26,6 +26,7 @@ import { BasicConfigurationDialogComponent } from './basic-configuration-dialog/
 import { OrganizationComponent } from './admin/organization/organization.component';
 import { ConfigurationComponent as AdminConfigurationComponent } from './admin/configuration/configuration.component';
 import { UsersComponent as AdminUsersComponent } from './admin/users/users.component';
+import { NewOrganizationDialogComponent } from './admin/organization/new-organization-dialog/new-organization-dialog.component';
 
 
 // AoT requires an exported function for factories
@@ -48,7 +49,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     BasicConfigurationDialogComponent,
     OrganizationComponent,
     AdminConfigurationComponent,
-    AdminUsersComponent
+    AdminUsersComponent,
+    NewOrganizationDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -76,7 +78,11 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     }),
   ],
-  entryComponents: [OrganizationSelectDialogComponent, BasicConfigurationDialogComponent],
+  entryComponents: [
+    OrganizationSelectDialogComponent, 
+    BasicConfigurationDialogComponent,
+    NewOrganizationDialogComponent
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

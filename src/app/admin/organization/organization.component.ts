@@ -22,4 +22,7 @@ export class OrganizationComponent implements OnInit {
     });
   }
 
+  newOrganization() {
+  }
+
 }

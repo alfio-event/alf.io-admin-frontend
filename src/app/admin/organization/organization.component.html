@@ -1,5 +1,7 @@
-<h2>Organizations</h2>
-
+<h2>
+    Organizations
+    <button mat-button color="primary" (click)="newOrganization()"><mat-icon>add</mat-icon> Add new</button>
+</h2>
 <table mat-table [dataSource]="organizations" class="full-width">
     <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef>name</th>
