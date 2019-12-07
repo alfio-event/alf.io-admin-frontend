@@ -29,4 +29,8 @@ export class OrganizationService {
     createNew(newOrg: {name: string, email: string, description: string}): Observable<string> {
         return this.http.post<string>('/admin/api/organizations/new', newOrg);
     }
+
+    update(org: {id: number, name: string, email: string, description: string}): Observable<string> {
+        return this.http.post<string>('/admin/api/organizations/update', org);
+    }
 }
