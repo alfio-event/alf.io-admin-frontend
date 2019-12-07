@@ -37,7 +37,7 @@ export class AppComponent implements OnInit {
       this.organizations = orgs;
       if (orgs.length === 0) {
         this.snackBar.open('No organizations found', 'Create a new one').onAction().subscribe(() => {
-          this.router.navigate(['admin', 'organization'])
+          this.router.navigate(['admin', 'organization'], { queryParams: { new: 'true' } })
         });
       } else if (orgs.length >= 1) {
         const matched = window.location.pathname.match(/^\/organization\/([^\/]*)/)
