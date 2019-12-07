@@ -2,13 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { OrganizationService } from './shared/organization.service';
 import { Organization } from './model/organization';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { UserService } from './shared/user.service';
 import { UserInfo } from './model/user';
-import { MatSnackBar, MatDialog } from '@angular/material';
+import { MatSnackBar, MatDialog, MatIconRegistry } from '@angular/material';
 import { ConfigurationService } from './shared/configuration.service';
 import { OrganizationSelectDialogComponent } from './organization-select-dialog/organization-select-dialog.component';
 import { BasicConfigurationDialogComponent } from './basic-configuration-dialog/basic-configuration-dialog.component';
+import { business, arrow_drop_down, search, add, person }  from './icons';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -28,8 +30,16 @@ export class AppComponent implements OnInit {
     private configurationService: ConfigurationService,
     private router: Router,
     private dialog: MatDialog,
-    private snackBar: MatSnackBar) {
+    private snackBar: MatSnackBar,
+    iconRegistry: MatIconRegistry,
+    sanitizer: DomSanitizer) {
     translate.setDefaultLang('en');
+
+    iconRegistry.addSvgIconLiteral('business', sanitizer.bypassSecurityTrustHtml(business));
+    iconRegistry.addSvgIconLiteral('arrow_drop_down', sanitizer.bypassSecurityTrustHtml(arrow_drop_down));
+    iconRegistry.addSvgIconLiteral('search', sanitizer.bypassSecurityTrustHtml(search));
+    iconRegistry.addSvgIconLiteral('add', sanitizer.bypassSecurityTrustHtml(add));
+    iconRegistry.addSvgIconLiteral('person', sanitizer.bypassSecurityTrustHtml(person));
   }
 
   ngOnInit() {

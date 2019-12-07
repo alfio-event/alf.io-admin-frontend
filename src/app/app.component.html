@@ -4,15 +4,15 @@
             <h1 class="application-title"><a [routerLink]="['/']">Alf.io</a></h1>
                 
             <button mat-button (click)="openOrganizationSelector()" *ngIf="organizations && selected">
-                <mat-icon>business</mat-icon> 
+                <mat-icon svgIcon="business"></mat-icon>
                 {{selected.name}}
-                <mat-icon>arrow_drop_down</mat-icon>
+                <mat-icon svgIcon="arrow_drop_down"></mat-icon>
             </button>
 
             <div fxFlex></div>
             
             <button mat-button>
-                <mat-icon>person</mat-icon><span *ngIf="userInfo">{{userInfo.username}}</span>
+                <mat-icon svgIcon="person"></mat-icon><span *ngIf="userInfo">{{userInfo.username}}</span>
             </button>
         </mat-toolbar-row>
     </mat-toolbar>
