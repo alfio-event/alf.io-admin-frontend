@@ -29,10 +29,10 @@
                 </mat-nav-list>
                 <mat-nav-list *ngIf="userInfo && userInfo.role === 'ADMIN'">
                     <mat-divider *ngIf="selected"></mat-divider>
-                    <a mat-list-item [routerLink]="['admin/organization']">Organizations</a>
-                    <a mat-list-item [routerLink]="['admin/configuration']">System configuration</a>
-                    <a mat-list-item [routerLink]="['admin/users']">All users</a>
-                    <a mat-list-item [routerLink]="['admin/extension']">Extensions</a>
+                    <a mat-list-item [routerLink]="['/admin/organization']">Organizations</a>
+                    <a mat-list-item [routerLink]="['/admin/configuration']">System configuration</a>
+                    <a mat-list-item [routerLink]="['/admin/users']">All users</a>
+                    <a mat-list-item [routerLink]="['/admin/extension']">Extensions</a>
                 </mat-nav-list>
             </div>
         </mat-sidenav>

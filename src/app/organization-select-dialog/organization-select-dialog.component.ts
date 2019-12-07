@@ -16,12 +16,12 @@ export class OrganizationSelectDialogComponent implements OnInit {
 
   orgDisplayColumns = ['selection', 'name', 'email'];
 
-  @ViewChild(MatPaginator, {static: true}) 
+  @ViewChild(MatPaginator, { static: true })
   paginator: MatPaginator;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private dialogRef: MatDialogRef<OrganizationSelectDialogComponent>, 
+    private dialogRef: MatDialogRef<OrganizationSelectDialogComponent>,
     private organizationService: OrganizationService) { }
 
   ngOnInit() {

@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
   userInfo: UserInfo;
 
   constructor(
-    translate: TranslateService, 
+    translate: TranslateService,
     private organizationService: OrganizationService,
     private userService: UserService,
     private configurationService: ConfigurationService,
@@ -63,14 +63,14 @@ export class AppComponent implements OnInit {
 
     this.configurationService.isBasicConfigurationNeeded().subscribe(res => {
       if (res) {
-        this.dialog.open(BasicConfigurationDialogComponent, {width: '80%'});
+        this.dialog.open(BasicConfigurationDialogComponent, { width: '80%' });
       }
     });
   }
 
   openOrganizationSelector() {
     const currentOrgId = this.selected ? this.selected.id : undefined;
-    this.dialog.open(OrganizationSelectDialogComponent, {width: '600px', data: { currentOrgId: currentOrgId}}).afterClosed().subscribe((res: Organization) => {
+    this.dialog.open(OrganizationSelectDialogComponent, { width: '600px', data: { currentOrgId: currentOrgId } }).afterClosed().subscribe((res: Organization) => {
       if (res) {
         this.selected = res;
         this.navigateToOrg();

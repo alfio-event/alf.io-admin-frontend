@@ -10,14 +10,16 @@ import { Observable } from 'rxjs';
 })
 export class OrganizationComponent implements OnInit {
 
-  organizations: Observable<Organization[]>;
+  organizations: Organization[] = [];
 
   organizationsDisplayColumns = ['name', 'description', 'email'];
 
   constructor(private organizationService: OrganizationService) { }
 
   ngOnInit() {
-    this.organizations = this.organizationService.getOrganizations();
+    this.organizationService.getOrganizations().subscribe(o => {
+      this.organizations = o;
+    });
   }
 
 }

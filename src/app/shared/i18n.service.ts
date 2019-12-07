@@ -4,10 +4,10 @@ import { Observable } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
-const translationCache: {[key: string]: Observable<any>} = {};
+const translationCache: { [key: string]: Observable<any> } = {};
 
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class CustomLoader implements TranslateLoader {
 
   constructor(private http: HttpClient) {

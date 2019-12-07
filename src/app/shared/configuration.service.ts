@@ -6,12 +6,12 @@ import { ConfigurationKeyValue, SettingCategory, ConfigurationKey, Configuration
 import { map } from 'rxjs/operators';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-export type ConfigurationMap = {[key in SettingCategory]?: {[k2 in ConfigurationKey]? : ConfigurationKeyValue}};
+export type ConfigurationMap = { [key in SettingCategory]?: { [k2 in ConfigurationKey]?: ConfigurationKeyValue } };
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class ConfigurationService {
 
-    constructor(private http: HttpClient, private fb: FormBuilder) {}
+    constructor(private http: HttpClient, private fb: FormBuilder) { }
 
     getAllLanguages(): Observable<Language[]> {
         return this.http.get<Language[]>('/admin/api/events-all-languages');
@@ -22,7 +22,7 @@ export class ConfigurationService {
     }
 
     loadAllSystemLevel(): Observable<ConfigurationMap> {
-        return this.http.get<{[key in SettingCategory]?: ConfigurationKeyValue[]}>('/admin/api/configuration/load').pipe(map(transformConfRes));
+        return this.http.get<{ [key in SettingCategory]?: ConfigurationKeyValue[] }>('/admin/api/configuration/load').pipe(map(transformConfRes));
     }
 
     mapLanguagesConfigurationValueToLanguages(languagesValue: number, languages: Language[]): Language[] {
@@ -35,7 +35,7 @@ export class ConfigurationService {
         return r;
     }
 
-    fromLanguagesToSingleValue(languages: number[]) : number | null {
+    fromLanguagesToSingleValue(languages: number[]): number | null {
         let ret = null;
         if (languages.length > 0) {
             ret = 0;
@@ -46,11 +46,11 @@ export class ConfigurationService {
         return ret;
     }
 
-    updateSystemBulk(toUpdate: {[key in SettingCategory]?: ConfigurationModification[]}): Observable<boolean> {
+    updateSystemBulk(toUpdate: { [key in SettingCategory]?: ConfigurationModification[] }): Observable<boolean> {
         return this.http.post<boolean>('/admin/api/configuration/update-bulk', toUpdate);
     }
 
-    buildGroupFor(configurationGroup: {[k2 in ConfigurationKey]? : ConfigurationKeyValue}): FormGroup {
+    buildGroupFor(configurationGroup: { [k2 in ConfigurationKey]?: ConfigurationKeyValue }): FormGroup {
         var g = {};
         Object.keys(configurationGroup).forEach(k => {
             g[k] = [configurationGroup[k].value]
@@ -60,12 +60,12 @@ export class ConfigurationService {
 }
 
 // transform a Map<SettingCategory, ConfigurationKeyValue[]> in Map<SettingCategory, Map<SettingCategory, ConfigurationKeyValue>>
-function transformConfRes(res: {[key in SettingCategory]?: ConfigurationKeyValue[]}) : ConfigurationMap {
+function transformConfRes(res: { [key in SettingCategory]?: ConfigurationKeyValue[] }): ConfigurationMap {
     let confMap = {};
     Object.keys(res).forEach((k) => {
         let confKeyValues: ConfigurationKeyValue[] = res[k];
         confKeyValues.forEach((v) => {
-            if(!confMap[k]) {
+            if (!confMap[k]) {
                 confMap[k] = {};
             }
             confMap[k][v.key] = v;

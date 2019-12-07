@@ -22,8 +22,8 @@ export class EventsComponent implements OnInit {
 
 
   constructor(
-    private eventService: EventService, 
-    private formBuilder: FormBuilder, 
+    private eventService: EventService,
+    private formBuilder: FormBuilder,
     router: Router,
     private route: ActivatedRoute) {
     router.routeReuseStrategy.shouldReuseRoute = () => false;
@@ -54,7 +54,7 @@ export class EventsComponent implements OnInit {
     }
 
     if (formValue.status.includes(EventStatus.PAST)) {
-      searches.push(this.eventService.getExpiredEvents(orgName).pipe(map(r => {r.forEach(e => e.status = EventStatus.PAST); return r;})));
+      searches.push(this.eventService.getExpiredEvents(orgName).pipe(map(r => { r.forEach(e => e.status = EventStatus.PAST); return r; })));
     }
 
     forkJoin(searches).subscribe(res => {

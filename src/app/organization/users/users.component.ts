@@ -14,12 +14,12 @@ export class UsersComponent implements OnInit {
   users: User[] = [];
   usersDisplayColumns = ['enabled', 'username', 'name', 'role'];
 
-  rolesDescriptor$: Observable<{[key in Role]?: RoleDescriptor}>
+  rolesDescriptor$: Observable<{ [key in Role]?: RoleDescriptor }>
 
   constructor(
     private userService: UserService,
     private route: ActivatedRoute
-    ) { }
+  ) { }
 
   ngOnInit() {
 

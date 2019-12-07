@@ -5,7 +5,7 @@ import { EventStatistic } from '../model/event-statistic';
 import { OrganizationService } from './organization.service';
 import { map } from 'rxjs/operators';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class EventService {
 
     constructor(private http: HttpClient, private organizationService: OrganizationService) {
@@ -14,14 +14,14 @@ export class EventService {
 
     getActiveEvents(orgName: string): Observable<EventStatistic[]> {
         return forkJoin(this.organizationService.getOrganizationId(orgName), this.http.get<EventStatistic[]>('/admin/api/active-events'))
-            .pipe(map(([orgId, events]) => 
+            .pipe(map(([orgId, events]) =>
                 events.filter(e => e.organizationId == orgId)
             ));
     }
 
     getExpiredEvents(orgName: string): Observable<EventStatistic[]> {
         return forkJoin(this.organizationService.getOrganizationId(orgName), this.http.get<EventStatistic[]>('/admin/api/expired-events'))
-            .pipe(map(([orgId, events]) => 
+            .pipe(map(([orgId, events]) =>
                 events.filter(e => e.organizationId == orgId)
             ));
 

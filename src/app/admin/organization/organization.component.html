@@ -1,6 +1,6 @@
 <h2>Organizations</h2>
 
-<table mat-table [dataSource]="organizations | async" class="full-width">
+<table mat-table [dataSource]="organizations" class="full-width">
     <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef>name</th>
         <td mat-cell *matCellDef="let organization">{{organization.name}}</td>
