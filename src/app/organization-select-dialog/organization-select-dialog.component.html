@@ -29,5 +29,5 @@
 </div>
 <div mat-dialog-actions fxLayoutAlign="end center">
     <button mat-button (click)="cancel()">Cancel</button>
-    <button mat-button [mat-dialog-close]="selection.selected[0]" cdkFocusInitial color="primary">Select</button>
+    <button mat-button [mat-dialog-close]="selection && selection.selected[0]" cdkFocusInitial color="primary">Select</button>
 </div>

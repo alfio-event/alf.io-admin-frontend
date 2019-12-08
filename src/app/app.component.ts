@@ -68,7 +68,7 @@ export class AppComponent implements OnInit, OnDestroy {
         if (currentUrl.match(/^\/admin\/.*$/)) {
           return;
         } else if (!matched) {
-          this.navigateToOrg();
+          this.router.navigate(['/organization', this.selected.name]);
         }
       }
     });
@@ -105,16 +105,8 @@ export class AppComponent implements OnInit, OnDestroy {
     this.dialog.open(OrganizationSelectDialogComponent, { width: '600px', data: { currentOrgId: currentOrgId } }).afterClosed().subscribe((res: Organization) => {
       if (res) {
         this.selected = res;
-        this.navigateToOrg();
+        this.router.navigate(['/organization', this.selected.name]);
       }
     });
-  }
-
-  navigateToOrg(route?: string) {
-    const r = ['organization', this.selected.name];
-    if (route) {
-      r.push(route);
-    }
-    this.router.navigate(r);
   }
 }
