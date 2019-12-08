@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/app/shared/user.service';
+import { User, Role, RoleDescriptor } from 'src/app/model/user';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-users',
@@ -6,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UsersComponent implements OnInit {
 
-  constructor() { }
+  users: User[] = [];
+  usersDisplayColumns = ['enabled', 'username', 'name', 'organization', 'role'];
+
+  rolesDescriptor$: Observable<{ [key in Role]?: RoleDescriptor }>
+
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
+    this.userService.getAllUsers().subscribe(users => {
+      this.users = users;
+    });
+    this.rolesDescriptor$ = this.userService.getRolesDescriptor();
   }
 
 }

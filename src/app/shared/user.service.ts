@@ -11,9 +11,12 @@ export class UserService {
     }
 
     getUsers(orgName: string): Observable<User[]> {
-
-        return this.http.get<User[]>('/admin/api/users').pipe(
+        return this.getAllUsers().pipe(
             map(users => users.filter(u => u.type !== UserType.API_KEY).filter(u => u.memberOf.find(org => org.name === orgName))));
+    }
+
+    getAllUsers(): Observable<User[]> {
+        return this.http.get<User[]>('/admin/api/users');
     }
 
     getApiKeys(orgName: string): Observable<User[]> {
