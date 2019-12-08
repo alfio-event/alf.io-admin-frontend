@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-extension',
-  templateUrl: './extension.component.html',
-  styleUrls: ['./extension.component.scss']
+  templateUrl: './extension.component.html'
 })
 export class ExtensionComponent implements OnInit {
 

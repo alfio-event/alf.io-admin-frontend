@@ -70,3 +70,8 @@ body {
 .mat-radio-button ~ .mat-radio-button {
     margin-left: 16px;
 }
+
+mat-sidenav-content h2 {
+    min-height: 36px;
+    line-height: 36px;
+}
