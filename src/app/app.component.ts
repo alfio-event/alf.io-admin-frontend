@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { OrganizationService } from './shared/organization.service';
 import { Organization } from './model/organization';
@@ -11,17 +11,20 @@ import { OrganizationSelectDialogComponent } from './organization-select-dialog/
 import { BasicConfigurationDialogComponent } from './basic-configuration-dialog/basic-configuration-dialog.component';
 import { business, arrow_drop_down, search, add, person, edit }  from './icons';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
 
   organizations: Organization[];
   selected: Organization;
   userInfo: UserInfo;
+
+  private orgChangedSub: Subscription;
 
   constructor(
     translate: TranslateService,
@@ -44,6 +47,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    
     this.organizationService.getOrganizations().subscribe(orgs => {
       const currentUrl = this.router.url;
       this.organizations = orgs;
@@ -78,6 +82,22 @@ export class AppComponent implements OnInit {
         this.dialog.open(BasicConfigurationDialogComponent, { width: '80%' });
       }
     });
+
+    this.orgChangedSub = this.organizationService.organizationChanged.subscribe(orgChanges => {
+      this.organizationService.getOrganizations().subscribe(orgs => {
+        this.organizations = orgs;
+        //
+        if (this.selected) {
+          this.selected = this.organizations.find(org => org.id === this.selected.id);
+        } else {
+          this.selected = this.organizations[0];
+        }
+      });
+    });
+  }
+
+  ngOnDestroy() {
+    this.orgChangedSub.unsubscribe();
   }
 
   openOrganizationSelector() {
