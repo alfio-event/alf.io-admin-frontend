@@ -15,7 +15,7 @@
             </mat-form-field>
 
             <mat-form-field>
-                <input formControlName="BASE_URL" matInput [placeholder]="allConf.GENERAL.BASE_URL.description">
+                <input formControlName="BASE_URL" type="url" matInput [placeholder]="allConf.GENERAL.BASE_URL.description">
             </mat-form-field>
         </div>
 
@@ -89,7 +89,7 @@
                 </mat-form-field>
             </div>
 
-            <div *ngIf="basicConfiguration.value.MAIL.MAILER_TYPE !== 'disabled'" fxLayout="column">
+            <div *ngIf="basicConfiguration.value.MAIL.MAILER_TYPE !== 'disabled' && basicConfiguration.value.MAIL.MAILER_TYPE != null" fxLayout="column">
                 <mat-form-field>
                         <input formControlName="MAX_EMAIL_PER_CYCLE" matInput [placeholder]="allConf.MAIL.MAX_EMAIL_PER_CYCLE.description">
                 </mat-form-field>

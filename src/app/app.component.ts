@@ -109,4 +109,10 @@ export class AppComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  logout() {
+    this.userService.logout().subscribe(res => {
+      window.location.reload();
+    });
+  }
 }

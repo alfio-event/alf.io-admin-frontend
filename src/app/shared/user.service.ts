@@ -37,4 +37,8 @@ export class UserService {
     getCurrent(): Observable<UserInfo> {
         return this.http.get<UserInfo>('/admin/api/users/current');
     }
+
+    logout(): Observable<any> {
+        return this.http.post('/logout', {});
+    }
 }
