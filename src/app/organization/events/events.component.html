@@ -1,6 +1,6 @@
 <h2>
     Events
-    <button mat-button color="primary"><mat-icon svgIcon="add"></mat-icon> Create new event</button>
+    <a mat-button color="primary" [routerLink]="['new-event']"><mat-icon svgIcon="add"></mat-icon> Create new event</a>
 </h2>
 
 <form [formGroup]="searchForm">

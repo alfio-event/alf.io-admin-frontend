@@ -10,6 +10,7 @@ import { ConfigurationComponent } from './organization/configuration/configurati
 import { ExtensionComponent } from './admin/extension/extension.component';
 import { OrganizationComponent } from './admin/organization/organization.component';
 import { ConfigurationComponent as AdminConfigurationComponent } from './admin/configuration/configuration.component';
+import { NewEventComponent } from './organization/new-event/new-event.component';
 
 
 const routes: Routes = [
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'organization/:org/api-keys', component: ApiKeysComponent },
   { path: 'organization/:org/groups', component: GroupsComponent },
   { path: 'organization/:org/configuration', component: ConfigurationComponent },
+  { path: 'organization/:org/new-event', component: NewEventComponent },
   { path: 'admin/organization', component: OrganizationComponent },
   { path: 'admin/configuration', component: AdminConfigurationComponent },
   { path: 'admin/users', component: AdminUsersComponent },

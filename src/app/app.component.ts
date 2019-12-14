@@ -103,9 +103,13 @@ export class AppComponent implements OnInit, OnDestroy {
   openOrganizationSelector() {
     const currentOrgId = this.selected ? this.selected.id : undefined;
     this.dialog.open(OrganizationSelectDialogComponent, { width: '600px', data: { currentOrgId: currentOrgId } }).afterClosed().subscribe((res: Organization) => {
-      if (res) {
+      if (res && res.id !== this.selected.id) {
         this.selected = res;
         this.router.navigate(['/organization', this.selected.name]);
+        const switchedMessage = this.snackBar.open('Switched to organization ' + res.name, 'Dismiss', { duration: 5000 });
+        switchedMessage.onAction().subscribe(() => {
+          switchedMessage.dismiss();
+        });
       }
     });
   }

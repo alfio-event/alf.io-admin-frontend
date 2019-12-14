@@ -27,6 +27,7 @@ import { OrganizationComponent } from './admin/organization/organization.compone
 import { ConfigurationComponent as AdminConfigurationComponent } from './admin/configuration/configuration.component';
 import { UsersComponent as AdminUsersComponent } from './admin/users/users.component';
 import { NewEditOrganizationDialogComponent } from './admin/organization/new-edit-organization-dialog/new-edit-organization-dialog.component';
+import { NewEventComponent } from './organization/new-event/new-event.component';
 
 
 // AoT requires an exported function for factories
@@ -50,7 +51,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     OrganizationComponent,
     AdminConfigurationComponent,
     AdminUsersComponent,
-    NewEditOrganizationDialogComponent
+    NewEditOrganizationDialogComponent,
+    NewEventComponent
   ],
   imports: [
     BrowserModule,
