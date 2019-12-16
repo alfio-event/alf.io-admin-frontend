@@ -12,7 +12,7 @@ import { Language } from 'src/app/model/language';
 })
 export class NewEventComponent implements OnInit {
 
-  private createEventForm: FormGroup;
+  createEventForm: FormGroup;
 
   timezones: string[] = [];
   currencies: Currency[] = [];
