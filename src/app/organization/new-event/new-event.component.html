@@ -45,7 +45,18 @@
     </mat-step>
     <mat-step [stepControl]="createEventForm.get('links')">
         <ng-template matStepLabel>Links</ng-template>
-        <form [formGroup]="createEventForm.get('links')"></form>
+        <form [formGroup]="createEventForm.get('links')" fxLayout="column">
+            <mat-form-field>
+                <input matInput placeholder="Website link" type="url" required>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Terms and Conditions link" type="url" required>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Privacy policy link" type="url">
+                <mat-hint align="start">Privacy policy link is optional. However, it is good practice to have one.</mat-hint>
+            </mat-form-field>
+        </form>
     </mat-step>
     <mat-step [stepControl]="createEventForm.get('payment')">
         <ng-template matStepLabel>Payment</ng-template>
