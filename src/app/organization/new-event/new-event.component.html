@@ -1,1 +1,58 @@
 <h2>Create new event</h2>
+
+<mat-horizontal-stepper [linear]="false">
+    <ng-template matStepperIcon="edit" let-index="index">{{index+1}}</ng-template>
+    <ng-template matStepperIcon="done" let-index="index">{{index+1}}</ng-template>
+    <ng-template matStepperIcon="number" let-index="index">{{index+1}}</ng-template>
+    <ng-template matStepperIcon="error" let-index="index">{{index+1}}</ng-template>
+    <mat-step [stepControl]="createEventForm.get('eventInfo')">
+        <ng-template matStepLabel>Event info</ng-template>
+        <form [formGroup]="createEventForm.get('eventInfo')" fxLayout="column">
+            <mat-form-field>
+                <input formControlName="displayName" matInput placeholder="Event name" required>
+            </mat-form-field>
+            <mat-form-field>
+                <textarea matInput placeholder="Event Location" required></textarea>
+                <mat-hint align="start">Please enter the address of the Location. This will be used for displaying the map on the event page.</mat-hint>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Timezone</mat-label>
+                <mat-select>
+                    <mat-option *ngFor="let tz of timezones" [value]="tz">{{tz}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div fxLayout="row">
+                <mat-form-field fxFlex="50%" class="padding-right-10">
+                    <input matInput [matDatepicker]="pickerStart" readonly="true" placeholder="Event start date" (click)="pickerStart.open()" (focus)="pickerStart.open()">
+                    <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerStart></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field fxFlex="50%">
+                    <input matInput placeholder="Event start time">
+                </mat-form-field>
+            </div>
+            <div fxLayout="row">
+                <mat-form-field fxFlex="50%" class="padding-right-10">
+                    <input matInput [matDatepicker]="pickerEnd" readonly="true" placeholder="Event end date" (click)="pickerEnd.open()" (focus)="pickerEnd.open()">
+                    <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerEnd></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field fxFlex="50%">
+                    <input matInput placeholder="Event end time">
+                </mat-form-field>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step [stepControl]="createEventForm.get('links')">
+        <ng-template matStepLabel>Links</ng-template>
+        <form [formGroup]="createEventForm.get('links')"></form>
+    </mat-step>
+    <mat-step [stepControl]="createEventForm.get('payment')">
+        <ng-template matStepLabel>Payment</ng-template>
+        <form [formGroup]="createEventForm.get('payment')"></form>
+    </mat-step>
+    <mat-step [stepControl]="createEventForm.get('tickets')">
+        <ng-template matStepLabel>Tickets</ng-template>
+        <form [formGroup]="createEventForm.get('tickets')"></form>
+    </mat-step>
+</mat-horizontal-stepper>

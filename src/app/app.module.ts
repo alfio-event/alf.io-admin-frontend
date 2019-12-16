@@ -11,7 +11,7 @@ import { CustomLoader } from './shared/i18n.service';
 import { MatToolbarModule, MatIconModule, MatInputModule, MatSidenavModule,
   MatListModule, MatButtonModule, MatSelectModule, MatTableModule,
   MatChipsModule, MatFormFieldModule, MatSnackBarModule, MatDialogModule,
-  MatCheckboxModule, MatPaginatorModule, MatRadioModule, MatSlideToggleModule, MatMenuModule} from  '@angular/material';
+  MatCheckboxModule, MatPaginatorModule, MatRadioModule, MatSlideToggleModule, MatMenuModule, MatStepperModule, MatDatepickerModule, MatNativeDateModule} from  '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { EventsComponent } from './organization/events/events.component';
@@ -68,7 +68,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatListModule, MatButtonModule, MatSelectModule, MatTableModule,
     MatChipsModule, MatFormFieldModule, MatSnackBarModule, MatDialogModule,
     MatCheckboxModule, MatPaginatorModule, MatRadioModule, MatSlideToggleModule,
-    MatMenuModule,
+    MatMenuModule, MatStepperModule, MatDatepickerModule, MatNativeDateModule,
     //
     FlexLayoutModule,
     FormsModule,
