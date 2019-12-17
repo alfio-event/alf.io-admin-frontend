@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { EventSupportService } from 'src/app/shared/event-support.service';
-import { EventService } from 'src/app/shared/event.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Currency } from 'src/app/model/currency';
 import { Language } from 'src/app/model/language';
@@ -19,15 +18,20 @@ export class NewEventComponent implements OnInit {
   languages: Language[] = [];
 
   constructor(
-    private eventService: EventService,
     private eventSupportService: EventSupportService,
     private fb: FormBuilder) {
 
       this.createEventForm = fb.group({
         eventInfo: fb.group({
-          displayName: null
+          displayName: null,
+          location: null,
+          timeZone: null
         }),
-        links: fb.group({}),
+        links: fb.group({
+          websiteUrl: null,
+          termsAndConditionsUrl: null,
+          privacyPolicyUrl: null
+        }),
         payment: fb.group({}),
         tickets: fb.group({})
       });
@@ -46,4 +50,11 @@ export class NewEventComponent implements OnInit {
   ngOnInit() {
   }
 
+  updateLocation(location: string) {
+    this.eventSupportService.clientGeolocate(location).subscribe(res => {
+      if (res && res.timeZone) {
+        this.createEventForm.get('eventInfo').get('timeZone').setValue(res.timeZone);
+      }
+    });
+  }
 }

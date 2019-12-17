@@ -12,33 +12,33 @@
                 <input formControlName="displayName" matInput placeholder="Event name" required>
             </mat-form-field>
             <mat-form-field>
-                <textarea matInput placeholder="Event Location" required></textarea>
+                <textarea formControlName="location" matInput placeholder="Event Location" required (blur)="updateLocation($event.target.value)"></textarea>
                 <mat-hint align="start">Please enter the address of the Location. This will be used for displaying the map on the event page.</mat-hint>
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Timezone</mat-label>
-                <mat-select>
+                <mat-select required formControlName="timeZone">
                     <mat-option *ngFor="let tz of timezones" [value]="tz">{{tz}}</mat-option>
                 </mat-select>
             </mat-form-field>
             <div fxLayout="row">
                 <mat-form-field fxFlex="50%" class="padding-right-10">
-                    <input matInput [matDatepicker]="pickerStart" readonly="true" placeholder="Event start date" (click)="pickerStart.open()" (focus)="pickerStart.open()">
+                    <input required matInput [matDatepicker]="pickerStart" readonly="true" placeholder="Event start date" (click)="pickerStart.open()" (focus)="pickerStart.open()">
                     <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
                     <mat-datepicker #pickerStart></mat-datepicker>
                 </mat-form-field>
                 <mat-form-field fxFlex="50%">
-                    <input matInput placeholder="Event start time">
+                    <input required matInput placeholder="Event start time">
                 </mat-form-field>
             </div>
             <div fxLayout="row">
                 <mat-form-field fxFlex="50%" class="padding-right-10">
-                    <input matInput [matDatepicker]="pickerEnd" readonly="true" placeholder="Event end date" (click)="pickerEnd.open()" (focus)="pickerEnd.open()">
+                    <input required matInput [matDatepicker]="pickerEnd" readonly="true" placeholder="Event end date" (click)="pickerEnd.open()" (focus)="pickerEnd.open()">
                     <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
                     <mat-datepicker #pickerEnd></mat-datepicker>
                 </mat-form-field>
                 <mat-form-field fxFlex="50%">
-                    <input matInput placeholder="Event end time">
+                    <input required matInput placeholder="Event end time">
                 </mat-form-field>
             </div>
         </form>
@@ -47,13 +47,13 @@
         <ng-template matStepLabel>Links</ng-template>
         <form [formGroup]="createEventForm.get('links')" fxLayout="column">
             <mat-form-field>
-                <input matInput placeholder="Website link" type="url" required>
+                <input formControlName="websiteUrl" matInput placeholder="Website link" type="url" required>
             </mat-form-field>
             <mat-form-field>
-                <input matInput placeholder="Terms and Conditions link" type="url" required>
+                <input formControlName="termsAndConditionsUrl" matInput placeholder="Terms and Conditions link" type="url" required>
             </mat-form-field>
             <mat-form-field>
-                <input matInput placeholder="Privacy policy link" type="url">
+                <input formControlName="privacyPolicyUrl" matInput placeholder="Privacy policy link" type="url">
                 <mat-hint align="start">Privacy policy link is optional. However, it is good practice to have one.</mat-hint>
             </mat-form-field>
         </form>
