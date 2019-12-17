@@ -38,6 +38,12 @@ export class EventSupportService {
         return this.http.get<string>('/admin/api/location/static-map-image', {params: {lat: latitude, lng: longitude}})
     }
 
+    private handleLatLong(latitude: string, longitude: string, subscriber: Subscriber<Geolocation>) {
+        forkJoin(this.getMapUrl(latitude, longitude), this.getTimezone(latitude, longitude)).subscribe(([mapUrl, tz]) => {
+            this.zone.runTask(() => subscriber.next({latitude: latitude, longitude: longitude, mapUrl: mapUrl, timeZone: tz}));
+        }, () => this.zone.runTask(() => subscriber.error()));
+    }
+
     private geolocateGoogle(location: string, conf: ProviderAndKeys): Observable<Geolocation> {
 
         const key = conf.keys['MAPS_CLIENT_API_KEY'];
@@ -47,14 +53,9 @@ export class EventSupportService {
             const geocoder = new window['google'].maps.Geocoder();
             geocoder.geocode({'address': location}, (results, status) => {
                 if (status === 'OK') {
-                    const res = new Geolocation();
-                    res.latitude = "" + results[0].geometry.location.lat();
-                    res.longitude = "" + results[0].geometry.location.lng();
-                    forkJoin(this.getMapUrl(res.latitude, res.longitude), this.getTimezone(res.latitude, res.longitude)).subscribe(([mapUrl, tz]) => {
-                        res.mapUrl = mapUrl;
-                        res.timeZone = tz;
-                        this.zone.runTask(() => subscriber.next(res));
-                    }, () => this.zone.runTask(() => subscriber.error()));
+                    const latitude = "" + results[0].geometry.location.lat();
+                    const longitude = "" + results[0].geometry.location.lng();
+                    this.handleLatLong(latitude, longitude, subscriber);
                 } else {
                     this.zone.runTask(() => subscriber.error());
                 }
@@ -78,7 +79,20 @@ export class EventSupportService {
     }
 
     private geolocateHERE(location: string, conf: ProviderAndKeys): Observable<Geolocation> {
-        return of(new Geolocation());
+        const apiKey = conf.keys['MAPS_HERE_API_KEY'];
+
+        return new Observable<Geolocation>((subscriber: Subscriber<Geolocation>) => {
+            this.http.get('https://geocoder.ls.hereapi.com/6.2/geocode.json', {params: {apiKey: apiKey, searchtext: location}}).subscribe((hereRes: any) => {
+                const view = hereRes.Response.View;
+                if (view.length > 0 && view[0].Result.length > 0 && view[0].Result[0].Location) {
+                    const location = view[0].Result[0].Location;
+                    const pos = location.DisplayPosition;
+                    this.handleLatLong(pos.Latitude, pos.Longitude, subscriber);
+                } else {
+                    this.zone.runTask(() => subscriber.error());
+                }
+            });
+        });
     }
 
     clientGeolocate(location: string): Observable<Geolocation> {

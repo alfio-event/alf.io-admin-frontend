@@ -32,8 +32,9 @@ export type ConfigurationKey =
 'BASE_URL' |
 'MAPS_PROVIDER' |
 'MAPS_CLIENT_API_KEY' |
-'MAPS_HERE_APP_ID' |
-'MAPS_HERE_APP_CODE' |
+'MAPS_HERE_API_KEY' |
+'MAPS_HERE_APP_ID' | //<- deprecated
+'MAPS_HERE_APP_CODE' | //<- deprecated
 'RECAPTCHA_API_KEY' |
 'RECAPTCHA_SECRET' |
 'ENABLE_CAPTCHA_FOR_LOGIN' |
