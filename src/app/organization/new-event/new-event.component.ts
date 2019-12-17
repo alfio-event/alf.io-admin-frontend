@@ -16,6 +16,7 @@ export class NewEventComponent implements OnInit {
   timezones: string[] = [];
   currencies: Currency[] = [];
   languages: Language[] = [];
+  mapUrl: string;
 
   constructor(
     private eventSupportService: EventSupportService,
@@ -54,6 +55,7 @@ export class NewEventComponent implements OnInit {
     this.eventSupportService.clientGeolocate(location).subscribe(res => {
       if (res && res.timeZone) {
         this.createEventForm.get('eventInfo').get('timeZone').setValue(res.timeZone);
+        this.mapUrl = res.mapUrl;
       }
     });
   }

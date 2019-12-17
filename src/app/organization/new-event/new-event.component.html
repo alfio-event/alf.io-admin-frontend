@@ -11,10 +11,13 @@
             <mat-form-field>
                 <input formControlName="displayName" matInput placeholder="Event name" required>
             </mat-form-field>
-            <mat-form-field>
+            <mat-form-field [fxFlex]="mapUrl ? '75%' : '100%'">
                 <textarea formControlName="location" matInput placeholder="Event Location" required (blur)="updateLocation($event.target.value)"></textarea>
                 <mat-hint align="start">Please enter the address of the Location. This will be used for displaying the map on the event page.</mat-hint>
             </mat-form-field>
+            <div *ngIf="mapUrl">
+                <img class="img-responsive" [src]="mapUrl">
+            </div>
             <mat-form-field>
                 <mat-label>Timezone</mat-label>
                 <mat-select required formControlName="timeZone">
