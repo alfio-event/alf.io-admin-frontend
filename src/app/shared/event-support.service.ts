@@ -13,6 +13,10 @@ export class EventSupportService {
     private reqCounter = 0;
 
     constructor(private http: HttpClient, private zone: NgZone) {}
+
+    getBaseUrl(): Observable<string> {
+        return of(window.location.origin);
+    }
     
     getSupportedLanguages(): Observable<Language[]> {
         return this.http.get<Language[]>('/admin/api/events-supported-languages');
@@ -36,6 +40,10 @@ export class EventSupportService {
 
     getMapUrl(latitude: string, longitude: string): Observable<string> {
         return this.http.get<string>('/admin/api/location/static-map-image', {params: {lat: latitude, lng: longitude}})
+    }
+
+    generateEventShortName(displayName: string): Observable<string> {
+        return this.http.get<string>('/admin/api/utils/short-name/generate', {params: {displayName: displayName}});
     }
 
     private handleLatLong(latitude: string, longitude: string, subscriber: Subscriber<Geolocation>) {

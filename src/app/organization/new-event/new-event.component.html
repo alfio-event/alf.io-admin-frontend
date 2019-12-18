@@ -9,7 +9,7 @@
         <ng-template matStepLabel>Event info</ng-template>
         <form [formGroup]="createEventForm.get('eventInfo')" fxLayout="column">
             <mat-form-field>
-                <input formControlName="displayName" matInput placeholder="Event name" required>
+                <input formControlName="displayName" matInput placeholder="Event name" required (change)=updateURL($event.target.value)>
             </mat-form-field>
             <mat-form-field [fxFlex]="mapUrl ? '75%' : '100%'">
                 <textarea formControlName="location" matInput placeholder="Event Location" required (blur)="updateLocation($event.target.value)"></textarea>
@@ -26,24 +26,29 @@
             </mat-form-field>
             <div fxLayout="row">
                 <mat-form-field fxFlex="50%" class="padding-right-10">
-                    <input required matInput [matDatepicker]="pickerStart" readonly="true" placeholder="Event start date" (click)="pickerStart.open()" (focus)="pickerStart.open()">
+                    <input formControlName="startDate" required matInput [matDatepicker]="pickerStart" readonly="true" placeholder="Event start date" (click)="pickerStart.open()" (focus)="pickerStart.open()">
                     <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
                     <mat-datepicker #pickerStart></mat-datepicker>
                 </mat-form-field>
                 <mat-form-field fxFlex="50%">
-                    <input required matInput placeholder="Event start time">
+                    <input formControlName="startTime" required matInput placeholder="Event start time">
                 </mat-form-field>
             </div>
             <div fxLayout="row">
                 <mat-form-field fxFlex="50%" class="padding-right-10">
-                    <input required matInput [matDatepicker]="pickerEnd" readonly="true" placeholder="Event end date" (click)="pickerEnd.open()" (focus)="pickerEnd.open()">
+                    <input formControlName="endDate" required matInput [matDatepicker]="pickerEnd" readonly="true" placeholder="Event end date" (click)="pickerEnd.open()" (focus)="pickerEnd.open()">
                     <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
                     <mat-datepicker #pickerEnd></mat-datepicker>
                 </mat-form-field>
                 <mat-form-field fxFlex="50%">
-                    <input required matInput placeholder="Event end time">
+                    <input formControlName="endTime" required matInput placeholder="Event end time">
                 </mat-form-field>
             </div>
+            <mat-form-field>
+                <span matPrefix>{{baseUrl}}/event/</span>
+                <input formControlName="shortName" matInput placeholder="name" required>
+                <span matSuffix>/</span>
+            </mat-form-field>
         </form>
     </mat-step>
     <mat-step [stepControl]="createEventForm.get('links')">

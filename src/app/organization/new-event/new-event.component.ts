@@ -17,6 +17,7 @@ export class NewEventComponent implements OnInit {
   currencies: Currency[] = [];
   languages: Language[] = [];
   mapUrl: string;
+  baseUrl: string;
 
   constructor(
     private eventSupportService: EventSupportService,
@@ -26,7 +27,12 @@ export class NewEventComponent implements OnInit {
         eventInfo: fb.group({
           displayName: null,
           location: null,
-          timeZone: null
+          timeZone: null,
+          startDate: null,
+          startTime: null,
+          endDate: null,
+          endTime: null,
+          shortName: null
         }),
         links: fb.group({
           websiteUrl: null,
@@ -46,6 +52,10 @@ export class NewEventComponent implements OnInit {
       eventSupportService.getSupportedLanguages().subscribe(langs => {
         this.languages = langs;
       });
+
+      eventSupportService.getBaseUrl().subscribe(baseUrl => {
+        this.baseUrl = baseUrl;
+      });
     }
 
   ngOnInit() {
@@ -58,5 +68,11 @@ export class NewEventComponent implements OnInit {
         this.mapUrl = res.mapUrl;
       }
     });
+  }
+
+  updateURL(eventName: string) {
+    this.eventSupportService.generateEventShortName(eventName).subscribe(res => {
+      this.createEventForm.get('eventInfo').get('shortName').setValue(res);
+    })
   }
 }
