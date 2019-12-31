@@ -16,6 +16,7 @@ export class NewEventComponent implements OnInit {
   timezones: string[] = [];
   currencies: Currency[] = [];
   languages: Language[] = [];
+  selectedLanguages: Language[] = [];
   mapUrl: string;
   baseUrl: string;
 
@@ -51,6 +52,7 @@ export class NewEventComponent implements OnInit {
       });
       eventSupportService.getSupportedLanguages().subscribe(langs => {
         this.languages = langs;
+        this.selectedLanguages = [langs[0]];
       });
 
       eventSupportService.getBaseUrl().subscribe(baseUrl => {
@@ -59,6 +61,21 @@ export class NewEventComponent implements OnInit {
     }
 
   ngOnInit() {
+  }
+
+  addLanguage(lang: Language) {
+    this.selectedLanguages.push(lang);
+  }
+
+  removeLanguage(lang: Language) {
+    this.selectedLanguages.splice(this.selectedLanguages.indexOf(lang), 1);
+  }
+
+  get otherLanguages(): Language[] {
+    if (this.languages) {
+      return this.languages.filter(l => this.selectedLanguages.indexOf(l) === -1);
+    }
+    return [];
   }
 
   updateLocation(location: string) {

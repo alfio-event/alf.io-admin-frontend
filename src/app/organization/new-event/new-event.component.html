@@ -11,8 +11,13 @@
             <mat-form-field>
                 <input formControlName="displayName" matInput placeholder="Event name" required (change)=updateURL($event.target.value)>
             </mat-form-field>
+            <mat-form-field>
+                <span matPrefix>{{baseUrl}}/event/</span>
+                <input formControlName="shortName" matInput placeholder="Event url" required>
+                <span matSuffix>/</span>
+            </mat-form-field>
             <mat-form-field [fxFlex]="mapUrl ? '75%' : '100%'">
-                <textarea formControlName="location" matInput placeholder="Event Location" required (blur)="updateLocation($event.target.value)"></textarea>
+                <textarea cdkTextareaAutosize formControlName="location" matInput placeholder="Event Location" required (blur)="updateLocation($event.target.value)"></textarea>
                 <mat-hint align="start">Please enter the address of the Location. This will be used for displaying the map on the event page.</mat-hint>
             </mat-form-field>
             <div *ngIf="mapUrl">
@@ -44,11 +49,20 @@
                     <input formControlName="endTime" required matInput placeholder="Event end time">
                 </mat-form-field>
             </div>
-            <mat-form-field>
-                <span matPrefix>{{baseUrl}}/event/</span>
-                <input formControlName="shortName" matInput placeholder="name" required>
-                <span matSuffix>/</span>
-            </mat-form-field>
+            <ng-container *ngFor="let lang of selectedLanguages">
+                <mat-form-field>
+                    <textarea matInput cdkTextareaAutosize [placeholder]="'Event Description (' + lang.displayLanguage + ')'"></textarea>
+                    <button *ngIf="selectedLanguages.length > 1" (click)="removeLanguage(lang)" type="button" mat-icon-button matSuffix>
+                        <mat-icon svgIcon="delete"></mat-icon>
+                    </button>
+                </mat-form-field>
+            </ng-container>
+            <p *ngIf="otherLanguages && otherLanguages.length > 0">
+                <mat-menu #languageSelectorMenu="matMenu">
+                    <button (click)="addLanguage(l)" mat-menu-item *ngFor="let l of otherLanguages">{{l.displayLanguage}}</button>
+                </mat-menu>
+                <button type="button" mat-icon-button [matMenuTriggerFor]="languageSelectorMenu">Add translation</button>
+            </p>
         </form>
     </mat-step>
     <mat-step [stepControl]="createEventForm.get('links')">
