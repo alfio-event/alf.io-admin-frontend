@@ -34,7 +34,8 @@ export class NewEventComponent implements OnInit {
           endDate: null,
           endTime: null,
           shortName: null,
-          description: fb.group({})
+          description: fb.group({}),
+          fileBlobId: null
         }),
         links: fb.group({
           websiteUrl: null,
@@ -99,6 +100,16 @@ export class NewEventComponent implements OnInit {
   }
 
   handleSelectedLogoFile(files: FileList) {
-    console.log(files);
+    if (files.length <= 0) {
+      alert('Your image not uploaded correctly.Please upload the image again');
+    } else if (!((files[0].type === 'image/png') || (files[0].type === 'image/jpeg'))) {
+      alert('only png or jpeg files are accepted');
+    } else if (files[0].size > (1024 * 200)) {
+      alert('Image size exceeds the allowable limit 200KB');
+    } else {
+      this.eventSupportService.uploadImageWithResize(files[0]).subscribe(fileId => {
+        this.createEventForm.get('eventInfo.fileBlobId').setValue(fileId);
+      });
+    }
   }
 }

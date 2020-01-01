@@ -112,4 +112,20 @@ export class EventSupportService {
             }
         }))
     }
+
+    uploadImageWithResize(file: File) : Observable<string> {
+        return new Observable<string>((subscriber) => {
+            let reader = new FileReader();
+            reader.onload = (e) => {
+                let imageBase64 = e.target.result as string;
+                let payload = {file : imageBase64.substring(imageBase64.indexOf('base64,') + 7), type : file.type, name : file.name};
+                this.http.post<string>('/admin/api/file/upload?resizeImage=true', payload).subscribe(res => {
+                    this.zone.runTask(() => {
+                        subscriber.next(res);
+                    });
+                });
+            };
+            reader.readAsDataURL(file);
+        });
+    };
 }

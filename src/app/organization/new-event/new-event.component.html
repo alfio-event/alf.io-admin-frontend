@@ -65,6 +65,7 @@
             </p>
             <p>
                 <input type="file" accept="image/png, image/jpeg" (change)="handleSelectedLogoFile($event.target.files)">
+                <img *ngIf="createEventForm.value.eventInfo.fileBlobId" [src]="'/file/'+createEventForm.value.eventInfo.fileBlobId">
             </p>
         </form>
     </mat-step>
