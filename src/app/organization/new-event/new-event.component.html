@@ -63,6 +63,9 @@
                 </mat-menu>
                 <button type="button" mat-icon-button [matMenuTriggerFor]="languageSelectorMenu">Add translation</button>
             </p>
+            <p>
+                <input type="file" accept="image/png, image/jpeg" (change)="handleSelectedLogoFile($event.target.files)">
+            </p>
         </form>
     </mat-step>
     <mat-step [stepControl]="createEventForm.get('links')">

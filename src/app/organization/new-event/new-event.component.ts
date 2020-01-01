@@ -97,4 +97,8 @@ export class NewEventComponent implements OnInit {
       this.createEventForm.get('eventInfo').get('shortName').setValue(res);
     })
   }
+
+  handleSelectedLogoFile(files: FileList) {
+    console.log(files);
+  }
 }
