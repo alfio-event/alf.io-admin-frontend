@@ -49,9 +49,9 @@
                     <input formControlName="endTime" required matInput placeholder="Event end time">
                 </mat-form-field>
             </div>
-            <ng-container *ngFor="let lang of selectedLanguages">
+            <ng-container *ngFor="let lang of selectedLanguages" [formGroup]="createEventForm.get('eventInfo.description')">
                 <mat-form-field>
-                    <textarea matInput cdkTextareaAutosize [placeholder]="'Event Description (' + lang.displayLanguage + ')'"></textarea>
+                    <textarea [formControlName]="lang.locale" matInput cdkTextareaAutosize [placeholder]="'Event Description (' + lang.displayLanguage + ')'"></textarea>
                     <button *ngIf="selectedLanguages.length > 1" (click)="removeLanguage(lang)" type="button" mat-icon-button matSuffix>
                         <mat-icon svgIcon="delete"></mat-icon>
                     </button>
@@ -89,3 +89,5 @@
         <form [formGroup]="createEventForm.get('tickets')"></form>
     </mat-step>
 </mat-horizontal-stepper>
+
+<!--<pre>{{createEventForm.value|json}}</pre>-->

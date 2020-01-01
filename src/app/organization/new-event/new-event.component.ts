@@ -33,7 +33,8 @@ export class NewEventComponent implements OnInit {
           startTime: null,
           endDate: null,
           endTime: null,
-          shortName: null
+          shortName: null,
+          description: fb.group({})
         }),
         links: fb.group({
           websiteUrl: null,
@@ -52,7 +53,7 @@ export class NewEventComponent implements OnInit {
       });
       eventSupportService.getSupportedLanguages().subscribe(langs => {
         this.languages = langs;
-        this.selectedLanguages = [langs[0]];
+        this.addLanguage(langs[0]);
       });
 
       eventSupportService.getBaseUrl().subscribe(baseUrl => {
@@ -65,10 +66,14 @@ export class NewEventComponent implements OnInit {
 
   addLanguage(lang: Language) {
     this.selectedLanguages.push(lang);
+    let fg = this.createEventForm.get('eventInfo.description') as FormGroup;
+    fg.addControl(lang.locale, this.fb.control(null));
   }
 
   removeLanguage(lang: Language) {
     this.selectedLanguages.splice(this.selectedLanguages.indexOf(lang), 1);
+    let fg = this.createEventForm.get('eventInfo.description') as FormGroup;
+    fg.removeControl(lang.locale);
   }
 
   get otherLanguages(): Language[] {
