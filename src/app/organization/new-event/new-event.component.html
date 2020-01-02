@@ -99,7 +99,10 @@
                     <input formControlName="regularPrice" matInput placeholder="Regular Price" type="number">
                 </mat-form-field>
                 <mat-form-field>
-                    <input formControlName="currency" matInput placeholder="Currency">
+                    <input formControlName="currency" matInput placeholder="Currency" [matAutocomplete]="autoCurrency">
+                    <mat-autocomplete #autoCurrency="matAutocomplete" autoActiveFirstOption>
+                        <mat-option *ngFor="let currency of filteredCurrencies | async" [value]="currency.code">{{currency.name}} ({{currency.code}})</mat-option>
+                    </mat-autocomplete>
                 </mat-form-field>
                 <mat-form-field>
                     <input formControlName="vatPercentage" matInput placeholder="Taxes (%)" type="number">

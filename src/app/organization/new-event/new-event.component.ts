@@ -3,6 +3,8 @@ import { EventSupportService } from 'src/app/shared/event-support.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Currency } from 'src/app/model/currency';
 import { Language } from 'src/app/model/language';
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-new-event',
@@ -19,6 +21,8 @@ export class NewEventComponent implements OnInit {
   selectedLanguages: Language[] = [];
   mapUrl: string;
   baseUrl: string;
+
+  filteredCurrencies: Observable<Currency[]>;
 
   constructor(
     private eventSupportService: EventSupportService,
@@ -71,6 +75,20 @@ export class NewEventComponent implements OnInit {
     }
 
   ngOnInit() {
+    this.filteredCurrencies = this.createEventForm.get('payment.currency').valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this.filterCurrencies(value))
+      );
+  }
+
+  private filterCurrencies(value: string): Currency[] {
+    value = value.toLowerCase();
+    return this.currencies.filter(c => {
+      return c.name.toLowerCase().indexOf(value) >= 0 ||
+             c.code.toLowerCase().indexOf(value) >= 0 ||
+             c.symbol.indexOf(value) >= 0;
+    });
   }
 
   addLanguage(lang: Language) {
