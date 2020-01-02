@@ -5,6 +5,7 @@ import { Currency } from 'src/app/model/currency';
 import { Language } from 'src/app/model/language';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-new-event',
@@ -25,6 +26,7 @@ export class NewEventComponent implements OnInit {
   filteredCurrencies: Observable<Currency[]>;
 
   constructor(
+    private route: ActivatedRoute,
     private eventSupportService: EventSupportService,
     private fb: FormBuilder) {
 
@@ -72,6 +74,12 @@ export class NewEventComponent implements OnInit {
       eventSupportService.getBaseUrl().subscribe(baseUrl => {
         this.baseUrl = baseUrl;
       });
+
+      const orgName = this.route.snapshot.paramMap.get('org');
+
+      eventSupportService.getPaymentProxies(orgName).subscribe(res => {
+        console.log(res);
+      })
     }
 
   ngOnInit() {

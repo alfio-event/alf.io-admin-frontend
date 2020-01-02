@@ -4,15 +4,17 @@ import { Observable, of, Subscriber, forkJoin } from 'rxjs';
 import { Language } from '../model/language';
 import { Currency } from '../model/currency';
 import { ProviderAndKeys, GeoInfoProvider } from '../model/provider-and-key';
-import { flatMap } from 'rxjs/operators';
+import { flatMap, map } from 'rxjs/operators';
 import { Geolocation } from '../model/geolocation';
+import { OrganizationService } from './organization.service';
+import { PaymentProxy } from '../model/payment-proxy';
 
 @Injectable({ providedIn: 'root' })
 export class EventSupportService {
 
     private reqCounter = 0;
 
-    constructor(private http: HttpClient, private zone: NgZone) {}
+    constructor(private http: HttpClient, private zone: NgZone, private organizationService: OrganizationService) {}
 
     getBaseUrl(): Observable<string> {
         return of(window.location.origin);
@@ -128,4 +130,10 @@ export class EventSupportService {
             reader.readAsDataURL(file);
         });
     };
+
+
+    getPaymentProxies(organizationName: string): Observable<PaymentProxy> {
+        return this.organizationService.getOrganizationId(organizationName)
+            .pipe(flatMap(orgId => this.http.get<PaymentProxy>('/admin/api/paymentProxies/' + orgId)));
+    }
 }
