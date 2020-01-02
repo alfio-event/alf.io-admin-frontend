@@ -6,6 +6,7 @@ import { Language } from 'src/app/model/language';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
+import { PaymentProxy, PAYMENT_PROXY_DESCRIPTION } from 'src/app/model/payment-proxy';
 
 @Component({
   selector: 'app-new-event',
@@ -22,6 +23,7 @@ export class NewEventComponent implements OnInit {
   selectedLanguages: Language[] = [];
   mapUrl: string;
   baseUrl: string;
+  activePaymentProxies: PaymentProxy[] = [];
 
   filteredCurrencies: Observable<Currency[]>;
 
@@ -53,7 +55,8 @@ export class NewEventComponent implements OnInit {
           regularPrice: null,
           currency: null,
           vatPercentage: null,
-          vatIncluded: null
+          vatIncluded: null,
+          paymentProxies: fb.group({})
         }),
         tickets: fb.group({
           availableSeats: null
@@ -77,9 +80,15 @@ export class NewEventComponent implements OnInit {
 
       const orgName = this.route.snapshot.paramMap.get('org');
 
+      const selectedPaymentProxiesFormGroup: FormGroup = this.createEventForm.get('payment.paymentProxies') as FormGroup;
+
       eventSupportService.getPaymentProxies(orgName).subscribe(res => {
-        console.log(res);
-      })
+        this.activePaymentProxies = res.filter(p => p.active);
+        this.activePaymentProxies.forEach(v => {
+          selectedPaymentProxiesFormGroup.addControl(v.paymentProxy, this.fb.control(null));
+          v.description = PAYMENT_PROXY_DESCRIPTION[v.paymentProxy];
+        });
+      });
     }
 
   ngOnInit() {

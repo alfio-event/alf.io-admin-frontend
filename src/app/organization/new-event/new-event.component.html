@@ -113,6 +113,9 @@
                 <p>
                     <label class="label-for-inputs">Accepted payment methods</label>
                 </p>
+                <p *ngFor="let p of activePaymentProxies" formGroupName="paymentProxies">
+                    <mat-checkbox [formControlName]="p.paymentProxy">{{p.description}}</mat-checkbox>
+                </p>
             </ng-container>
         </form>
     </mat-step>

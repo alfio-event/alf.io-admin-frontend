@@ -132,8 +132,8 @@ export class EventSupportService {
     };
 
 
-    getPaymentProxies(organizationName: string): Observable<PaymentProxy> {
+    getPaymentProxies(organizationName: string): Observable<PaymentProxy[]> {
         return this.organizationService.getOrganizationId(organizationName)
-            .pipe(flatMap(orgId => this.http.get<PaymentProxy>('/admin/api/paymentProxies/' + orgId)));
+            .pipe(flatMap(orgId => this.http.get<PaymentProxy[]>('/admin/api/paymentProxies/' + orgId)));
     }
 }
