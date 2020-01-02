@@ -42,8 +42,16 @@ export class NewEventComponent implements OnInit {
           termsAndConditionsUrl: null,
           privacyPolicyUrl: null
         }),
-        payment: fb.group({}),
-        tickets: fb.group({})
+        payment: fb.group({
+          freeOfCharge: null,
+          regularPrice: null,
+          currency: null,
+          vatPercentage: null,
+          vatIncluded: null
+        }),
+        tickets: fb.group({
+          availableSeats: null
+        })
       });
 
       eventSupportService.getTimeZones().subscribe(tzs => {

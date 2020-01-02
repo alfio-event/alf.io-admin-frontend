@@ -51,7 +51,7 @@
             </div>
             <ng-container *ngFor="let lang of selectedLanguages" [formGroup]="createEventForm.get('eventInfo.description')">
                 <mat-form-field>
-                    <textarea [formControlName]="lang.locale" matInput cdkTextareaAutosize [placeholder]="'Event Description (' + lang.displayLanguage + ')'"></textarea>
+                    <textarea [formControlName]="lang.locale" matInput cdkTextareaAutosize [placeholder]="'Event Description (' + lang.displayLanguage + ')'" required></textarea>
                     <button *ngIf="selectedLanguages.length > 1" (click)="removeLanguage(lang)" type="button" mat-icon-button matSuffix>
                         <mat-icon svgIcon="delete"></mat-icon>
                     </button>
@@ -85,12 +85,41 @@
         </form>
     </mat-step>
     <mat-step [stepControl]="createEventForm.get('payment')">
-        <ng-template matStepLabel>Payment</ng-template>
-        <form [formGroup]="createEventForm.get('payment')"></form>
+        <ng-template matStepLabel>Payment/Pricing</ng-template>
+        <form [formGroup]="createEventForm.get('payment')" fxLayout="column">
+            <p fxLayout="column">
+                <label class="label-for-inputs">Ticket price model</label>
+                <mat-radio-group formControlName="freeOfCharge" required>
+                    <mat-radio-button [value]="false">Entry fee requested</mat-radio-button>
+                    <mat-radio-button [value]="true">Free of charge</mat-radio-button>
+                </mat-radio-group>
+            </p>
+            <ng-container *ngIf="createEventForm.value.payment.freeOfCharge === false">
+                <mat-form-field>
+                    <input formControlName="regularPrice" matInput placeholder="Regular Price" type="number">
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="currency" matInput placeholder="Currency">
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="vatPercentage" matInput placeholder="Taxes (%)" type="number">
+                </mat-form-field>
+                <p>
+                    <mat-checkbox formControlName="vatIncluded">Price includes taxes</mat-checkbox>
+                </p>
+                <p>
+                    <label class="label-for-inputs">Accepted payment methods</label>
+                </p>
+            </ng-container>
+        </form>
     </mat-step>
     <mat-step [stepControl]="createEventForm.get('tickets')">
         <ng-template matStepLabel>Tickets</ng-template>
-        <form [formGroup]="createEventForm.get('tickets')"></form>
+        <form [formGroup]="createEventForm.get('tickets')" fxLayout="column">
+            <mat-form-field>
+                <input formControlName="availableSeats" matInput placeholder="Max tickets" type="number" required>
+            </mat-form-field>
+        </form>
     </mat-step>
 </mat-horizontal-stepper>
 
