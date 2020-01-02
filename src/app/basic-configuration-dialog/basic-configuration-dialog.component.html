@@ -50,7 +50,7 @@
                     <input formControlName="SMTP_FROM_EMAIL" matInput [placeholder]="allConf.MAIL.SMTP_FROM_EMAIL.description">
                 </mat-form-field>
                 <mat-form-field>
-                    <textarea formControlName="SMTP_PROPERTIES" matInput [placeholder]="allConf.MAIL.SMTP_PROPERTIES.description"></textarea>
+                    <textarea formControlName="SMTP_PROPERTIES" matInput cdkTextareaAutosize [placeholder]="allConf.MAIL.SMTP_PROPERTIES.description"></textarea>
                 </mat-form-field>
             </div>
             <div *ngIf="basicConfiguration.value.MAIL.MAILER_TYPE === 'mailgun'" fxLayout="column">
