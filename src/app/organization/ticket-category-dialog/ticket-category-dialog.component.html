@@ -1,6 +1,12 @@
-<h1 mat-dialog-title>Ticket category</h1>
+<h2 mat-dialog-title>Ticket category</h2>
 <div mat-dialog-content>
-
+    <form [formGroup]="ticketCategoryForm" fxLayout="column">
+        <h3>Base information</h3>
+        <mat-form-field>
+            <input formControlName="name" matInput placeholder="Name" required>
+        </mat-form-field>
+        <h3>Tickets and sales</h3>
+    </form>
 </div>
 <div mat-dialog-actions fxLayoutAlign="end center">
     <button mat-button (click)="cancel()">Cancel</button>

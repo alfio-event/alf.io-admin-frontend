@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Language } from 'src/app/model/language';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-ticket-category-dialog',
@@ -8,7 +10,19 @@ import { MatDialogRef } from '@angular/material';
 })
 export class TicketCategoryDialogComponent implements OnInit {
 
-  constructor(private dialogRef: MatDialogRef<TicketCategoryDialogComponent>) { }
+  selectedLanguages: Language[];
+  ticketCategoryForm: FormGroup;
+
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private dialogRef: MatDialogRef<TicketCategoryDialogComponent>,
+    fb: FormBuilder
+    ) {
+      this.selectedLanguages = data.selectedLanguages;
+      this.ticketCategoryForm = fb.group({
+        name: null
+      });
+    }
 
   ngOnInit() {
   }

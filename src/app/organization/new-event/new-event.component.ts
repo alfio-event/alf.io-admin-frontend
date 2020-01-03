@@ -160,8 +160,8 @@ export class NewEventComponent implements OnInit {
   }
 
   newCategory() {
-    this.dialog.open(TicketCategoryDialogComponent, { width: '600px' }).afterClosed().subscribe(res => {
+    this.dialog.open(TicketCategoryDialogComponent, { width: '600px', data: { languages: this.selectedLanguages } }).afterClosed().subscribe(res => {
       console.log(res);
-    })
+    });
   }
 }
