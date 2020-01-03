@@ -8,6 +8,7 @@ import { startWith, map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { PaymentProxy, PAYMENT_PROXY_DESCRIPTION } from 'src/app/model/payment-proxy';
 import { MatDialog } from '@angular/material';
+import { TicketCategoryDialogComponent } from '../ticket-category-dialog/ticket-category-dialog.component';
 
 @Component({
   selector: 'app-new-event',
@@ -156,5 +157,11 @@ export class NewEventComponent implements OnInit {
         this.createEventForm.get('eventInfo.fileBlobId').setValue(fileId);
       });
     }
+  }
+
+  newCategory() {
+    this.dialog.open(TicketCategoryDialogComponent, { width: '600px' }).afterClosed().subscribe(res => {
+      console.log(res);
+    })
   }
 }
