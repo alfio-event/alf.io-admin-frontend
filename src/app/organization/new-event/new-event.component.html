@@ -8,6 +8,7 @@
     <mat-step [stepControl]="createEventForm.get('eventInfo')">
         <ng-template matStepLabel>Event info</ng-template>
         <form [formGroup]="createEventForm.get('eventInfo')" fxLayout="column">
+            <h3>Basic info</h3>
             <mat-form-field>
                 <input formControlName="displayName" matInput placeholder="Event name" required (change)=updateURL($event.target.value)>
             </mat-form-field>
@@ -49,6 +50,8 @@
                     <input formControlName="endTime" required matInput placeholder="Event end time">
                 </mat-form-field>
             </div>
+            <h3>Event Description</h3>
+            <p>Add the event description in different languages. Adding a description for a given language enables the support for that language.</p>
             <ng-container *ngFor="let lang of selectedLanguages" [formGroup]="createEventForm.get('eventInfo.description')">
                 <mat-form-field>
                     <textarea [formControlName]="lang.locale" matInput cdkTextareaAutosize [placeholder]="'Event Description (' + lang.displayLanguage + ')'" required></textarea>
@@ -63,6 +66,8 @@
                 </mat-menu>
                 <button type="button" color="primary" mat-button [matMenuTriggerFor]="languageSelectorMenu"><mat-icon svgIcon="add"></mat-icon> Add translation</button>
             </p>
+            <h3>Logo</h3>
+            <p>Upload the event logo in PNG or JPG format.</p>
             <p>
                 <input type="file" accept="image/png, image/jpeg" (change)="handleSelectedLogoFile($event.target.files)">
                 <img *ngIf="createEventForm.value.eventInfo.fileBlobId" [src]="'/file/'+createEventForm.value.eventInfo.fileBlobId">
@@ -72,6 +77,8 @@
     <mat-step [stepControl]="createEventForm.get('links')">
         <ng-template matStepLabel>Links</ng-template>
         <form [formGroup]="createEventForm.get('links')" fxLayout="column">
+            <h3>URLs Configuration</h3>
+            <p>Define where the relevant links should point.</p>
             <mat-form-field>
                 <input formControlName="websiteUrl" matInput placeholder="Website link" type="url" required>
             </mat-form-field>
