@@ -61,7 +61,7 @@
                 <mat-menu #languageSelectorMenu="matMenu">
                     <button (click)="addLanguage(l)" mat-menu-item *ngFor="let l of otherLanguages">{{l.displayLanguage}}</button>
                 </mat-menu>
-                <button type="button" mat-icon-button [matMenuTriggerFor]="languageSelectorMenu">Add translation</button>
+                <button type="button" color="primary" mat-button [matMenuTriggerFor]="languageSelectorMenu"><mat-icon svgIcon="add"></mat-icon> Add translation</button>
             </p>
             <p>
                 <input type="file" accept="image/png, image/jpeg" (change)="handleSelectedLogoFile($event.target.files)">
@@ -122,9 +122,14 @@
     <mat-step [stepControl]="createEventForm.get('tickets')">
         <ng-template matStepLabel>Tickets</ng-template>
         <form [formGroup]="createEventForm.get('tickets')" fxLayout="column">
+            <h3>Seats info</h3>
             <mat-form-field>
                 <input formControlName="availableSeats" matInput placeholder="Max tickets" type="number" required>
             </mat-form-field>
+            <h3>Categories</h3>
+            <p>Here you can define all the ticket categories for the event. Please note that at least one category is required in order to create the event.</p>
+            <p *ngIf="createEventForm.value.tickets.availableSeats == null">Please define the number of seats (Max Tickets)</p>
+            <p><button type="button" color="primary" mat-button><mat-icon svgIcon="add"></mat-icon> Add ticket category</button></p>
         </form>
     </mat-step>
 </mat-horizontal-stepper>

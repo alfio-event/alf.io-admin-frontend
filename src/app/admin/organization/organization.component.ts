@@ -19,7 +19,7 @@ export class OrganizationComponent implements OnInit {
     private organizationService: OrganizationService,
     private route: ActivatedRoute,
     private router: Router,
-    private dialog: MatDialog,
+    private dialog: MatDialog
     ) { }
 
   ngOnInit() {

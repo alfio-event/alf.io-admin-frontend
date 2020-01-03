@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { PaymentProxy, PAYMENT_PROXY_DESCRIPTION } from 'src/app/model/payment-proxy';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-new-event',
@@ -30,7 +31,8 @@ export class NewEventComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private eventSupportService: EventSupportService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    private dialog: MatDialog) {
 
       this.createEventForm = fb.group({
         eventInfo: fb.group({
