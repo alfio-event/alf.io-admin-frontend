@@ -20,7 +20,10 @@ export class TicketCategoryDialogComponent implements OnInit {
     ) {
       this.selectedLanguages = data.selectedLanguages;
       this.ticketCategoryForm = fb.group({
-        name: null
+        name: null,
+        tokenGenerationRequested: false,
+        bounded: false,
+        maxTickets: null
       });
     }
 

@@ -6,6 +6,23 @@
             <input formControlName="name" matInput placeholder="Name" required>
         </mat-form-field>
         <h3>Tickets and sales</h3>
+        <mat-form-field>
+            <label>Visibility</label>
+            <mat-select formControlName="tokenGenerationRequested">
+                <mat-option [value]="false">Public</mat-option>
+                <mat-option [value]="true">Hidden</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <label>Ticket allocation strategy</label>
+            <mat-select formControlName="bounded">
+                <mat-option [value]="false">Grow dynamically</mat-option>
+                <mat-option [value]="true">Fixed number of tickets</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field *ngIf="ticketCategoryForm.value.bounded">
+            <input formControlName="maxTickets" matInput placeholder="Number of tickets" type="number">
+        </mat-form-field>
     </form>
 </div>
 <div mat-dialog-actions fxLayoutAlign="end center">
