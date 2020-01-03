@@ -23,7 +23,11 @@ export class TicketCategoryDialogComponent implements OnInit {
         name: null,
         tokenGenerationRequested: false,
         bounded: false,
-        maxTickets: null
+        maxTickets: null,
+        startDate: null,
+        startTime: null,
+        endDate: null,
+        endTime: null
       });
     }
 

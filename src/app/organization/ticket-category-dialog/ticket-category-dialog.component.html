@@ -23,6 +23,26 @@
         <mat-form-field *ngIf="ticketCategoryForm.value.bounded">
             <input formControlName="maxTickets" matInput placeholder="Number of tickets" type="number">
         </mat-form-field>
+        <div fxLayout="row">
+            <mat-form-field fxFlex="50%" class="padding-right-10">
+                <input formControlName="startDate" required matInput [matDatepicker]="pickerStart" readonly="true" placeholder="Sale start date" (click)="pickerStart.open()" (focus)="pickerStart.open()">
+                <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+                <mat-datepicker #pickerStart></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field fxFlex="50%">
+                <input formControlName="startTime" required matInput placeholder="Sale start time">
+            </mat-form-field>
+        </div>
+        <div fxLayout="row">
+            <mat-form-field fxFlex="50%" class="padding-right-10">
+                <input formControlName="endDate" required matInput [matDatepicker]="pickerEnd" readonly="true" placeholder="Sale end date" (click)="pickerEnd.open()" (focus)="pickerEnd.open()">
+                <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+                <mat-datepicker #pickerEnd></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field fxFlex="50%">
+                <input formControlName="endTime" required matInput placeholder="Sale end time">
+            </mat-form-field>
+        </div>
     </form>
 </div>
 <div mat-dialog-actions fxLayoutAlign="end center">
