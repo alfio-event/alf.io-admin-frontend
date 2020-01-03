@@ -19,6 +19,7 @@ export class TicketCategoryDialogComponent implements OnInit {
     fb: FormBuilder
     ) {
       this.selectedLanguages = data.selectedLanguages;
+      let originalCategory = data.category;
       this.ticketCategoryForm = fb.group({
         name: null,
         tokenGenerationRequested: false,
@@ -29,9 +30,16 @@ export class TicketCategoryDialogComponent implements OnInit {
         endDate: null,
         endTime: null
       });
+      if (originalCategory) {
+        this.ticketCategoryForm.patchValue(originalCategory);
+      }
     }
 
   ngOnInit() {
+  }
+
+  save() {
+    this.dialogRef.close(this.ticketCategoryForm.value);
   }
 
   cancel() {

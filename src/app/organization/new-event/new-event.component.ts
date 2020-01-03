@@ -26,6 +26,7 @@ export class NewEventComponent implements OnInit {
   mapUrl: string;
   baseUrl: string;
   activePaymentProxies: PaymentProxy[] = [];
+  ticketCategories: any[] = [];
 
   filteredCurrencies: Observable<Currency[]>;
 
@@ -161,7 +162,21 @@ export class NewEventComponent implements OnInit {
 
   newCategory() {
     this.dialog.open(TicketCategoryDialogComponent, { width: '600px', data: { languages: this.selectedLanguages } }).afterClosed().subscribe(res => {
-      console.log(res);
+      if (res) {
+        this.ticketCategories.push(res);
+      }
+    });
+  }
+
+  removeCategory(category) {
+    this.ticketCategories.splice(this.ticketCategories.indexOf(category), 1)
+  }
+
+  editCategory(category) {
+    this.dialog.open(TicketCategoryDialogComponent, {width: '600px', data: {languages: this.selectedLanguages, category: category}}).afterClosed().subscribe(res => {
+      if (res) {
+        this.ticketCategories[this.ticketCategories.indexOf(category)] = res;
+      }
     });
   }
 }

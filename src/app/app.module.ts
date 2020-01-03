@@ -13,7 +13,7 @@ import { MatToolbarModule, MatIconModule, MatInputModule, MatSidenavModule,
   MatChipsModule, MatFormFieldModule, MatSnackBarModule, MatDialogModule,
   MatCheckboxModule, MatPaginatorModule, MatRadioModule, MatSlideToggleModule,
   MatMenuModule, MatStepperModule, MatDatepickerModule, MatNativeDateModule,
-  MatAutocompleteModule } from  '@angular/material';
+  MatAutocompleteModule, MatCardModule } from  '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { EventsComponent } from './organization/events/events.component';
@@ -73,7 +73,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatChipsModule, MatFormFieldModule, MatSnackBarModule, MatDialogModule,
     MatCheckboxModule, MatPaginatorModule, MatRadioModule, MatSlideToggleModule,
     MatMenuModule, MatStepperModule, MatDatepickerModule, MatNativeDateModule,
-    MatAutocompleteModule,
+    MatAutocompleteModule, MatCardModule,
     //
     FlexLayoutModule,
     FormsModule,
