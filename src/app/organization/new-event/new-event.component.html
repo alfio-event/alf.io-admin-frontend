@@ -133,7 +133,7 @@
             <mat-form-field>
                 <input formControlName="availableSeats" matInput placeholder="Max tickets" type="number" required>
             </mat-form-field>
-            <h3>Categories</h3>
+            <h3>Tickets categories</h3>
             <p>Here you can define all the ticket categories for the event. Please note that at least one category is required in order to create the event.</p>
             <p *ngIf="createEventForm.value.tickets.availableSeats == null">Please define the number of seats (Max Tickets)</p>
 
@@ -153,6 +153,14 @@
             </div>
 
             <p><button type="button" color="primary" mat-button (click)="newCategory()"><mat-icon svgIcon="add"></mat-icon> Add ticket category</button></p>
+        </form>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Summary</ng-template>
+        <form fxLayout="column" (submit)="createEvent()">
+            <pre>{{createEventForm.value|json}}</pre>
+            <pre>{{ticketCategories|json}}</pre>
+            <button mat-button type="submit">Save</button>
         </form>
     </mat-step>
 </mat-horizontal-stepper>

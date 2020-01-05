@@ -4,11 +4,13 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Currency } from 'src/app/model/currency';
 import { Language } from 'src/app/model/language';
 import { Observable } from 'rxjs';
-import { startWith, map } from 'rxjs/operators';
+import { startWith, map, flatMap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { PaymentProxy, PAYMENT_PROXY_DESCRIPTION } from 'src/app/model/payment-proxy';
 import { MatDialog } from '@angular/material';
 import { TicketCategoryDialogComponent } from '../ticket-category-dialog/ticket-category-dialog.component';
+import { EventService } from 'src/app/shared/event.service';
+import { OrganizationService } from 'src/app/shared/organization.service';
 
 @Component({
   selector: 'app-new-event',
@@ -18,6 +20,8 @@ import { TicketCategoryDialogComponent } from '../ticket-category-dialog/ticket-
 export class NewEventComponent implements OnInit {
 
   createEventForm: FormGroup;
+
+  orgName: string;
 
   timezones: string[] = [];
   currencies: Currency[] = [];
@@ -33,6 +37,8 @@ export class NewEventComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private eventSupportService: EventSupportService,
+    private eventService: EventService,
+    private organizationService: OrganizationService,
     private fb: FormBuilder,
     private dialog: MatDialog) {
 
@@ -82,11 +88,11 @@ export class NewEventComponent implements OnInit {
         this.baseUrl = baseUrl;
       });
 
-      const orgName = this.route.snapshot.paramMap.get('org');
+      this.orgName = this.route.snapshot.paramMap.get('org');
 
       const selectedPaymentProxiesFormGroup: FormGroup = this.createEventForm.get('payment.paymentProxies') as FormGroup;
 
-      eventSupportService.getPaymentProxies(orgName).subscribe(res => {
+      eventSupportService.getPaymentProxies(this.orgName).subscribe(res => {
         this.activePaymentProxies = res.filter(p => p.active);
         this.activePaymentProxies.forEach(v => {
           selectedPaymentProxiesFormGroup.addControl(v.paymentProxy, this.fb.control(null));
@@ -122,6 +128,10 @@ export class NewEventComponent implements OnInit {
     this.selectedLanguages.splice(this.selectedLanguages.indexOf(lang), 1);
     let fg = this.createEventForm.get('eventInfo.description') as FormGroup;
     fg.removeControl(lang.locale);
+  }
+
+  getSelectedLanguagesValue() {
+    return this.selectedLanguages.map(l => l.value).reduce((previous, current) => previous | current)
   }
 
   get otherLanguages(): Language[] {
@@ -177,6 +187,56 @@ export class NewEventComponent implements OnInit {
       if (res) {
         this.ticketCategories[this.ticketCategories.indexOf(category)] = res;
       }
+    });
+  }
+
+  createEvent() {
+    let eventFormValue = this.createEventForm.value;
+    let eventInfo = eventFormValue.eventInfo;
+    let eventLinks = eventFormValue.links;
+    let tickets = eventFormValue.tickets;
+
+    this.organizationService.getOrganizationId(this.orgName).pipe(map(orgId => {
+      return {
+        type: 'INTERNAL',
+        freeOfCharge: eventFormValue.payment.freeOfCharge,
+        begin: this.eventSupportService.fromDateAndTime(eventInfo.startDate, eventInfo.startTime),
+        end: this.eventSupportService.fromDateAndTime(eventInfo.endDate, eventInfo.endTime),
+        ticketCategories: this.buildTicketCategory(),
+        additionalServices: [],
+        locales: this.getSelectedLanguagesValue(),
+        organizationId: orgId,
+        displayName: eventInfo.displayName,
+        shortName: eventInfo.shortName,
+        location: eventInfo.location,
+        geolocation: {
+          timeZone: eventInfo.timeZone
+        },
+        description: eventInfo.description,
+        websiteUrl: eventLinks.websiteUrl,
+        termsAndConditionsUrl: eventLinks.termsAndConditionsUrl,
+        fileBlobId: eventInfo.fileBlobId,
+        availableSeats: tickets.availableSeats,
+        zoneId: eventInfo.timeZone
+      }
+    }), flatMap(r => {
+      return this.eventService.createEvent(r)
+    })).subscribe(res => {
+      console.log(res);
+    });
+  }
+
+  buildTicketCategory() {
+    return this.ticketCategories.map((tc, idx) => {
+      return {
+        inception: this.eventSupportService.fromDateAndTime(tc.startDate, tc.startTime),
+        expiration: this.eventSupportService.fromDateAndTime(tc.endDate, tc.endTime),
+        tokenGenerationRequested: tc.tokenGenerationRequested,
+        sticky: true,
+        bounded: tc.bounded,
+        name: tc.name,
+        ordinal: idx
+      };
     });
   }
 }

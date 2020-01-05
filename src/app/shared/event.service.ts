@@ -27,4 +27,8 @@ export class EventService {
 
     }
 
+    createEvent(eventDescriptor): Observable<string> {
+        return this.http.post<string>('/admin/api/events/new', eventDescriptor);
+    }
+
 }

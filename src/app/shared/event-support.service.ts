@@ -131,9 +131,15 @@ export class EventSupportService {
         });
     };
 
-
     getPaymentProxies(organizationName: string): Observable<PaymentProxy[]> {
         return this.organizationService.getOrganizationId(organizationName)
             .pipe(flatMap(orgId => this.http.get<PaymentProxy[]>('/admin/api/paymentProxies/' + orgId)));
+    }
+
+    fromDateAndTime(date: Date, time: string): {date: string, time: string} {
+        let fullYear = date.getFullYear();
+        let month = ((date.getMonth() + 1) + '').padStart(2, '0');
+        let day = (date.getDate() + '').padStart(2, '0');
+        return {date: `${fullYear}-${month}-${day}`, time: time};
     }
 }
