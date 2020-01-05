@@ -46,6 +46,7 @@ export class NewEventComponent implements OnInit {
         eventInfo: fb.group({
           displayName: null,
           location: null,
+          geolocation: null,
           timeZone: null,
           startDate: null,
           startTime: null,
@@ -145,6 +146,7 @@ export class NewEventComponent implements OnInit {
     this.eventSupportService.clientGeolocate(location).subscribe(res => {
       if (res && res.timeZone) {
         this.createEventForm.get('eventInfo').get('timeZone').setValue(res.timeZone);
+        this.createEventForm.get('eventInfo').get('geolocation').patchValue(res);
         this.mapUrl = res.mapUrl;
       }
     });
@@ -196,6 +198,8 @@ export class NewEventComponent implements OnInit {
     let eventLinks = eventFormValue.links;
     let tickets = eventFormValue.tickets;
 
+    let geolocation = eventInfo.geolocation;
+
     this.organizationService.getOrganizationId(this.orgName).pipe(map(orgId => {
       return {
         type: 'INTERNAL',
@@ -209,15 +213,15 @@ export class NewEventComponent implements OnInit {
         displayName: eventInfo.displayName,
         shortName: eventInfo.shortName,
         location: eventInfo.location,
-        geolocation: {
-          timeZone: eventInfo.timeZone
-        },
+        geolocation: geolocation,
         description: eventInfo.description,
         websiteUrl: eventLinks.websiteUrl,
         termsAndConditionsUrl: eventLinks.termsAndConditionsUrl,
         fileBlobId: eventInfo.fileBlobId,
         availableSeats: tickets.availableSeats,
-        zoneId: eventInfo.timeZone
+        zoneId: eventInfo.timeZone,
+        latitude: geolocation ? geolocation.latitude : null,
+        longitude: geolocation ? geolocation.longitude : null
       }
     }), flatMap(r => {
       return this.eventService.createEvent(r)
