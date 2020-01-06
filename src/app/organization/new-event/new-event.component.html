@@ -31,23 +31,25 @@
                 </mat-select>
             </mat-form-field>
             <div fxLayout="row">
-                <mat-form-field fxFlex="50%" class="padding-right-10">
+                <mat-form-field fxFlex="25%" class="padding-right-10">
                     <input formControlName="startDate" required matInput [matDatepicker]="pickerStart" readonly="true" placeholder="Event start date" (click)="pickerStart.open()" (focus)="pickerStart.open()">
                     <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
                     <mat-datepicker #pickerStart></mat-datepicker>
                 </mat-form-field>
-                <mat-form-field fxFlex="50%">
-                    <input formControlName="startTime" required matInput placeholder="Event start time">
+                <mat-form-field fxFlex="25%" class="padding-right-10">
+                    <mat-select required formControlName="startTime" placeholder="Event start time">
+                        <mat-option *ngFor="let time of times" [value]="time">{{time}}</mat-option>
+                    </mat-select>
                 </mat-form-field>
-            </div>
-            <div fxLayout="row">
-                <mat-form-field fxFlex="50%" class="padding-right-10">
+                <mat-form-field fxFlex="25%" class="padding-right-10">
                     <input formControlName="endDate" required matInput [matDatepicker]="pickerEnd" readonly="true" placeholder="Event end date" (click)="pickerEnd.open()" (focus)="pickerEnd.open()">
                     <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
                     <mat-datepicker #pickerEnd></mat-datepicker>
                 </mat-form-field>
-                <mat-form-field fxFlex="50%">
-                    <input formControlName="endTime" required matInput placeholder="Event end time">
+                <mat-form-field fxFlex="25%">
+                    <mat-select required formControlName="endTime" placeholder="Event end time">
+                        <mat-option *ngFor="let time of times" [value]="time">{{time}}</mat-option>
+                    </mat-select>
                 </mat-form-field>
             </div>
             <h3>Event Description</h3>

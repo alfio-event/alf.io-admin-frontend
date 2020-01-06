@@ -31,6 +31,7 @@ export class NewEventComponent implements OnInit {
   baseUrl: string;
   activePaymentProxies: PaymentProxy[] = [];
   ticketCategories: any[] = [];
+  times: string[];
 
   filteredCurrencies: Observable<Currency[]>;
 
@@ -100,6 +101,8 @@ export class NewEventComponent implements OnInit {
           v.description = PAYMENT_PROXY_DESCRIPTION[v.paymentProxy];
         });
       });
+
+      this.times = eventSupportService.getTimes();
     }
 
   ngOnInit() {

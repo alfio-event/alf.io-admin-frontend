@@ -142,4 +142,14 @@ export class EventSupportService {
         let day = (date.getDate() + '').padStart(2, '0');
         return {date: `${fullYear}-${month}-${day}`, time: time};
     }
+
+    getTimes(): string[] {
+        let res = [];
+        for (let i = 0; i < 24; i++) {
+            [':00', ':15', ':30', ':45'].forEach(m => {
+                res.push((i+'').padStart(2, '0') + m);
+            })
+        }
+        return res;
+    }
 }

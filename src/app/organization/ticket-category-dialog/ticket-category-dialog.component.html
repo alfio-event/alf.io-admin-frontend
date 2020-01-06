@@ -30,7 +30,9 @@
                 <mat-datepicker #pickerStart></mat-datepicker>
             </mat-form-field>
             <mat-form-field fxFlex="50%">
-                <input formControlName="startTime" required matInput placeholder="Sale start time">
+                <mat-select formControlName="startTime" required placeholder="Sale start time">
+                    <mat-option *ngFor="let time of times" [value]="time">{{time}}</mat-option>
+                </mat-select>
             </mat-form-field>
         </div>
         <div fxLayout="row">
@@ -40,7 +42,9 @@
                 <mat-datepicker #pickerEnd></mat-datepicker>
             </mat-form-field>
             <mat-form-field fxFlex="50%">
-                <input formControlName="endTime" required matInput placeholder="Sale end time">
+                <mat-select formControlName="endTime" required placeholder="Sale end time">
+                    <mat-option *ngFor="let time of times" [value]="time">{{time}}</mat-option>
+                </mat-select>
             </mat-form-field>
         </div>
     </form>

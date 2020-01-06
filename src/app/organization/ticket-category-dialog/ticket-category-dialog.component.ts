@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Language } from 'src/app/model/language';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { EventSupportService } from 'src/app/shared/event-support.service';
 
 @Component({
   selector: 'app-ticket-category-dialog',
@@ -12,11 +13,13 @@ export class TicketCategoryDialogComponent implements OnInit {
 
   selectedLanguages: Language[];
   ticketCategoryForm: FormGroup;
+  times: string[];
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<TicketCategoryDialogComponent>,
-    fb: FormBuilder
+    fb: FormBuilder,
+    eventSupportService: EventSupportService
     ) {
       this.selectedLanguages = data.selectedLanguages;
       let originalCategory = data.category;
@@ -33,6 +36,7 @@ export class TicketCategoryDialogComponent implements OnInit {
       if (originalCategory) {
         this.ticketCategoryForm.patchValue(originalCategory);
       }
+      this.times = eventSupportService.getTimes();
     }
 
   ngOnInit() {
