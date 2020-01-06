@@ -3,6 +3,8 @@ import { UserService } from '../../shared/user.service';
 import { User, Role, RoleDescriptor } from '../../model/user';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material';
+import { NewEditApiKeyDialogComponent } from './new-edit-api-key-dialog/new-edit-api-key-dialog.component';
 
 @Component({
   selector: 'app-api-keys',
@@ -18,17 +20,28 @@ export class ApiKeysComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit() {
 
-    const orgName = this.route.snapshot.paramMap.get('org');
+    this.loadApiKeys();
 
+    this.rolesDescriptor$ = this.userService.getRolesDescriptor();
+  }
+
+  private loadApiKeys() {
+    const orgName = this.route.snapshot.paramMap.get('org');
     this.userService.getApiKeys(orgName).subscribe(apiKeys => {
       this.apiKeys = apiKeys;
     });
-    this.rolesDescriptor$ = this.userService.getRolesDescriptor();
+  }
+
+  newApiKey(): void {
+    this.dialog.open(NewEditApiKeyDialogComponent, { width: '600px', data: null }).afterClosed().subscribe(o => {
+      
+    });
   }
 
 }
