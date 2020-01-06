@@ -31,16 +31,21 @@ export class ApiKeysComponent implements OnInit {
     this.rolesDescriptor$ = this.userService.getRolesDescriptor();
   }
 
+  private getOrganizationName(): string {
+    return this.route.snapshot.paramMap.get('org');;
+  }
+
   private loadApiKeys() {
-    const orgName = this.route.snapshot.paramMap.get('org');
-    this.userService.getApiKeys(orgName).subscribe(apiKeys => {
+    this.userService.getApiKeys(this.getOrganizationName()).subscribe(apiKeys => {
       this.apiKeys = apiKeys;
     });
   }
 
   newApiKey(): void {
-    this.dialog.open(NewEditApiKeyDialogComponent, { width: '600px', data: null }).afterClosed().subscribe(o => {
-      
+    this.dialog.open(NewEditApiKeyDialogComponent, { width: '600px', data: { organizationName: this.getOrganizationName()} }).afterClosed().subscribe(o => {
+      if (o) {
+        this.loadApiKeys();
+      }
     });
   }
 

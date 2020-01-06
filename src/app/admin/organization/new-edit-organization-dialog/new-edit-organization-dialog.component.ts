@@ -18,9 +18,6 @@ export class NewEditOrganizationDialogComponent implements OnInit {
     private organizationService: OrganizationService,
     fb: FormBuilder
   ) {
-
-    console.log(orgToEdit)
-
     let fg = {id: null, name: null, email: null, description: null};
     if (orgToEdit) {
       fg.name = [orgToEdit.name];
@@ -28,7 +25,6 @@ export class NewEditOrganizationDialogComponent implements OnInit {
       fg.description = [orgToEdit.description];
       fg.id = [orgToEdit.id];
     }
-
     this.newOrgForm = fb.group(fg);
   }
 

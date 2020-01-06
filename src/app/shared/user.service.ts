@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User, RoleDescriptor, UserType, Role, UserInfo } from '../model/user';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, flatMap } from 'rxjs/operators';
+import { OrganizationService } from './organization.service';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private organizationService: OrganizationService) {
     }
 
     getUsers(orgName: string): Observable<User[]> {
@@ -31,6 +32,18 @@ export class UserService {
                 res[roleDesc.role] = roleDesc;
             });
             return res;
+        }));
+    }
+
+    createApiKey(orgName: string, newApiKey: {role: string, description: string}): Observable<any> {
+        return this.organizationService.getOrganizationId(orgName).pipe(flatMap(orgId => {
+            return this.http.post('/admin/api/users/new', {
+                type: "API_KEY", 
+                target: "API_KEY",
+                role: newApiKey.role,
+                organizationId: orgId,
+                description: newApiKey.description
+            }, { params: {baseUrl: window.location.origin }});
         }));
     }
 

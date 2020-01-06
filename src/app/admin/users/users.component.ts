@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/shared/user.service';
-import { User, Role, RoleDescriptor } from 'src/app/model/user';
+import { User, Role, RoleDescriptor, UserType } from 'src/app/model/user';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -18,7 +18,7 @@ export class UsersComponent implements OnInit {
 
   ngOnInit() {
     this.userService.getAllUsers().subscribe(users => {
-      this.users = users;
+      this.users = users.filter(u => u.type !== UserType.API_KEY);
     });
     this.rolesDescriptor$ = this.userService.getRolesDescriptor();
   }
