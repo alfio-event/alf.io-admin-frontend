@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { NewEditApiKeyDialogComponent } from './new-edit-api-key-dialog/new-edit-api-key-dialog.component';
+import { ConfirmDialogComponent } from 'src/app/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-api-keys',
@@ -13,7 +14,7 @@ import { NewEditApiKeyDialogComponent } from './new-edit-api-key-dialog/new-edit
 export class ApiKeysComponent implements OnInit {
 
   apiKeys: User[];
-  apiKeysDisplayColumns = ['enabled', 'apiKey', 'description', 'role'];
+  apiKeysDisplayColumns = ['enabled', 'apiKey', 'description', 'role', 'actions'];
 
   rolesDescriptor$: Observable<{ [key in Role]?: RoleDescriptor }>
 
@@ -45,6 +46,17 @@ export class ApiKeysComponent implements OnInit {
     this.dialog.open(NewEditApiKeyDialogComponent, { width: '600px', data: { organizationName: this.getOrganizationName()} }).afterClosed().subscribe(o => {
       if (o) {
         this.loadApiKeys();
+      }
+    });
+  }
+
+  deleteApiKey(apiKey: User) {
+    let msg = 'The api key ' + apiKey.username + ' will be deleted. Are you sure?';
+    this.dialog.open(ConfirmDialogComponent, {width: '400px', data: {title: 'Confirm deletion', message: msg}}).afterClosed().subscribe(res => {
+      if (res) {
+        this.userService.deleteUser(apiKey).subscribe(res => {
+          this.loadApiKeys();
+        })
       }
     });
   }

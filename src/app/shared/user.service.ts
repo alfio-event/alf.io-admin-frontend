@@ -54,4 +54,8 @@ export class UserService {
     logout(): Observable<any> {
         return this.http.post('/logout', {});
     }
+
+    deleteUser(user: User): Observable<string> {
+        return this.http.delete<string>(`/admin/api/users/${user.id}`);
+    }
 }
