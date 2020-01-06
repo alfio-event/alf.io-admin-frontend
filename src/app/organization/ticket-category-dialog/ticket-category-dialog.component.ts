@@ -3,6 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Language } from 'src/app/model/language';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { EventSupportService } from 'src/app/shared/event-support.service';
+import { deleteIcon } from 'src/app/icons';
 
 @Component({
   selector: 'app-ticket-category-dialog',
@@ -14,19 +15,24 @@ export class TicketCategoryDialogComponent implements OnInit {
   selectedLanguages: Language[];
   ticketCategoryForm: FormGroup;
   times: string[];
+  freeOfCharge: boolean;
+  currency: string;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public data: TicketCategoryDialogData,
     private dialogRef: MatDialogRef<TicketCategoryDialogComponent>,
     fb: FormBuilder,
     eventSupportService: EventSupportService
     ) {
       this.selectedLanguages = data.selectedLanguages;
-      let originalCategory = data.category;
+      let originalCategory = data.originalCategory;
+      this.freeOfCharge = data.freeOfCharge;
+      this.currency = data.currency;
       this.ticketCategoryForm = fb.group({
         name: null,
         tokenGenerationRequested: false,
         bounded: false,
+        price: data.regularPrice,
         maxTickets: null,
         startDate: null,
         startTime: null,
@@ -50,4 +56,14 @@ export class TicketCategoryDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
+}
+
+export class TicketCategoryDialogData {
+  constructor(
+    public selectedLanguages: Language[],
+    public originalCategory: any,
+    public freeOfCharge: boolean,
+    public currency: string,
+    public regularPrice: number) {
+    }
 }

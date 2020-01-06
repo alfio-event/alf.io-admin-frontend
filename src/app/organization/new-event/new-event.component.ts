@@ -8,7 +8,7 @@ import { startWith, map, flatMap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { PaymentProxy, PAYMENT_PROXY_DESCRIPTION } from 'src/app/model/payment-proxy';
 import { MatDialog } from '@angular/material';
-import { TicketCategoryDialogComponent } from '../ticket-category-dialog/ticket-category-dialog.component';
+import { TicketCategoryDialogComponent, TicketCategoryDialogData } from '../ticket-category-dialog/ticket-category-dialog.component';
 import { EventService } from 'src/app/shared/event.service';
 import { OrganizationService } from 'src/app/shared/organization.service';
 
@@ -176,7 +176,11 @@ export class NewEventComponent implements OnInit {
   }
 
   newCategory() {
-    this.dialog.open(TicketCategoryDialogComponent, { width: '600px', data: { languages: this.selectedLanguages } }).afterClosed().subscribe(res => {
+    let freeOfCharge = this.createEventForm.value.payment.freeOfCharge;
+    let currency = this.createEventForm.value.payment.currency;
+    let regularPrice = this.createEventForm.value.payment.regularPrice;
+    let tcd = new TicketCategoryDialogData(this.selectedLanguages, undefined, freeOfCharge, currency, regularPrice);
+    this.dialog.open(TicketCategoryDialogComponent, { width: '600px', data: tcd}).afterClosed().subscribe(res => {
       if (res) {
         this.ticketCategories.push(res);
       }
@@ -188,7 +192,11 @@ export class NewEventComponent implements OnInit {
   }
 
   editCategory(category) {
-    this.dialog.open(TicketCategoryDialogComponent, {width: '600px', data: {languages: this.selectedLanguages, category: category}}).afterClosed().subscribe(res => {
+    let freeOfCharge = this.createEventForm.value.payment.freeOfCharge;
+    let currency = this.createEventForm.value.payment.currency;
+    let regularPrice = this.createEventForm.value.payment.regularPrice;
+    let tcd = new TicketCategoryDialogData(this.selectedLanguages, category, freeOfCharge, currency, regularPrice);
+    this.dialog.open(TicketCategoryDialogComponent, {width: '600px', data: tcd}).afterClosed().subscribe(res => {
       if (res) {
         this.ticketCategories[this.ticketCategories.indexOf(category)] = res;
       }
@@ -204,7 +212,7 @@ export class NewEventComponent implements OnInit {
     let geolocation = eventInfo.geolocation;
 
     this.organizationService.getOrganizationId(this.orgName).pipe(map(orgId => {
-      return {
+      let r = {
         type: 'INTERNAL',
         freeOfCharge: eventFormValue.payment.freeOfCharge,
         begin: this.eventSupportService.fromDateAndTime(eventInfo.startDate, eventInfo.startTime),
@@ -225,7 +233,18 @@ export class NewEventComponent implements OnInit {
         zoneId: eventInfo.timeZone,
         latitude: geolocation ? geolocation.latitude : null,
         longitude: geolocation ? geolocation.longitude : null
+      };
+
+      if (!r.freeOfCharge) {
+        r['regularPrice'] = eventFormValue.payment.regularPrice;
+        r['currency'] = eventFormValue.payment.currency;
+        r['vatPercentage'] = eventFormValue.payment.vatPercentage;
+        r['vatIncluded'] = eventFormValue.payment.vatIncluded;
+        // transform {ON_SITE: true, OFFLINE: false} in  ['ON_SITE']
+        r['allowedPaymentProxies'] = Object.keys(eventFormValue.payment.paymentProxies).filter(k => eventFormValue.payment.paymentProxies[k]);
       }
+
+      return r;
     }), flatMap(r => {
       return this.eventService.createEvent(r)
     })).subscribe(res => {
@@ -242,7 +261,8 @@ export class NewEventComponent implements OnInit {
         sticky: true,
         bounded: tc.bounded,
         name: tc.name,
-        ordinal: idx
+        ordinal: idx,
+        price: tc.price
       };
     });
   }

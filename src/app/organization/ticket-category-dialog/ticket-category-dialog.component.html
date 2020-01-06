@@ -6,6 +6,10 @@
             <input formControlName="name" matInput placeholder="Name" required>
         </mat-form-field>
         <h3>Tickets and sales</h3>
+        <mat-form-field *ngIf="!freeOfCharge">
+            <input formControlName="price" matInput placeholder="Price" type="number">
+            <span matSuffix> {{currency}}</span>
+        </mat-form-field>
         <mat-form-field>
             <label>Visibility</label>
             <mat-select formControlName="tokenGenerationRequested">
