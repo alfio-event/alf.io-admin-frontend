@@ -23,7 +23,7 @@
 <mat-list *ngIf="events != null">
     <mat-list-item *ngFor="let event of events">
         <img matListAvatar [src]="'/file/'+event.fileBlobId" alt="logo">
-        <h3 matLine>{{event.displayName}} <span *ngIf="event.status === 'DRAFT'">(draft)</span></h3>
+        <h3 matLine><a [routerLink]="['event', event.shortName]">{{event.displayName}} <span *ngIf="event.status === 'DRAFT'">(draft)</span></a></h3>
         <p matLine>
             {{event.formattedBegin}} / {{event.formattedEnd}}
         </p>

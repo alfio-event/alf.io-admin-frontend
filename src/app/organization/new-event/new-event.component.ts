@@ -5,7 +5,7 @@ import { Currency } from 'src/app/model/currency';
 import { Language } from 'src/app/model/language';
 import { Observable } from 'rxjs';
 import { startWith, map, flatMap } from 'rxjs/operators';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PaymentProxy, PAYMENT_PROXY_DESCRIPTION } from 'src/app/model/payment-proxy';
 import { MatDialog } from '@angular/material';
 import { TicketCategoryDialogComponent, TicketCategoryDialogData } from '../ticket-category-dialog/ticket-category-dialog.component';
@@ -37,6 +37,7 @@ export class NewEventComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private eventSupportService: EventSupportService,
     private eventService: EventService,
     private organizationService: OrganizationService,
@@ -248,6 +249,9 @@ export class NewEventComponent implements OnInit {
     }), flatMap(r => {
       return this.eventService.createEvent(r)
     })).subscribe(res => {
+      if (res === 'OK') {
+        this.router.navigate(['organization', this.route.snapshot.params['org'], 'event', eventInfo.shortName]);
+      }
       console.log(res);
     });
   }
