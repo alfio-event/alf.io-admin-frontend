@@ -47,6 +47,22 @@ export class UserService {
         }));
     }
 
+    updateApiKey(orgName: string, apiKey: User): Observable<any> {
+        return this.organizationService.getOrganizationId(orgName).pipe(flatMap(orgId => {
+            return this.http.post('/admin/api/users/edit', {
+                id: apiKey.id,
+                organizationId: orgId,
+                role: apiKey.roles[0],
+                username: apiKey.username,
+                firstName: apiKey.firstName,
+                lastName: apiKey.lastName,
+                emailAddress: apiKey.emailAddress,
+                type: apiKey.type,
+                description: apiKey.description
+            });
+        }));
+    }
+
     getCurrent(): Observable<UserInfo> {
         return this.http.get<UserInfo>('/admin/api/users/current');
     }

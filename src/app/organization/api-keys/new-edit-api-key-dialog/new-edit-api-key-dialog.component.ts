@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { UserService } from 'src/app/shared/user.service';
-import { Role, RoleTarget, RoleDescriptor } from 'src/app/model/user';
+import { Role, RoleTarget, RoleDescriptor, User } from 'src/app/model/user';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 @Component({
@@ -15,25 +15,29 @@ export class NewEditApiKeyDialogComponent implements OnInit {
   roles: Role[] = [];
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) private data: {organizationName: string},
+    @Inject(MAT_DIALOG_DATA) private data: {organizationName: string, apiKey: User},
     private dialogRef: MatDialogRef<NewEditApiKeyDialogComponent>,
     private userService: UserService,
-    fb: FormBuilder, 
-    ) {
-    this.apiKeyForm = fb.group({
-      role: null,
-      description: null
+    private fb: FormBuilder) {
+  }
+
+  ngOnInit() {
+
+    let apiKey = this.data.apiKey;
+
+    this.apiKeyForm = this.fb.group({
+      role: apiKey ? apiKey.roles[0] : null,
+      description: apiKey ? apiKey.description : null
     });
 
-    userService.getRolesDescriptor().subscribe(r => {
+    this.userService.getRolesDescriptor().subscribe(r => {
       this.roleDescriptionMap = r;
       Object.keys(r).forEach(k => {
         if (r[k as Role].target === RoleTarget.API_KEY) {
           this.roles.push(k as Role);
         }
       });
-      console.log(this.roles);
-    })
+    });
   }
 
   cancel() {
@@ -48,7 +52,15 @@ export class NewEditApiKeyDialogComponent implements OnInit {
     })
   }
 
-  ngOnInit() {
+  update() {
+    let apiKey = {...this.data.apiKey,};
+    apiKey.description = this.apiKeyForm.value.description;
+    apiKey.roles = [this.apiKeyForm.value.role];
+    this.userService.updateApiKey(this.data.organizationName, apiKey).subscribe(res => {
+      if (res) {
+        this.dialogRef.close(true);
+      }
+    })
   }
 
 }

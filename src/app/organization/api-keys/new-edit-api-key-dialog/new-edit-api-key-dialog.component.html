@@ -1,4 +1,7 @@
-<h1 mat-dialog-title>Add new api key</h1>
+<h1 mat-dialog-title>
+    <ng-container *ngIf="!data.apiKey; else elseTitle">Add new api key</ng-container>
+    <ng-template #elseTitle>Edit api key {{data.apiKey.username}}</ng-template>
+</h1>
 <div mat-dialog-content>
     <form [formGroup]="apiKeyForm" fxLayout="column">
         <mat-form-field>
@@ -13,5 +16,8 @@
 </div>
 <div mat-dialog-actions fxLayoutAlign="end center">
     <button mat-button (click)="cancel()">Cancel</button>
-    <button mat-button color="primary" (click)="create()">Create</button>
+    <button *ngIf="!data.apiKey; else elseButton" mat-button color="primary" (click)="create()">Create</button>
+    <ng-template #elseButton>
+        <button mat-button color="primary" (click)="update()">Update</button>
+    </ng-template>
 </div>

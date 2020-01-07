@@ -50,6 +50,14 @@ export class ApiKeysComponent implements OnInit {
     });
   }
 
+  editApiKey(apiKey: User) {
+    this.dialog.open(NewEditApiKeyDialogComponent, { width: '600px', data: { organizationName: this.getOrganizationName(), apiKey: apiKey }}).afterClosed().subscribe(o => {
+      if (o) {
+        this.loadApiKeys();
+      }
+    });
+  }
+
   deleteApiKey(apiKey: User) {
     let msg = 'The api key ' + apiKey.username + ' will be deleted. Are you sure?';
     this.dialog.open(ConfirmDialogComponent, {width: '400px', data: {title: 'Confirm deletion', message: msg}}).afterClosed().subscribe(res => {
