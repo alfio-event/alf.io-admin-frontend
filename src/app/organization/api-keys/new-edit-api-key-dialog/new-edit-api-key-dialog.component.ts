@@ -15,7 +15,7 @@ export class NewEditApiKeyDialogComponent implements OnInit {
   roles: Role[] = [];
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) private data: {organizationName: string, apiKey: User},
+    @Inject(MAT_DIALOG_DATA) public data: {organizationName: string, apiKey: User},
     private dialogRef: MatDialogRef<NewEditApiKeyDialogComponent>,
     private userService: UserService,
     private fb: FormBuilder) {
