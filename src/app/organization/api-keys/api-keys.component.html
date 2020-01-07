@@ -28,10 +28,10 @@
     <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let apiKey">
-            <button mat-icon-button type="button" (click)="editApiKey(apiKey)">
+            <button mat-icon-button type="button" matTooltip="Edit api key" (click)="editApiKey(apiKey)">
                 <mat-icon svgIcon="edit"></mat-icon>
             </button>
-            <button mat-icon-button type="button" (click)="deleteApiKey(apiKey)">
+            <button mat-icon-button type="button" matTooltip="Delete api key" (click)="deleteApiKey(apiKey)">
                 <mat-icon svgIcon="delete"></mat-icon>
             </button>
         </td>

@@ -57,7 +57,7 @@
             <ng-container *ngFor="let lang of selectedLanguages" [formGroup]="createEventForm.get('eventInfo.description')">
                 <mat-form-field>
                     <textarea [formControlName]="lang.locale" matInput cdkTextareaAutosize [placeholder]="'Event Description (' + lang.displayLanguage + ')'" required></textarea>
-                    <button *ngIf="selectedLanguages.length > 1" (click)="removeLanguage(lang)" type="button" mat-icon-button matSuffix>
+                    <button *ngIf="selectedLanguages.length > 1" (click)="removeLanguage(lang)" type="button" matTooltip="Remove description" mat-icon-button matSuffix>
                         <mat-icon svgIcon="delete"></mat-icon>
                     </button>
                 </mat-form-field>
