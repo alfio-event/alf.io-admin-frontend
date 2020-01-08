@@ -74,4 +74,8 @@ export class UserService {
     deleteUser(user: User): Observable<string> {
         return this.http.delete<string>(`/admin/api/users/${user.id}`);
     }
+
+    toggleUser(user: User): Observable<string> {
+        return this.http.post<string>(`/admin/api/users/2/enable/${!user.enabled}`, {});
+    }
 }

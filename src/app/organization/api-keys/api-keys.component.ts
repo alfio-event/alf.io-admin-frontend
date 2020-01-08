@@ -50,6 +50,14 @@ export class ApiKeysComponent implements OnInit {
     });
   }
 
+  toggleVisibility(apiKey: User) {
+    this.userService.toggleUser(apiKey).subscribe(res => {
+      if (res) {
+        this.loadApiKeys();
+      }
+    });
+  }
+
   editApiKey(apiKey: User) {
     this.dialog.open(NewEditApiKeyDialogComponent, { width: '600px', data: { organizationName: this.getOrganizationName(), apiKey: apiKey }}).afterClosed().subscribe(o => {
       if (o) {

@@ -9,7 +9,7 @@ import { MatSnackBar, MatDialog, MatIconRegistry } from '@angular/material';
 import { ConfigurationService } from './shared/configuration.service';
 import { OrganizationSelectDialogComponent } from './organization-select-dialog/organization-select-dialog.component';
 import { BasicConfigurationDialogComponent } from './basic-configuration-dialog/basic-configuration-dialog.component';
-import { business, arrow_drop_down, search, add, person, edit, deleteIcon }  from './icons';
+import { business, arrow_drop_down, search, add, person, edit, deleteIcon, visibility, visibility_off }  from './icons';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 
@@ -45,6 +45,8 @@ export class AppComponent implements OnInit, OnDestroy {
     iconRegistry.addSvgIconLiteral('person', sanitizer.bypassSecurityTrustHtml(person));
     iconRegistry.addSvgIconLiteral('edit', sanitizer.bypassSecurityTrustHtml(edit));
     iconRegistry.addSvgIconLiteral('delete', sanitizer.bypassSecurityTrustHtml(deleteIcon));
+    iconRegistry.addSvgIconLiteral('visibility', sanitizer.bypassSecurityTrustHtml(visibility));
+    iconRegistry.addSvgIconLiteral('visibility_off', sanitizer.bypassSecurityTrustHtml(visibility_off));
   }
 
   ngOnInit() {
