@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../shared/user.service';
-import { User, Role, RoleDescriptor } from '../../model/user';
+import { User, Role, RoleDescriptor, RoleTarget } from '../../model/user';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material';
@@ -29,7 +29,7 @@ export class ApiKeysComponent implements OnInit {
 
     this.loadApiKeys();
 
-    this.rolesDescriptor$ = this.userService.getRolesDescriptor();
+    this.rolesDescriptor$ = this.userService.getRolesDescriptor(RoleTarget.API_KEY);
   }
 
   private getOrganizationName(): string {

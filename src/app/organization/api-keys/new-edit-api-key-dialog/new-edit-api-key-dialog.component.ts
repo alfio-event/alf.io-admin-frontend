@@ -30,13 +30,9 @@ export class NewEditApiKeyDialogComponent implements OnInit {
       description: apiKey ? apiKey.description : null
     });
 
-    this.userService.getRolesDescriptor().subscribe(r => {
+    this.userService.getRolesDescriptor(RoleTarget.API_KEY).subscribe(r => {
       this.roleDescriptionMap = r;
-      Object.keys(r).forEach(k => {
-        if (r[k as Role].target === RoleTarget.API_KEY) {
-          this.roles.push(k as Role);
-        }
-      });
+      this.roles = Object.keys(r) as Role[];
     });
   }
 

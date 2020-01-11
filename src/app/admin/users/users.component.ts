@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/shared/user.service';
-import { User, Role, RoleDescriptor, UserType } from 'src/app/model/user';
+import { User, Role, RoleDescriptor, UserType, RoleTarget } from 'src/app/model/user';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material';
 import { ConfirmDialogComponent } from 'src/app/confirm-dialog/confirm-dialog.component';
@@ -21,7 +21,7 @@ export class UsersComponent implements OnInit {
 
   ngOnInit() {
     this.loadUsers();
-    this.rolesDescriptor$ = this.userService.getRolesDescriptor();
+    this.rolesDescriptor$ = this.userService.getRolesDescriptor(RoleTarget.USER);
   }
 
   private loadUsers() {

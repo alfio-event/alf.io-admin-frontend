@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { User, RoleDescriptor, UserType, Role, UserInfo } from '../model/user';
+import { User, RoleDescriptor, UserType, Role, UserInfo, RoleTarget } from '../model/user';
 import { Observable } from 'rxjs';
 import { map, flatMap } from 'rxjs/operators';
 import { OrganizationService } from './organization.service';
@@ -25,11 +25,13 @@ export class UserService {
             map(users => users.filter(u => u.type === UserType.API_KEY).filter(u => u.memberOf.find(org => org.name === orgName))));
     }
 
-    getRolesDescriptor(): Observable<{ [key in Role]?: RoleDescriptor }> {
+    getRolesDescriptor(target: RoleTarget): Observable<{ [key in Role]?: RoleDescriptor }> {
         return this.http.get<RoleDescriptor[]>('/admin/api/roles').pipe(map(roleDesc => {
             const res: { [key in Role]?: RoleDescriptor } = {};
             roleDesc.forEach((roleDesc) => {
-                res[roleDesc.role] = roleDesc;
+                if(roleDesc.target === target) {
+                    res[roleDesc.role] = roleDesc;
+                }
             });
             return res;
         }));

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../shared/user.service';
-import { User, RoleDescriptor, Role } from '../../model/user';
+import { User, RoleDescriptor, Role, RoleTarget } from '../../model/user';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material';
@@ -25,7 +25,7 @@ export class UsersComponent implements OnInit {
 
   ngOnInit() {
     this.loadUsers();
-    this.rolesDescriptor$ = this.userService.getRolesDescriptor();
+    this.rolesDescriptor$ = this.userService.getRolesDescriptor(RoleTarget.USER);
   }
 
   private loadUsers() {
