@@ -4,8 +4,8 @@
 <div mat-dialog-content>
     <form [formGroup]="userForm" fxLayout="column">
         <mat-form-field>
-            <mat-select formControlName="organizationId" placeholder="Organization" required>
-                <mat-option *ngFor="let org of organizations" [value]="org.id">{{org.name}}</mat-option>
+            <mat-select formControlName="organization" placeholder="Organization" required>
+                <mat-option *ngFor="let org of organizations" [value]="org">{{org.name}}</mat-option>
             </mat-select>
         </mat-form-field>
         <mat-form-field>

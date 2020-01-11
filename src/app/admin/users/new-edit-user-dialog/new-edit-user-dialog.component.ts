@@ -25,7 +25,7 @@ export class NewEditUserDialogComponent implements OnInit {
     fb: FormBuilder
     ) {
       this.userForm = fb.group({
-        organizationId: null,
+        organization: null,
         role: null,
         username: null,
         firstName: null,
@@ -36,7 +36,7 @@ export class NewEditUserDialogComponent implements OnInit {
       organizationService.getOrganizations().subscribe(orgs => {
         this.organizations = orgs;
         if (orgs.length === 1) {
-          this.userForm.patchValue({organizationId: orgs[0].id});
+          this.userForm.patchValue({organization: orgs[0]});
         }
       });
 
@@ -55,7 +55,11 @@ export class NewEditUserDialogComponent implements OnInit {
   }
 
   create() {
-    this.dialogRef.close();
+    this.userService.createUser(this.userForm.value.organization.name, this.userForm.value).subscribe(res => {
+      if (res) {
+        this.dialogRef.close(true);
+      }
+    });
   }
 
 }

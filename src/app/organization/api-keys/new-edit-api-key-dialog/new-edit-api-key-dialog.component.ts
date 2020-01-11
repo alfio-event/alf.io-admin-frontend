@@ -45,7 +45,7 @@ export class NewEditApiKeyDialogComponent implements OnInit {
       if (res) {
         this.dialogRef.close(true);
       }
-    })
+    });
   }
 
   update() {
@@ -56,7 +56,7 @@ export class NewEditApiKeyDialogComponent implements OnInit {
       if (res) {
         this.dialogRef.close(true);
       }
-    })
+    });
   }
 
 }

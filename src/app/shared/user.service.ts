@@ -49,6 +49,20 @@ export class UserService {
         }));
     }
 
+    createUser(orgName: string, user: {role: string, username: string, firstName: string,lastName: string, email: string}): Observable<any> {
+        return this.organizationService.getOrganizationId(orgName).pipe(flatMap(orgId => {
+            return this.http.post('/admin/api/users/new', {
+                target: "USER",
+                organizationId: orgId,
+                role: user.role,
+                username: user.username,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                emailAddress: user.email
+            }, { params: {baseUrl: window.location.origin }});
+        }));
+    }
+
     updateApiKey(orgName: string, apiKey: User): Observable<any> {
         return this.organizationService.getOrganizationId(orgName).pipe(flatMap(orgId => {
             return this.http.post('/admin/api/users/edit', {
