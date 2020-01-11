@@ -3,6 +3,8 @@ import { UserService } from '../../shared/user.service';
 import { User, RoleDescriptor, Role } from '../../model/user';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material';
+import { NewEditUserOrganizationDialogComponent } from './new-edit-user-organization-dialog/new-edit-user-organization-dialog.component';
 
 @Component({
   selector: 'app-users',
@@ -17,17 +19,27 @@ export class UsersComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit() {
+    this.loadUsers();
+    this.rolesDescriptor$ = this.userService.getRolesDescriptor();
+  }
 
-    const orgName = this.route.snapshot.paramMap.get('org');
-
-    this.userService.getUsers(orgName).subscribe(users => {
+  private loadUsers() {
+    this.userService.getUsers(this.route.snapshot.paramMap.get('org')).subscribe(users => {
       this.users = users;
     });
-    this.rolesDescriptor$ = this.userService.getRolesDescriptor();
+  }
+
+  newUser() {
+    this.dialog.open(NewEditUserOrganizationDialogComponent, { width: '600px' }).afterClosed().subscribe(o => {
+      if (o) {
+        this.loadUsers();
+      }
+    });
   }
 
 }

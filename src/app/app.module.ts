@@ -34,6 +34,8 @@ import { TicketCategoryDialogComponent } from './organization/ticket-category-di
 import { ManageEventComponent } from './organization/manage-event/manage-event.component';
 import { NewEditApiKeyDialogComponent } from './organization/api-keys/new-edit-api-key-dialog/new-edit-api-key-dialog.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { NewEditUserDialogComponent } from './admin/users/new-edit-user-dialog/new-edit-user-dialog.component';
+import { NewEditUserOrganizationDialogComponent } from './organization/users/new-edit-user-organization-dialog/new-edit-user-organization-dialog.component';
 
 
 // AoT requires an exported function for factories
@@ -62,7 +64,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     TicketCategoryDialogComponent,
     ManageEventComponent,
     NewEditApiKeyDialogComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    NewEditUserDialogComponent,
+    NewEditUserOrganizationDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -98,7 +102,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     NewEditOrganizationDialogComponent,
     TicketCategoryDialogComponent,
     NewEditApiKeyDialogComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    NewEditUserDialogComponent,
+    NewEditUserOrganizationDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

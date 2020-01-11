@@ -4,6 +4,7 @@ import { User, Role, RoleDescriptor, UserType } from 'src/app/model/user';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material';
 import { ConfirmDialogComponent } from 'src/app/confirm-dialog/confirm-dialog.component';
+import { NewEditUserDialogComponent } from './new-edit-user-dialog/new-edit-user-dialog.component';
 
 @Component({
   selector: 'app-users',
@@ -36,6 +37,14 @@ export class UsersComponent implements OnInit {
         this.userService.deleteUser(user).subscribe(res => {
           this.loadUsers();
         })
+      }
+    });
+  }
+
+  newUser() {
+    this.dialog.open(NewEditUserDialogComponent, { width: '600px' }).afterClosed().subscribe(o => {
+      if (o) {
+        this.loadUsers();
       }
     });
   }
