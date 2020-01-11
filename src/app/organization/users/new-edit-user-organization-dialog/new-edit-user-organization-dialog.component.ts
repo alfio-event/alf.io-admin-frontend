@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-new-edit-user-organization-dialog',
@@ -6,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewEditUserOrganizationDialogComponent implements OnInit {
 
-  constructor() { }
+  constructor(private dialogRef: MatDialogRef<NewEditUserOrganizationDialogComponent>) { }
 
   ngOnInit() {
   }
 
+  cancel() {
+    this.dialogRef.close();
+  }
+
+  create() {
+    this.dialogRef.close();
+  }
 }
