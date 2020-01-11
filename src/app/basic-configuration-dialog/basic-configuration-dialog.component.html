@@ -8,13 +8,6 @@
         <h2>General</h2>
         <div formGroupName="GENERAL" fxLayout="column">
             <mat-form-field>
-                <mat-label>Supported translations</mat-label>
-                <mat-select formControlName="SUPPORTED_LANGUAGES" multiple>
-                    <mat-option *ngFor="let lang of allLanguages" [value]="lang.value">{{lang.displayLanguage}}</mat-option>
-                </mat-select>
-            </mat-form-field>
-
-            <mat-form-field>
                 <input formControlName="BASE_URL" type="url" matInput [placeholder]="allConf.GENERAL.BASE_URL.description">
             </mat-form-field>
         </div>
