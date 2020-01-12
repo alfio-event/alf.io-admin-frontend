@@ -41,6 +41,14 @@ export class UsersComponent implements OnInit {
     });
   }
 
+  toggleVisibility(user: User) {
+    this.userService.toggleUser(user).subscribe(res => {
+      if (res) {
+        this.loadUsers();
+      }
+    });
+  }
+
   newUser() {
     this.dialog.open(NewEditUserDialogComponent, { width: '600px' }).afterClosed().subscribe(o => {
       if (o) {
