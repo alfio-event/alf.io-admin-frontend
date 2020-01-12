@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { OrganizationService } from 'src/app/shared/organization.service';
 import { Organization } from 'src/app/model/organization';
 import { UserService } from 'src/app/shared/user.service';
-import { Role, RoleDescriptor, RoleTarget } from 'src/app/model/user';
+import { Role, RoleDescriptor, RoleTarget, User } from 'src/app/model/user';
 
 @Component({
   selector: 'app-new-edit-user-dialog',
@@ -19,6 +19,7 @@ export class NewEditUserDialogComponent implements OnInit {
   roles: Role[] = [];
 
   constructor(
+    @Inject(MAT_DIALOG_DATA) public data: {user: User},
     private dialogRef: MatDialogRef<NewEditUserDialogComponent>,
     private organizationService: OrganizationService,
     private userService: UserService,
@@ -33,9 +34,22 @@ export class NewEditUserDialogComponent implements OnInit {
         email: null
       });
 
+      if (data && data.user) {
+        this.userForm.patchValue({
+          organization: data.user.memberOf[0],
+          role: data.user.roles[0],
+          username: data.user.username,
+          firstName: data.user.firstName,
+          lastName: data.user.lastName,
+          email: data.user.emailAddress
+        });
+      }
+
       organizationService.getOrganizations().subscribe(orgs => {
         this.organizations = orgs;
-        if (orgs.length === 1) {
+        if (data && data.user) {
+          this.userForm.patchValue({organization: orgs.find(o=> o.id === data.user.memberOf[0].id)});
+        } else if (orgs.length === 1) {
           this.userForm.patchValue({organization: orgs[0]});
         }
       });
@@ -60,6 +74,9 @@ export class NewEditUserDialogComponent implements OnInit {
         this.dialogRef.close(true);
       }
     });
+  }
+
+  update() { 
   }
 
 }

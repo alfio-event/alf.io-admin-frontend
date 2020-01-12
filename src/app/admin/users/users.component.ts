@@ -58,7 +58,11 @@ export class UsersComponent implements OnInit {
   }
 
   editUser(user: User) {
-    
+    this.dialog.open(NewEditUserDialogComponent, { width: '600px', data: { user: user }}).afterClosed().subscribe(o => {
+      if (o) {
+        this.loadUsers();
+      }
+    });
   }
 
 }
