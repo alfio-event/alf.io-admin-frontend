@@ -63,18 +63,26 @@ export class UserService {
         }));
     }
 
+    updateUser(orgName: string, user: User): Observable<any> {
+        return this.updateUserInternal(orgName, user);
+    }
+
     updateApiKey(orgName: string, apiKey: User): Observable<any> {
+        return this.updateUserInternal(orgName, apiKey);
+    }
+
+    private updateUserInternal(orgName: string, user: User): Observable<any> {
         return this.organizationService.getOrganizationId(orgName).pipe(flatMap(orgId => {
             return this.http.post('/admin/api/users/edit', {
-                id: apiKey.id,
+                id: user.id,
                 organizationId: orgId,
-                role: apiKey.roles[0],
-                username: apiKey.username,
-                firstName: apiKey.firstName,
-                lastName: apiKey.lastName,
-                emailAddress: apiKey.emailAddress,
-                type: apiKey.type,
-                description: apiKey.description
+                role: user.roles[0],
+                username: user.username,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                emailAddress: user.emailAddress,
+                type: user.type,
+                description: user.description
             });
         }));
     }

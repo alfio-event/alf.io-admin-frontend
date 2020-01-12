@@ -77,6 +77,19 @@ export class NewEditUserDialogComponent implements OnInit {
   }
 
   update() { 
+    let userToUpdate = {...this.data.user};
+    let updated = this.userForm.value;
+    userToUpdate.username = updated.username;
+    userToUpdate.firstName = updated.firstName;
+    userToUpdate.lastName = updated.lastName;
+    userToUpdate.emailAddress = updated.email;
+    userToUpdate.memberOf = [updated.organization];
+    userToUpdate.roles = [updated.role];
+    this.userService.updateApiKey(userToUpdate.memberOf[0].name, userToUpdate).subscribe(res => {
+      if (res) {
+        this.dialogRef.close(true);
+      }
+    });
   }
 
 }
