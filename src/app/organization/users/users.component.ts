@@ -4,7 +4,7 @@ import { User, RoleDescriptor, Role, RoleTarget } from '../../model/user';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material';
-import { NewEditUserOrganizationDialogComponent } from './new-edit-user-organization-dialog/new-edit-user-organization-dialog.component';
+import { NewEditUserDialogComponent } from '../../dialog/new-edit-user-dialog/new-edit-user-dialog.component';
 
 @Component({
   selector: 'app-users',
@@ -14,6 +14,7 @@ export class UsersComponent implements OnInit {
 
   users: User[] = [];
   usersDisplayColumns = ['enabled', 'username', 'name', 'role'];
+  organizationName: string;
 
   rolesDescriptor$: Observable<{ [key in Role]?: RoleDescriptor }>
 
@@ -24,18 +25,19 @@ export class UsersComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.organizationName = this.route.snapshot.paramMap.get('org')
     this.loadUsers();
     this.rolesDescriptor$ = this.userService.getRolesDescriptor(RoleTarget.USER);
   }
 
   private loadUsers() {
-    this.userService.getUsers(this.route.snapshot.paramMap.get('org')).subscribe(users => {
+    this.userService.getUsers(this.organizationName).subscribe(users => {
       this.users = users;
     });
   }
 
   newUser() {
-    this.dialog.open(NewEditUserOrganizationDialogComponent, { width: '600px' }).afterClosed().subscribe(o => {
+    this.dialog.open(NewEditUserDialogComponent, { width: '600px' , data: {organizationName: this.organizationName}}).afterClosed().subscribe(o => {
       if (o) {
         this.loadUsers();
       }

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, Inject } from '@angular/core';
-import { OrganizationService } from '../shared/organization.service';
-import { Organization } from '../model/organization';
+import { OrganizationService } from '../../shared/organization.service';
+import { Organization } from '../../model/organization';
 import { MatDialogRef, MatTableDataSource, MatPaginator, MAT_DIALOG_DATA } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 

@@ -3,8 +3,8 @@ import { UserService } from 'src/app/shared/user.service';
 import { User, Role, RoleDescriptor, UserType, RoleTarget } from 'src/app/model/user';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material';
-import { ConfirmDialogComponent } from 'src/app/confirm-dialog/confirm-dialog.component';
-import { NewEditUserDialogComponent } from './new-edit-user-dialog/new-edit-user-dialog.component';
+import { ConfirmDialogComponent } from 'src/app/dialog/confirm-dialog/confirm-dialog.component';
+import { NewEditUserDialogComponent } from '../../dialog/new-edit-user-dialog/new-edit-user-dialog.component';
 
 @Component({
   selector: 'app-users',

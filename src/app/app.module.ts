@@ -23,8 +23,8 @@ import { ApiKeysComponent } from './organization/api-keys/api-keys.component';
 import { GroupsComponent } from './organization/groups/groups.component';
 import { ConfigurationComponent } from './organization/configuration/configuration.component';
 import { ExtensionComponent } from './admin/extension/extension.component';
-import { OrganizationSelectDialogComponent } from './organization-select-dialog/organization-select-dialog.component';
-import { BasicConfigurationDialogComponent } from './basic-configuration-dialog/basic-configuration-dialog.component';
+import { OrganizationSelectDialogComponent } from './dialog/organization-select-dialog/organization-select-dialog.component';
+import { BasicConfigurationDialogComponent } from './dialog/basic-configuration-dialog/basic-configuration-dialog.component';
 import { OrganizationComponent } from './admin/organization/organization.component';
 import { ConfigurationComponent as AdminConfigurationComponent } from './admin/configuration/configuration.component';
 import { UsersComponent as AdminUsersComponent } from './admin/users/users.component';
@@ -33,8 +33,8 @@ import { NewEventComponent } from './organization/new-event/new-event.component'
 import { TicketCategoryDialogComponent } from './organization/ticket-category-dialog/ticket-category-dialog.component';
 import { ManageEventComponent } from './organization/manage-event/manage-event.component';
 import { NewEditApiKeyDialogComponent } from './organization/api-keys/new-edit-api-key-dialog/new-edit-api-key-dialog.component';
-import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
-import { NewEditUserDialogComponent } from './admin/users/new-edit-user-dialog/new-edit-user-dialog.component';
+import { ConfirmDialogComponent } from './dialog/confirm-dialog/confirm-dialog.component';
+import { NewEditUserDialogComponent } from './dialog/new-edit-user-dialog/new-edit-user-dialog.component';
 import { NewEditUserOrganizationDialogComponent } from './organization/users/new-edit-user-organization-dialog/new-edit-user-organization-dialog.component';
 
 
@@ -65,8 +65,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ManageEventComponent,
     NewEditApiKeyDialogComponent,
     ConfirmDialogComponent,
-    NewEditUserDialogComponent,
-    NewEditUserOrganizationDialogComponent
+    NewEditUserDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -103,8 +102,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     TicketCategoryDialogComponent,
     NewEditApiKeyDialogComponent,
     ConfirmDialogComponent,
-    NewEditUserDialogComponent,
-    NewEditUserOrganizationDialogComponent
+    NewEditUserDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

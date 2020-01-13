@@ -19,7 +19,7 @@ export class NewEditUserDialogComponent implements OnInit {
   roles: Role[] = [];
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: {user: User},
+    @Inject(MAT_DIALOG_DATA) public data: {user: User, organizationName: string},
     private dialogRef: MatDialogRef<NewEditUserDialogComponent>,
     private organizationService: OrganizationService,
     private userService: UserService,
@@ -46,9 +46,13 @@ export class NewEditUserDialogComponent implements OnInit {
       }
 
       organizationService.getOrganizations().subscribe(orgs => {
+        //console.log('yooo');
+        if (data && data.organizationName) {
+          orgs = orgs.filter(o => o.name === data.organizationName);
+        }
         this.organizations = orgs;
         if (data && data.user) {
-          this.userForm.patchValue({organization: orgs.find(o=> o.id === data.user.memberOf[0].id)});
+          this.userForm.patchValue({organization: orgs.find(o => o.id === data.user.memberOf[0].id)});
         } else if (orgs.length === 1) {
           this.userForm.patchValue({organization: orgs[0]});
         }

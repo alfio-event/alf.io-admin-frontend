@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfigurationService, ConfigurationMap } from '../shared/configuration.service';
+import { ConfigurationService, ConfigurationMap } from '../../shared/configuration.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { SettingCategory, ConfigurationKey, ConfigurationModification } from '../model/configuration';
+import { SettingCategory, ConfigurationKey, ConfigurationModification } from '../../model/configuration';
 import { MatDialogRef } from '@angular/material';
 
 @Component({
