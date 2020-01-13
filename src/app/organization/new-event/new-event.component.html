@@ -74,6 +74,9 @@
                 <input type="file" accept="image/png, image/jpeg" (change)="handleSelectedLogoFile($event.target.files)">
                 <img *ngIf="createEventForm.value.eventInfo.fileBlobId" [src]="'/file/'+createEventForm.value.eventInfo.fileBlobId">
             </p>
+            <div>
+                <button mat-button matStepperNext>Next</button>
+            </div>
         </form>
     </mat-step>
     <mat-step [stepControl]="createEventForm.get('links')">
@@ -91,6 +94,10 @@
                 <input formControlName="privacyPolicyUrl" matInput placeholder="Privacy policy link" type="url">
                 <mat-hint align="start">Privacy policy link is optional. However, it is good practice to have one.</mat-hint>
             </mat-form-field>
+            <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext>Next</button>
+            </div>
         </form>
     </mat-step>
     <mat-step [stepControl]="createEventForm.get('payment')">
@@ -126,6 +133,10 @@
                     <mat-checkbox [formControlName]="p.paymentProxy">{{p.description}}</mat-checkbox>
                 </p>
             </ng-container>
+            <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext>Next</button>
+            </div>
         </form>
     </mat-step>
     <mat-step [stepControl]="createEventForm.get('tickets')">
@@ -155,6 +166,11 @@
             </div>
 
             <p><button type="button" color="primary" mat-button (click)="newCategory()"><mat-icon svgIcon="add"></mat-icon> Add ticket category</button></p>
+
+            <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext>Next</button>
+            </div>
         </form>
     </mat-step>
     <mat-step>
@@ -162,7 +178,10 @@
         <form fxLayout="column" (submit)="createEvent()">
             <pre>{{createEventForm.value|json}}</pre>
             <pre>{{ticketCategories|json}}</pre>
-            <button mat-button type="submit">Save</button>
+            <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button type="submit">Save</button>
+            </div>
         </form>
     </mat-step>
 </mat-horizontal-stepper>
