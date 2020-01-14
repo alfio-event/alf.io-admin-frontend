@@ -1,4 +1,7 @@
-<h2 mat-dialog-title>Add new group</h2>
+<h2 mat-dialog-title>
+    <ng-container *ngIf="!data.group; else elseTitle">Add new group</ng-container>
+    <ng-template #elseTitle>Update group {{data.group.name}}</ng-template>
+</h2>
 <div mat-dialog-content>
     <form [formGroup]="groupForm" fxLayout="column">
         <mat-form-field>
@@ -19,7 +22,7 @@
                     <mat-form-field fxFlex="50%" class="padding-right-10">
                         <input formControlName="description" matInput placeholder="Description" required>
                     </mat-form-field>
-                    <div *ngIf="items.length > 1">
+                    <div *ngIf="!data.group && items.length > 1" >
                         <button mat-icon-button type="button" (click)="removeItem(i)"><mat-icon svgIcon="delete"></mat-icon></button>
                     </div>
                 </div>
@@ -34,5 +37,6 @@
 </div>
 <div mat-dialog-actions fxLayoutAlign="end center">
     <button mat-button (click)="cancel()">Cancel</button>
-    <button mat-button cdkFocusInitial color="primary" (click)="save()">Save</button>
+    <button mat-button cdkFocusInitial color="primary" (click)="save()" *ngIf="!data.group; else elseUpdateButton">Save</button>
+    <ng-template #elseUpdateButton><button mat-button cdkFocusInitial color="primary" (click)="update()">Update</button></ng-template>
 </div>

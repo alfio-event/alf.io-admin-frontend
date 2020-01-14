@@ -50,4 +50,14 @@ export class GroupsComponent implements OnInit {
     });
   }
 
+  editGroup(group: Group) {
+    this.groupService.getDetailFor(group).subscribe(detail => {
+      this.dialog.open(NewEditGroupDialogComponent, {width: '600px', data: {organizationName: this.route.snapshot.paramMap.get('org'), group: detail}}).afterClosed().subscribe(res => {
+        if (res) {
+          this.loadGroups();
+        }
+      });
+    });
+  }
+
 }

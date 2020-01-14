@@ -21,6 +21,9 @@
     <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let group">
+            <button *ngIf="group.active" mat-icon-button type="button" matTooltip="Edit group" (click)="editGroup(group)">
+                <mat-icon svgIcon="edit"></mat-icon>
+            </button>
             <button *ngIf="group.active" mat-icon-button type="button" matTooltip="Disable group" (click)="disableGroup(group)">
                 <mat-icon svgIcon="visibility_off"></mat-icon>
             </button>

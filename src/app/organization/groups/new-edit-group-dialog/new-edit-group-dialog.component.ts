@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { GroupService } from 'src/app/shared/group.service';
+import { GroupWithDetails } from 'src/app/model/group';
 
 @Component({
   selector: 'app-new-edit-group-dialog',
@@ -12,7 +13,7 @@ export class NewEditGroupDialogComponent implements OnInit {
   groupForm: FormGroup;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: {organizationName: string},
+    @Inject(MAT_DIALOG_DATA) public data: {organizationName: string, group: GroupWithDetails},
     private dialogRef: MatDialogRef<NewEditGroupDialogComponent>,
     private fb: FormBuilder,
     private groupService: GroupService
@@ -21,13 +22,21 @@ export class NewEditGroupDialogComponent implements OnInit {
         name: null,
         description: null,
         items: fb.array([
-          fb.group({
-            value: null,
-            description: null,
-            editable: true
-          })
         ])
       });
+
+      if (data.group) {
+        this.groupForm.patchValue({id: data.group.id, name: data.group.name, description: data.group.description});
+        data.group.items.forEach(gi => {
+          this.items.push(fb.group({id: gi.id, value: gi.value, description: gi.description}));
+        });
+      } else {
+        this.items.push(fb.group({
+          value: null,
+          description: null,
+          editable: true
+        }))
+      }
     }
 
   ngOnInit() {
@@ -43,6 +52,10 @@ export class NewEditGroupDialogComponent implements OnInit {
         this.dialogRef.close(true);
       }
     })
+  }
+
+  update() {
+
   }
 
   addItem() {
