@@ -11,14 +11,17 @@
 
         <h3>Members</h3>
         <div formArrayName="items">
-            <ng-container *ngFor="let item of groupForm.value.items; let i=index">
-                <div [formGroupName]="i">
-                    <mat-form-field>
+            <ng-container *ngFor="let item of items.controls; let i=index">
+                <div [formGroupName]="i" fxLayout="row">
+                    <mat-form-field fxFlex="50%" class="padding-right-10">
                         <input formControlName="value" matInput placeholder="E-Mail" required>
                     </mat-form-field>
-                    <mat-form-field>
+                    <mat-form-field fxFlex="50%" class="padding-right-10">
                         <input formControlName="description" matInput placeholder="Description" required>
                     </mat-form-field>
+                    <div *ngIf="items.length > 1">
+                        <button mat-icon-button type="button" (click)="removeItem(i)"><mat-icon svgIcon="delete"></mat-icon></button>
+                    </div>
                 </div>
             </ng-container>
         </div>

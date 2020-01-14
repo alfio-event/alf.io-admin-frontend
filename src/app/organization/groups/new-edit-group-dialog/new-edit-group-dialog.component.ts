@@ -39,8 +39,15 @@ export class NewEditGroupDialogComponent implements OnInit {
   }
 
   addItem() {
-    let items = this.groupForm.get('items') as FormArray;
-    items.push(this.fb.group({value: null, description: null, editable: true}));
+    this.items.push(this.fb.group({value: null, description: null, editable: true}));
+  }
+
+  get items(): FormArray {
+    return this.groupForm.get('items') as FormArray;
+  }
+
+  removeItem(idx: number) {
+    this.items.removeAt(idx);
   }
 
 }

@@ -6,8 +6,7 @@ import { EventSupportService } from 'src/app/shared/event-support.service';
 
 @Component({
   selector: 'app-ticket-category-dialog',
-  templateUrl: './ticket-category-dialog.component.html',
-  styleUrls: ['./ticket-category-dialog.component.scss']
+  templateUrl: './ticket-category-dialog.component.html'
 })
 export class TicketCategoryDialogComponent implements OnInit {
 
