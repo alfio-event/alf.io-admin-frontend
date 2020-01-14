@@ -32,9 +32,9 @@ export class GroupsComponent implements OnInit {
   }
 
   newGroup() {
-    this.dialog.open(NewEditGroupDialogComponent, {width: '600px'}).afterClosed().subscribe(res => {
+    this.dialog.open(NewEditGroupDialogComponent, {width: '600px', data: {organizationName: this.route.snapshot.paramMap.get('org')}}).afterClosed().subscribe(res => {
       if (res) {
-
+        this.loadGroups();
       }
     });
   }

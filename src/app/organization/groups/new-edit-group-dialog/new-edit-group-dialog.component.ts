@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
+import { GroupService } from 'src/app/shared/group.service';
 
 @Component({
   selector: 'app-new-edit-group-dialog',
@@ -11,8 +12,10 @@ export class NewEditGroupDialogComponent implements OnInit {
   groupForm: FormGroup;
 
   constructor(
+    @Inject(MAT_DIALOG_DATA) public data: {organizationName: string},
     private dialogRef: MatDialogRef<NewEditGroupDialogComponent>,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private groupService: GroupService
     ) {
       this.groupForm = fb.group({
         name: null,
@@ -35,7 +38,11 @@ export class NewEditGroupDialogComponent implements OnInit {
   }
 
   save() {
-    this.dialogRef.close();
+    this.groupService.create(this.data.organizationName, this.groupForm.value).subscribe(res => {
+      if (res) {
+        this.dialogRef.close(true);
+      }
+    })
   }
 
   addItem() {

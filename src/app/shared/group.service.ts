@@ -23,4 +23,11 @@ export class GroupService {
         return this.http.delete(`/admin/api/group/for/${group.organizationId}/id/${group.id}`);
     }
 
+    create(organizationName: string, toCreate: any) {
+        return this.organizationService.getOrganizationId(organizationName).pipe(flatMap(orgId => {
+            toCreate.organizationId = orgId;
+            return this.http.post(`/admin/api/group/for/${orgId}/new`, toCreate);
+        }));
+    }
+
 }
