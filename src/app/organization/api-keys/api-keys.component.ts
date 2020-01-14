@@ -33,7 +33,7 @@ export class ApiKeysComponent implements OnInit {
   }
 
   private getOrganizationName(): string {
-    return this.route.snapshot.paramMap.get('org');;
+    return this.route.snapshot.paramMap.get('org');
   }
 
   private loadApiKeys() {
