@@ -14,11 +14,15 @@
         <th mat-header-cell *matHeaderCellDef>Description</th>
         <td mat-cell *matCellDef="let group">{{group.description}}</td>
     </ng-container>
+    <ng-container matColumnDef="active">
+            <th mat-header-cell *matHeaderCellDef>Active</th>
+            <td mat-cell *matCellDef="let group">{{group.active}}</td>
+        </ng-container>
     <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let group">
-            <button mat-icon-button type="button" matTooltip="Delete group" (click)="deleteGroup(group)">
-                <mat-icon svgIcon="delete"></mat-icon>
+            <button *ngIf="group.active" mat-icon-button type="button" matTooltip="Disable group" (click)="disableGroup(group)">
+                <mat-icon svgIcon="visibility_off"></mat-icon>
             </button>
         </td>
     </ng-container>

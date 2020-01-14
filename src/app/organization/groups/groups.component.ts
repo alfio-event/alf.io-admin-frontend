@@ -14,7 +14,7 @@ export class GroupsComponent implements OnInit {
 
   groups: Group[] = [];
 
-  groupDisplayColumns = ['name', 'description', 'actions']
+  groupDisplayColumns = ['name', 'description', 'active', 'actions']
 
   constructor(
     private route: ActivatedRoute,
@@ -39,11 +39,11 @@ export class GroupsComponent implements OnInit {
     });
   }
 
-  deleteGroup(group: Group) {
-    let msg = `The group ' ${group.name} ' will be deleted. Are you sure?`;
-    this.dialog.open(ConfirmDialogComponent, {width: '400px', data: {title: 'Confirm deletion', message: msg}}).afterClosed().subscribe(res => {
+  disableGroup(group: Group) {
+    let msg = `The group ' ${group.name} ' will be disabled. Are you sure?`;
+    this.dialog.open(ConfirmDialogComponent, {width: '400px', data: {title: 'Confirm', message: msg}}).afterClosed().subscribe(res => {
       if (res) {
-        this.groupService.deleteGroup(group).subscribe(res => {
+        this.groupService.disableGroup(group).subscribe(res => {
           this.loadGroups();
         })
       }
