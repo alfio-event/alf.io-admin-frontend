@@ -22,8 +22,8 @@
                     <mat-form-field fxFlex="50%" class="padding-right-10">
                         <input formControlName="description" matInput placeholder="Description" required>
                     </mat-form-field>
-                    <div *ngIf="!data.group && items.length > 1" >
-                        <button mat-icon-button type="button" (click)="removeItem(i)"><mat-icon svgIcon="delete"></mat-icon></button>
+                    <div>
+                        <button mat-icon-button type="button" [matTooltip]="item.value.editable? 'Remove' : 'Delete'" (click)="item.value.editable ? removeItem(i) : deleteItem(i)"><mat-icon svgIcon="delete"></mat-icon></button>
                     </div>
                 </div>
             </ng-container>

@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { GroupService } from 'src/app/shared/group.service';
-import { GroupWithDetails } from 'src/app/model/group';
+import { GroupWithDetails, GroupItem } from 'src/app/model/group';
 
 @Component({
   selector: 'app-new-edit-group-dialog',
@@ -19,6 +19,8 @@ export class NewEditGroupDialogComponent implements OnInit {
     private groupService: GroupService
     ) {
       this.groupForm = fb.group({
+        id: null,
+        organizationId: null,
         name: null,
         description: null,
         items: fb.array([
@@ -26,7 +28,7 @@ export class NewEditGroupDialogComponent implements OnInit {
       });
 
       if (data.group) {
-        this.groupForm.patchValue({id: data.group.id, name: data.group.name, description: data.group.description});
+        this.groupForm.patchValue({id: data.group.id, name: data.group.name, description: data.group.description, organizationId: data.group.organizationId});
         data.group.items.forEach(gi => {
           this.items.push(fb.group({id: gi.id, value: gi.value, description: gi.description}));
         });
@@ -55,7 +57,11 @@ export class NewEditGroupDialogComponent implements OnInit {
   }
 
   update() {
-
+    this.groupService.update(this.groupForm.value).subscribe(res => {
+      if (res) {
+        this.dialogRef.close(true);
+      }
+    })
   }
 
   addItem() {
@@ -68,6 +74,15 @@ export class NewEditGroupDialogComponent implements OnInit {
 
   removeItem(idx: number) {
     this.items.removeAt(idx);
+  }
+
+  deleteItem(idx: number) {
+    let val = this.items.at(idx).value as GroupItem;
+    this.groupService.removeItem(this.data.group, val).subscribe(res => {
+      if (res) {
+        this.items.removeAt(idx);
+      }
+    });
   }
 
 }
