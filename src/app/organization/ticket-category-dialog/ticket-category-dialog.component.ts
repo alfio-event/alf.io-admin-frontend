@@ -3,7 +3,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Language } from 'src/app/model/language';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { EventSupportService } from 'src/app/shared/event-support.service';
-import { deleteIcon } from 'src/app/icons';
 
 @Component({
   selector: 'app-ticket-category-dialog',
