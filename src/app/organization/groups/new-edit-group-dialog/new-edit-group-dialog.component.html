@@ -1,6 +1,33 @@
 <h2 mat-dialog-title>Add new group</h2>
 <div mat-dialog-content>
-    content
+    <form [formGroup]="groupForm" fxLayout="column">
+        <mat-form-field>
+            <input formControlName="name" matInput placeholder="Name" required>
+        </mat-form-field>
+        <mat-form-field>
+            <input formControlName="description" matInput placeholder="Description" required>
+        </mat-form-field>
+
+
+        <h3>Members</h3>
+        <div formArrayName="items">
+            <ng-container *ngFor="let item of groupForm.value.items; let i=index">
+                <div [formGroupName]="i">
+                    <mat-form-field>
+                        <input formControlName="value" matInput placeholder="E-Mail" required>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input formControlName="description" matInput placeholder="Description" required>
+                    </mat-form-field>
+                </div>
+            </ng-container>
+        </div>
+        
+        <p>
+            <button mat-button type="button" color="primary" (click)="addItem()"><mat-icon svgIcon="add"></mat-icon> add member</button>
+        </p>
+        
+    </form>
 </div>
 <div mat-dialog-actions fxLayoutAlign="end center">
     <button mat-button (click)="cancel()">Cancel</button>
