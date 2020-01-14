@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material';
 import { NewEditGroupDialogComponent } from './new-edit-group-dialog/new-edit-group-dialog.component';
 import { GroupService } from 'src/app/shared/group.service';
 import { Group } from 'src/app/model/group';
+import { ConfirmDialogComponent } from 'src/app/dialog/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-groups',
@@ -12,6 +13,8 @@ import { Group } from 'src/app/model/group';
 export class GroupsComponent implements OnInit {
 
   groups: Group[] = [];
+
+  groupDisplayColumns = ['name', 'description', 'actions']
 
   constructor(
     private route: ActivatedRoute,
@@ -32,6 +35,17 @@ export class GroupsComponent implements OnInit {
     this.dialog.open(NewEditGroupDialogComponent, {width: '600px'}).afterClosed().subscribe(res => {
       if (res) {
 
+      }
+    });
+  }
+
+  deleteGroup(group: Group) {
+    let msg = `The group ' ${group.name} ' will be deleted. Are you sure?`;
+    this.dialog.open(ConfirmDialogComponent, {width: '400px', data: {title: 'Confirm deletion', message: msg}}).afterClosed().subscribe(res => {
+      if (res) {
+        this.groupService.deleteGroup(group).subscribe(res => {
+          this.loadGroups();
+        })
       }
     });
   }
