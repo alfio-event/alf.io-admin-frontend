@@ -16,4 +16,8 @@ export class ExtensionService {
     getSample(): Observable<ExtensionSupport> {
         return this.http.get<ExtensionSupport>('/admin/api/extensions/sample');
     }
+
+    deleteExtension(extension: ExtensionSupport): Observable<any> {
+        return this.http.delete(`/admin/api/extensions/${extension.path}/${extension.name}`);
+    }
 }
