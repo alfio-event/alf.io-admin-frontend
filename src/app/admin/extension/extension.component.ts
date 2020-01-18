@@ -10,6 +10,8 @@ export class ExtensionComponent implements OnInit {
 
   extensions: ExtensionSupport[] = [];
 
+  extensionsDisplayColumns = ['path', 'name', 'enabled', 'actions'];
+
   constructor(private extensionService: ExtensionService) {
     this.loadExtensions();
   }
@@ -21,6 +23,12 @@ export class ExtensionComponent implements OnInit {
     this.extensionService.getExtensions().subscribe(extensions => {
       this.extensions = extensions;
     });
+  }
+
+  editExtension(extension: ExtensionSupport) {
+  }
+
+  deleteExtension(extension: ExtensionSupport) {
   }
 
 }
