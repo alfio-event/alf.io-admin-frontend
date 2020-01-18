@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ExtensionService } from 'src/app/shared/extension.service';
+import { ExtensionSupport } from 'src/app/model/extension';
 
 @Component({
   selector: 'app-extension',
@@ -6,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ExtensionComponent implements OnInit {
 
-  constructor() { }
+  extensions: ExtensionSupport[] = [];
+
+  constructor(private extensionService: ExtensionService) {
+    this.loadExtensions();
+  }
 
   ngOnInit() {
+  }
+
+  private loadExtensions() {
+    this.extensionService.getExtensions().subscribe(extensions => {
+      this.extensions = extensions;
+    });
   }
 
 }
