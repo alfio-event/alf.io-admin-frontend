@@ -4,6 +4,8 @@ import { ExtensionSupport } from 'src/app/model/extension';
 import { ConfirmDialogComponent } from 'src/app/dialog/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material';
 import { NewEditExtensionDialogComponent } from './new-edit-extension-dialog/new-edit-extension-dialog.component';
+import { OrganizationService } from 'src/app/shared/organization.service';
+import { Organization } from 'src/app/model/organization';
 
 @Component({
   selector: 'app-extension',
@@ -12,11 +14,24 @@ import { NewEditExtensionDialogComponent } from './new-edit-extension-dialog/new
 export class ExtensionComponent implements OnInit {
 
   extensions: ExtensionSupport[] = [];
+  organizations: Organization[] = [];
+  orgIdMapping: {[key: number]: string};
 
   extensionsDisplayColumns = ['path', 'name', 'enabled', 'actions'];
 
-  constructor(private extensionService: ExtensionService, private dialog: MatDialog) {
+  constructor(
+    organizationService: OrganizationService,
+    private extensionService: ExtensionService,
+    private dialog: MatDialog) {
     this.loadExtensions();
+    organizationService.getOrganizations().subscribe(orgs => {
+      this.organizations = orgs;
+      let orgIdMapping: {[key: number]: string} = {};
+      orgs.forEach(o => {
+        orgIdMapping[o.id] = o.name;
+      });
+      this.orgIdMapping = orgIdMapping;
+    });
   }
 
   ngOnInit() {
@@ -54,5 +69,4 @@ export class ExtensionComponent implements OnInit {
       }
     });
   }
-
 }
