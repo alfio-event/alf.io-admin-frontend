@@ -15,7 +15,7 @@ export class ExtensionComponent implements OnInit {
 
   extensions: ExtensionSupport[] = [];
   organizations: Organization[] = [];
-  orgIdMapping: {[key: number]: string};
+  orgIdMapping: {[key: number]: string} = {};
   pathToIds: {[key: string]: {type: string, orgId: number, eventId: number}} = {};
 
   extensionsDisplayColumns = ['path', 'name', 'enabled', 'actions'];
@@ -93,7 +93,6 @@ function fromPathToOrgAndEventId(path: string): {orgId: number, eventId: number,
 @Pipe({name: 'pathToOrgAndEvent', pure: true})
 export class PathToOrgAndEventPipe implements PipeTransform {
   transform(value: {orgId: number, eventId: number, type: string}, orgIdMapping: {[key: number]: string}) {
-    orgIdMapping = orgIdMapping || {};
     let orgName = orgIdMapping[value.orgId];
     if (value.type === 'SYSTEM') {
       return 'System';
