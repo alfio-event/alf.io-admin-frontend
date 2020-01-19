@@ -36,6 +36,7 @@ import { NewEditApiKeyDialogComponent } from './organization/api-keys/new-edit-a
 import { ConfirmDialogComponent } from './dialog/confirm-dialog/confirm-dialog.component';
 import { NewEditUserDialogComponent } from './dialog/new-edit-user-dialog/new-edit-user-dialog.component';
 import { NewEditGroupDialogComponent } from './organization/groups/new-edit-group-dialog/new-edit-group-dialog.component';
+import { NewEditExtensionDialogComponent } from './admin/extension/new-edit-extension-dialog/new-edit-extension-dialog.component';
 
 
 // AoT requires an exported function for factories
@@ -66,7 +67,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     NewEditApiKeyDialogComponent,
     ConfirmDialogComponent,
     NewEditUserDialogComponent,
-    NewEditGroupDialogComponent
+    NewEditGroupDialogComponent,
+    NewEditExtensionDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -104,7 +106,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     NewEditApiKeyDialogComponent,
     ConfirmDialogComponent,
     NewEditUserDialogComponent,
-    NewEditGroupDialogComponent
+    NewEditGroupDialogComponent,
+    NewEditExtensionDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

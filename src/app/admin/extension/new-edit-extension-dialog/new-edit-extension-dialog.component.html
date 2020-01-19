@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>
+    <ng-container *ngIf="!extensionToEdit; else elseTitle">Add new organization</ng-container>
+    <ng-template #elseTitle>Edit extension {{extensionToEdit.name}}</ng-template>
+</h1>
+<div mat-dialog-content>
+    <p>new-edit-extension-dialog works!</p>
+</div>
+<div mat-dialog-actions fxLayoutAlign="end center">
+    <button mat-button (click)="cancel()">Cancel</button>
+    <button *ngIf="!extensionToEdit; else elseButton" mat-button color="primary" (click)="create()">Create</button>
+    <ng-template #elseButton><button mat-button color="primary" (click)="update()">Update</button></ng-template>
+</div>

@@ -3,6 +3,7 @@ import { ExtensionService } from 'src/app/shared/extension.service';
 import { ExtensionSupport } from 'src/app/model/extension';
 import { ConfirmDialogComponent } from 'src/app/dialog/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material';
+import { NewEditExtensionDialogComponent } from './new-edit-extension-dialog/new-edit-extension-dialog.component';
 
 @Component({
   selector: 'app-extension',
@@ -27,7 +28,20 @@ export class ExtensionComponent implements OnInit {
     });
   }
 
+  newExtension() {
+    this.dialog.open(NewEditExtensionDialogComponent, { width: '600px' }).afterClosed().subscribe(o => {
+      if (o) {
+        this.loadExtensions();
+      }
+    });
+  }
+
   editExtension(extension: ExtensionSupport) {
+    this.dialog.open(NewEditExtensionDialogComponent, { width: '600px', data: extension }).afterClosed().subscribe(o => {
+      if (o) {
+        this.loadExtensions();
+      }
+    });
   }
 
   deleteExtension(extension: ExtensionSupport) {
