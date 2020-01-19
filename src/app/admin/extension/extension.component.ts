@@ -29,7 +29,7 @@ export class ExtensionComponent implements OnInit {
   }
 
   newExtension() {
-    this.dialog.open(NewEditExtensionDialogComponent, { width: '600px' }).afterClosed().subscribe(o => {
+    this.dialog.open(NewEditExtensionDialogComponent, { width: '1024px' }).afterClosed().subscribe(o => {
       if (o) {
         this.loadExtensions();
       }
@@ -37,7 +37,7 @@ export class ExtensionComponent implements OnInit {
   }
 
   editExtension(extension: ExtensionSupport) {
-    this.dialog.open(NewEditExtensionDialogComponent, { width: '600px', data: extension }).afterClosed().subscribe(o => {
+    this.dialog.open(NewEditExtensionDialogComponent, { width: '1024px', data: extension }).afterClosed().subscribe(o => {
       if (o) {
         this.loadExtensions();
       }
