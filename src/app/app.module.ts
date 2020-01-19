@@ -22,7 +22,7 @@ import { UsersComponent } from './organization/users/users.component';
 import { ApiKeysComponent } from './organization/api-keys/api-keys.component';
 import { GroupsComponent } from './organization/groups/groups.component';
 import { ConfigurationComponent } from './organization/configuration/configuration.component';
-import { ExtensionComponent } from './admin/extension/extension.component';
+import { ExtensionComponent, PathToOrgAndEventPipe } from './admin/extension/extension.component';
 import { OrganizationSelectDialogComponent } from './dialog/organization-select-dialog/organization-select-dialog.component';
 import { BasicConfigurationDialogComponent } from './dialog/basic-configuration-dialog/basic-configuration-dialog.component';
 import { OrganizationComponent } from './admin/organization/organization.component';
@@ -68,7 +68,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ConfirmDialogComponent,
     NewEditUserDialogComponent,
     NewEditGroupDialogComponent,
-    NewEditExtensionDialogComponent
+    NewEditExtensionDialogComponent,
+    PathToOrgAndEventPipe
   ],
   imports: [
     BrowserModule,
