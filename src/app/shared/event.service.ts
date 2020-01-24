@@ -35,4 +35,8 @@ export class EventService {
         return this.http.get<any>('/admin/api/events/' + encodeURI(eventShortName));
     }
 
+    getEventNamesByIds(ids: number[]): Observable<{[key: number]: string}> {
+        return this.http.get<{[key: number]: string}>('/admin/api/events/name-by-ids', { params: { eventIds: ids.map(i=>i.toString()) } } );
+    }
+
 }

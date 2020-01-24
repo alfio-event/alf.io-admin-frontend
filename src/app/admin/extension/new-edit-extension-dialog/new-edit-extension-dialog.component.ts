@@ -2,10 +2,9 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ExtensionSupport } from 'src/app/model/extension';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ExtensionService } from 'src/app/shared/extension.service';
+import { ExtensionService, fromPathToOrgAndEventId } from 'src/app/shared/extension.service';
 import { OrganizationService } from 'src/app/shared/organization.service';
 import { Organization } from 'src/app/model/organization';
-import { fromPathToOrgAndEventId } from '../extension.component';
 
 @Component({
   selector: 'app-new-edit-extension-dialog',

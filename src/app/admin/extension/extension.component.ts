@@ -1,11 +1,12 @@
 import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
-import { ExtensionService } from 'src/app/shared/extension.service';
+import { ExtensionService, fromPathToOrgAndEventId } from 'src/app/shared/extension.service';
 import { ExtensionSupport } from 'src/app/model/extension';
 import { ConfirmDialogComponent } from 'src/app/dialog/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material';
 import { NewEditExtensionDialogComponent } from './new-edit-extension-dialog/new-edit-extension-dialog.component';
 import { OrganizationService } from 'src/app/shared/organization.service';
 import { Organization } from 'src/app/model/organization';
+import { EventService } from 'src/app/shared/event.service';
 
 @Component({
   selector: 'app-extension',
@@ -17,12 +18,14 @@ export class ExtensionComponent implements OnInit {
   organizations: Organization[] = [];
   orgIdMapping: {[key: number]: string} = {};
   pathToIds: {[key: string]: {type: string, orgId: number, eventId: number}} = {};
+  eventIdMapping: {[key: number]: string} = {};
 
   extensionsDisplayColumns = ['path', 'name', 'enabled', 'actions'];
 
   constructor(
     organizationService: OrganizationService,
     private extensionService: ExtensionService,
+    private eventService: EventService,
     private dialog: MatDialog) {
     this.loadExtensions();
     organizationService.getOrganizations().subscribe(orgs => {
@@ -42,10 +45,21 @@ export class ExtensionComponent implements OnInit {
     this.extensionService.getExtensions().subscribe(extensions => {
       this.extensions = extensions;
       let mapping = {};
+      let eventIds = new Set();
       extensions.forEach(e => {
-        mapping[e.path] = fromPathToOrgAndEventId(e.path);
+        let orgIdEventId = fromPathToOrgAndEventId(e.path);
+        mapping[e.path] = orgIdEventId;
+        if (orgIdEventId.eventId !== undefined) {
+          eventIds.add(orgIdEventId.eventId);
+        }
       });
       this.pathToIds = mapping;
+      if(eventIds.size > 0) {
+        this.eventService.getEventNamesByIds(Array.from(eventIds) as number[]).subscribe(res => {
+          this.eventIdMapping = res;
+        });
+      }
+      //collect all event ids too;
     });
   }
 
@@ -77,29 +91,17 @@ export class ExtensionComponent implements OnInit {
   }
 }
 
-export function fromPathToOrgAndEventId(path: string): {orgId: number, eventId: number, type: string} {
-  let splitted = path.split('-').slice(1); // we have 3 possibilities: [''], ['1'] or ['1', '1']
-  if (splitted.length === 1 && splitted[0] === '') {
-    return {type: 'SYSTEM', orgId: undefined, eventId: undefined}; // system level
-  } else if (splitted.length === 1 && splitted[0] !== '') {
-    return {type: 'ORGANIZATION', orgId: parseInt(splitted[0], 10), eventId: undefined};
-  } else if (splitted.length === 2) {
-    return {type: 'EVENT', orgId: parseInt(splitted[0], 10), eventId: parseInt(splitted[1], 10)};
-  } else {
-    throw 'Wrong path format';
-  }
-}
-
 @Pipe({name: 'pathToOrgAndEvent', pure: true})
 export class PathToOrgAndEventPipe implements PipeTransform {
-  transform(value: {orgId: number, eventId: number, type: string}, orgIdMapping: {[key: number]: string}) {
+  transform(value: {orgId: number, eventId: number, type: string}, orgIdMapping: {[key: number]: string}, eventIdMapping: {[key: number]: string}) {
     let orgName = orgIdMapping[value.orgId];
+    let eventName = eventIdMapping[value.eventId];
     if (value.type === 'SYSTEM') {
       return 'System';
     } else if (orgName && value.type === 'ORGANIZATION') {
       return 'System > ' + orgName;
     } else if (orgName && value.type === 'EVENT') {
-      return 'System > ' + orgName + ' > EVENT TODO';
+      return 'System > ' + orgName + ' > ' + eventName;
     }
   }
 }
