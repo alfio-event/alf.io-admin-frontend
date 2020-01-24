@@ -77,10 +77,27 @@ export class NewEditExtensionDialogComponent implements OnInit {
   }
 
   create() {
-    this.dialogRef.close();
+    let formVal = this.extensionForm.value;
+    this.extensionService.createExtension({path: toPath(formVal.organizationId, formVal.eventId), name: formVal.name, enabled: formVal.enabled, script: formVal.script}).subscribe(res => {
+      this.dialogRef.close(true);
+    });
   }
+
+  
 
   update() {
     this.dialogRef.close();
+  }
+}
+
+function toPath(orgId: number | string, eventId: number | string) {
+  if (orgId === '-' && eventId === '-') {
+    return '-';
+  } else if (typeof orgId === 'number' && eventId === '-') {
+    return `-${orgId}`;
+  } else if (typeof orgId === 'number' && typeof eventId === 'number') {
+    return `-${orgId}-${eventId}`;
+  } else {
+    throw 'invalid format';
   }
 }

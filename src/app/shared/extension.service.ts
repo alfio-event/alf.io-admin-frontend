@@ -20,6 +20,10 @@ export class ExtensionService {
     deleteExtension(extension: ExtensionSupport): Observable<any> {
         return this.http.delete(`/admin/api/extensions/${extension.path}/${extension.name}`);
     }
+
+    createExtension(extension: {path: string, name: string, enabled: boolean, script: string}): Observable<any> {
+      return this.http.post('/admin/api/extensions', extension);
+    }
 }
 
 export function fromPathToOrgAndEventId(path: string): {orgId: number, eventId: number, type: string} {
