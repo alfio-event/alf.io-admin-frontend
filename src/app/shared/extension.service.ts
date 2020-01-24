@@ -24,6 +24,10 @@ export class ExtensionService {
     createExtension(extension: {path: string, name: string, enabled: boolean, script: string}): Observable<any> {
       return this.http.post('/admin/api/extensions', extension);
     }
+
+    updateExtension(previousPath: string, previousName: string, extension: {path: string, name: string, enabled: boolean, script: string}): Observable<any> {
+      return this.http.post(`/admin/api/extensions/${previousPath}/${previousName}`, extension);
+    }
 }
 
 export function fromPathToOrgAndEventId(path: string): {orgId: number, eventId: number, type: string} {

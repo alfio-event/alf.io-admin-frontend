@@ -77,16 +77,20 @@ export class NewEditExtensionDialogComponent implements OnInit {
   }
 
   create() {
-    let formVal = this.extensionForm.value;
-    this.extensionService.createExtension({path: toPath(formVal.organizationId, formVal.eventId), name: formVal.name, enabled: formVal.enabled, script: formVal.script}).subscribe(res => {
+    this.extensionService.createExtension(this.getExtensionFromForm()).subscribe(res => {
       this.dialogRef.close(true);
     });
   }
 
-  
-
   update() {
-    this.dialogRef.close();
+    this.extensionService.updateExtension(this.extensionToEdit.path, this.extensionToEdit.name, this.getExtensionFromForm()).subscribe(res => {
+      this.dialogRef.close(true);
+    });
+  }
+
+  private getExtensionFromForm() {
+    let formVal = this.extensionForm.value;
+    return {path: toPath(formVal.organizationId, formVal.eventId), name: formVal.name, enabled: formVal.enabled, script: formVal.script};
   }
 }
 
