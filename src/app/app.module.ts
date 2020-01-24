@@ -37,6 +37,7 @@ import { ConfirmDialogComponent } from './dialog/confirm-dialog/confirm-dialog.c
 import { NewEditUserDialogComponent } from './dialog/new-edit-user-dialog/new-edit-user-dialog.component';
 import { NewEditGroupDialogComponent } from './organization/groups/new-edit-group-dialog/new-edit-group-dialog.component';
 import { NewEditExtensionDialogComponent } from './admin/extension/new-edit-extension-dialog/new-edit-extension-dialog.component';
+import { ToNumberPipe } from './shared/to-number.pipe';
 
 
 // AoT requires an exported function for factories
@@ -69,7 +70,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     NewEditUserDialogComponent,
     NewEditGroupDialogComponent,
     NewEditExtensionDialogComponent,
-    PathToOrgAndEventPipe
+    PathToOrgAndEventPipe,
+    ToNumberPipe
   ],
   imports: [
     BrowserModule,

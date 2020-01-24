@@ -5,7 +5,7 @@
 <div mat-dialog-content>
     <form [formGroup]="extensionForm" fxLayout="column">
         <mat-form-field>
-            <mat-select formControlName="organizationId" placeholder="Organization">
+            <mat-select formControlName="organizationId" placeholder="Organization" (selectionChange)="orgChanged()">
                 <mat-option value='-'>System (apply for all)</mat-option>
                 <mat-option [value]="org.id" *ngFor="let org of organizations">{{org.name}}</mat-option>
             </mat-select>
@@ -13,6 +13,9 @@
         <mat-form-field *ngIf="extensionForm.value.organizationId !== '-'">
             <mat-select formControlName="eventId" placeholder="Event">
                 <mat-option value='-'>All events</mat-option>
+                <mat-option [value]="event.key | toNumber" *ngFor="let event of eventsInOrgId[extensionForm.value.organizationId] | keyvalue ">
+                    {{event.value}}
+                </mat-option>
             </mat-select>
         </mat-form-field>
         <mat-form-field>
