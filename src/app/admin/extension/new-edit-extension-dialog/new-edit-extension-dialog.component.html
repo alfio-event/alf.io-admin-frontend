@@ -1,9 +1,20 @@
 <h1 mat-dialog-title>
-    <ng-container *ngIf="!extensionToEdit; else elseTitle">Add new organization</ng-container>
+    <ng-container *ngIf="!extensionToEdit; else elseTitle">Add new extension</ng-container>
     <ng-template #elseTitle>Edit extension {{extensionToEdit.name}}</ng-template>
 </h1>
 <div mat-dialog-content>
     <form [formGroup]="extensionForm" fxLayout="column">
+        <mat-form-field>
+            <mat-select formControlName="organizationId" placeholder="Organization">
+                <mat-option value='-'>System (apply for all)</mat-option>
+                <mat-option [value]="org.id" *ngFor="let org of organizations">{{org.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field *ngIf="extensionForm.value.organizationId !== '-'">
+            <mat-select formControlName="eventId" placeholder="Event">
+                <mat-option value='-'>All events</mat-option>
+            </mat-select>
+        </mat-form-field>
         <mat-form-field>
             <input formControlName="name" matInput placeholder="Name" required>
         </mat-form-field>
