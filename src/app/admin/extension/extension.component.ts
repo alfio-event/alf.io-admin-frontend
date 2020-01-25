@@ -17,7 +17,6 @@ export class ExtensionComponent implements OnInit {
   extensions: ExtensionSupport[] = [];
   organizations: Organization[] = [];
   orgIdMapping: {[key: number]: string} = {};
-  pathToIds: {[key: string]: {type: string, orgId: number, eventId: number}} = {};
   eventIdMapping: {[key: number]: string} = {};
 
   extensionsDisplayColumns = ['path', 'name', 'enabled', 'actions'];
@@ -44,16 +43,13 @@ export class ExtensionComponent implements OnInit {
   private loadExtensions() {
     this.extensionService.getExtensions().subscribe(extensions => {
       this.extensions = extensions;
-      let mapping = {};
       let eventIds = new Set();
       extensions.forEach(e => {
         let orgIdEventId = fromPathToOrgAndEventId(e.path);
-        mapping[e.path] = orgIdEventId;
         if (orgIdEventId.eventId !== undefined) {
           eventIds.add(orgIdEventId.eventId);
         }
       });
-      this.pathToIds = mapping;
       if(eventIds.size > 0) {
         this.eventService.getEventNamesByIds(Array.from(eventIds) as number[]).subscribe(res => {
           this.eventIdMapping = res;
@@ -88,6 +84,13 @@ export class ExtensionComponent implements OnInit {
         })
       }
     });
+  }
+}
+
+@Pipe({name: 'extensionPath', pure: true})
+export class ExtensionPathPipe implements PipeTransform {
+  transform(value: string): {type: string, orgId: number, eventId: number} {
+    return fromPathToOrgAndEventId(value);
   }
 }
 

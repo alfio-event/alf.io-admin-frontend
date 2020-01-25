@@ -47,14 +47,14 @@ export class ExtensionService {
 }
 
 export function fromPathToOrgAndEventId(path: string): {orgId: number, eventId: number, type: string} {
-    let splitted = path.split('-').slice(1); // we have 3 possibilities: [''], ['1'] or ['1', '1']
-    if (splitted.length === 1 && splitted[0] === '') {
-      return {type: 'SYSTEM', orgId: undefined, eventId: undefined}; // system level
-    } else if (splitted.length === 1 && splitted[0] !== '') {
-      return {type: 'ORGANIZATION', orgId: parseInt(splitted[0], 10), eventId: undefined};
-    } else if (splitted.length === 2) {
-      return {type: 'EVENT', orgId: parseInt(splitted[0], 10), eventId: parseInt(splitted[1], 10)};
-    } else {
-      throw 'Wrong path format';
-    }
+  let splitted = path.split('-').slice(1); // we have 3 possibilities: [''], ['1'] or ['1', '1']
+  if (splitted.length === 1 && splitted[0] === '') {
+    return {type: 'SYSTEM', orgId: undefined, eventId: undefined}; // system level
+  } else if (splitted.length === 1 && splitted[0] !== '') {
+    return {type: 'ORGANIZATION', orgId: parseInt(splitted[0], 10), eventId: undefined};
+  } else if (splitted.length === 2) {
+    return {type: 'EVENT', orgId: parseInt(splitted[0], 10), eventId: parseInt(splitted[1], 10)};
+  } else {
+    throw 'Wrong path format';
   }
+}

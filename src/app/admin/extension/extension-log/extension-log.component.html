@@ -4,7 +4,7 @@
     <ng-container matColumnDef="path">
         <th mat-header-cell *matHeaderCellDef>Path</th>
         <td mat-cell *matCellDef="let log">
-            {{log.path}}
+            {{log.path | extensionPath | pathToOrgAndEvent: orgIdMapping: extensionLogs.eventIdMapping }}
         </td>
     </ng-container>
     <ng-container matColumnDef="name">
@@ -16,7 +16,7 @@
     <ng-container matColumnDef="effectivePath">
         <th mat-header-cell *matHeaderCellDef>Effective Path</th>
         <td mat-cell *matCellDef="let log">
-            {{log.effectivePath}}
+            {{log.effectivePath | extensionPath | pathToOrgAndEvent: orgIdMapping: extensionLogs.eventIdMapping }}
         </td>
     </ng-container>
     <ng-container matColumnDef="type">
@@ -41,4 +41,4 @@
     <tr mat-row *matRowDef="let myRowData; columns: extensionLogsDisplayColumns"></tr>
 </table>
 
-<mat-paginator [pageSizeOptions]="[50]" showFirstLastButtons (page)="loadPage($event.pageIndex)"></mat-paginator>
+<mat-paginator [pageSizeOptions]="[50]" [length]="extensionLogs.count" showFirstLastButtons (page)="loadPage($event.pageIndex)"></mat-paginator>
