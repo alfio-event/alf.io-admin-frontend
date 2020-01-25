@@ -38,6 +38,7 @@ import { NewEditUserDialogComponent } from './dialog/new-edit-user-dialog/new-ed
 import { NewEditGroupDialogComponent } from './organization/groups/new-edit-group-dialog/new-edit-group-dialog.component';
 import { NewEditExtensionDialogComponent } from './admin/extension/new-edit-extension-dialog/new-edit-extension-dialog.component';
 import { ToNumberPipe } from './shared/to-number.pipe';
+import { ExtensionLogComponent } from './admin/extension/extension-log/extension-log.component';
 
 
 // AoT requires an exported function for factories
@@ -71,7 +72,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     NewEditGroupDialogComponent,
     NewEditExtensionDialogComponent,
     PathToOrgAndEventPipe,
-    ToNumberPipe
+    ToNumberPipe,
+    ExtensionLogComponent
   ],
   imports: [
     BrowserModule,

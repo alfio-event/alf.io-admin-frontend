@@ -12,6 +12,7 @@ import { OrganizationComponent } from './admin/organization/organization.compone
 import { ConfigurationComponent as AdminConfigurationComponent } from './admin/configuration/configuration.component';
 import { NewEventComponent } from './organization/new-event/new-event.component';
 import { ManageEventComponent } from './organization/manage-event/manage-event.component';
+import { ExtensionLogComponent } from './admin/extension/extension-log/extension-log.component';
 
 
 const routes: Routes = [
@@ -26,7 +27,8 @@ const routes: Routes = [
   { path: 'admin/organization', component: OrganizationComponent },
   { path: 'admin/configuration', component: AdminConfigurationComponent },
   { path: 'admin/users', component: AdminUsersComponent },
-  { path: 'admin/extension', component: ExtensionComponent }
+  { path: 'admin/extension', component: ExtensionComponent },
+  { path: 'admin/extension/log', component: ExtensionLogComponent }
 ];
 
 @NgModule({
