@@ -1,6 +1,5 @@
 <h2><a class="link-in-title" [routerLink]="['/admin/extension']">Extension</a> > logs</h2>
 
-
 <table mat-table [dataSource]="extensionLogs" class="full-width">
     <ng-container matColumnDef="path">
         <th mat-header-cell *matHeaderCellDef>Path</th>
@@ -41,3 +40,5 @@
     <tr mat-header-row *matHeaderRowDef="extensionLogsDisplayColumns"></tr>
     <tr mat-row *matRowDef="let myRowData; columns: extensionLogsDisplayColumns"></tr>
 </table>
+
+<mat-paginator [pageSizeOptions]="[50]" showFirstLastButtons (page)="loadPage($event.pageIndex)"></mat-paginator>
