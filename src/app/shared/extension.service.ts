@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ExtensionSupport } from '../model/extension';
+import { PageAndContent } from '../model/page-and-content';
+import { ExtensionLog, ExtensionLogType } from '../model/extension-log';
 
 @Injectable({ providedIn: 'root' })
 export class ExtensionService {
@@ -27,6 +29,20 @@ export class ExtensionService {
 
     updateExtension(previousPath: string, previousName: string, extension: {path: string, name: string, enabled: boolean, script: string}): Observable<any> {
       return this.http.post(`/admin/api/extensions/${previousPath}/${previousName}`, extension);
+    }
+
+    getLog(page: number = 0, path: string = undefined, name: string = undefined, type: ExtensionLogType = undefined): Observable<PageAndContent<ExtensionLog[]>> {
+      let params = {page: page.toString()};
+      if (path) {
+        params['path'] = path;
+      }
+      if (name) {
+        params['name'] = name;
+      }
+      if (type) {
+        params['type'] = type.toString();
+      }
+      return this.http.get<PageAndContent<ExtensionLog[]>>(`/admin/api/extensions/log`, {params: params});
     }
 }
 
