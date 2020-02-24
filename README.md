@@ -1,6 +1,6 @@
 # AlfioAdminFrontend [![Build Status](https://travis-ci.org/alfio-event/alf.io-admin-frontend.svg?branch=master)](https://travis-ci.org/alfio-event/alf.io-admin-frontend)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.19.
+This is the (future) admin part of [alf.io](https://alf.io)
 
 ## Development server
 
