@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 import { startWith, map, flatMap } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PaymentProxy, PAYMENT_PROXY_DESCRIPTION } from 'src/app/model/payment-proxy';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { TicketCategoryDialogComponent, TicketCategoryDialogData } from '../ticket-category-dialog/ticket-category-dialog.component';
 import { EventService } from 'src/app/shared/event.service';
 import { OrganizationService } from 'src/app/shared/organization.service';
