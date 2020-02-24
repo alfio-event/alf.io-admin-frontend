@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { NewEditGroupDialogComponent } from './new-edit-group-dialog/new-edit-group-dialog.component';
 import { GroupService } from 'src/app/shared/group.service';
 import { Group } from 'src/app/model/group';

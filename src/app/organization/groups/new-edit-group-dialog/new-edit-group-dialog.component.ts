@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { GroupService } from 'src/app/shared/group.service';
 import { GroupWithDetails, GroupItem } from 'src/app/model/group';

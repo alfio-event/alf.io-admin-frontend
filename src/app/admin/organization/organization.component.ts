@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { OrganizationService } from 'src/app/shared/organization.service';
 import { Organization } from 'src/app/model/organization';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { NewEditOrganizationDialogComponent } from './new-edit-organization-dialog/new-edit-organization-dialog.component';
 
 @Component({

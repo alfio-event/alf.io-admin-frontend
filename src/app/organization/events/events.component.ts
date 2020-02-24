@@ -3,7 +3,7 @@ import { EventService } from '../../shared/event.service';
 import { EventStatistic } from '../../model/event-statistic';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { EventStatus } from '../../model/event-status';
-import { forkJoin, Subject } from 'rxjs';
+import { forkJoin, Subject, Observable } from 'rxjs';
 import { map, debounceTime } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -44,7 +44,7 @@ export class EventsComponent implements OnInit {
   loadEvents() {
 
     const formValue = this.searchForm.value;
-    const searches = [];
+    const searches: Observable<EventStatistic[]>[] = [];
 
     const orgName = this.route.snapshot.paramMap.get('org');
 

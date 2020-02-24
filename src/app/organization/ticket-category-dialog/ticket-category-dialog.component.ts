@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Language } from 'src/app/model/language';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { EventSupportService } from 'src/app/shared/event-support.service';
