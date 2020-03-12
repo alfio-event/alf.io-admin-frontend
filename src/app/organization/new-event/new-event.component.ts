@@ -20,6 +20,11 @@ import { OrganizationService } from 'src/app/shared/organization.service';
 export class NewEventComponent implements OnInit {
 
   createEventForm: FormGroup;
+  eventInfoFormGroup: FormGroup;
+  eventDescriptionFormGroup: FormGroup;
+  linksFormGroup: FormGroup;
+  paymentFormGroup: FormGroup;
+  ticketsFormGroup: FormGroup;
 
   orgName: string;
 
@@ -44,36 +49,46 @@ export class NewEventComponent implements OnInit {
     private fb: FormBuilder,
     private dialog: MatDialog) {
 
+      this.eventDescriptionFormGroup = fb.group({});
+
+      this.eventInfoFormGroup = fb.group({
+        displayName: null,
+        location: null,
+        geolocation: null,
+        timeZone: null,
+        startDate: null,
+        startTime: null,
+        endDate: null,
+        endTime: null,
+        shortName: null,
+        description: this.eventDescriptionFormGroup,
+        fileBlobId: null
+      });
+
+      this.linksFormGroup = fb.group({
+        websiteUrl: null,
+        termsAndConditionsUrl: null,
+        privacyPolicyUrl: null
+      });
+
+      this.paymentFormGroup = fb.group({
+        freeOfCharge: null,
+        regularPrice: null,
+        currency: null,
+        vatPercentage: null,
+        vatIncluded: null,
+        paymentProxies: fb.group({})
+      });
+
+      this.ticketsFormGroup = fb.group({
+        availableSeats: null
+      });
+
       this.createEventForm = fb.group({
-        eventInfo: fb.group({
-          displayName: null,
-          location: null,
-          geolocation: null,
-          timeZone: null,
-          startDate: null,
-          startTime: null,
-          endDate: null,
-          endTime: null,
-          shortName: null,
-          description: fb.group({}),
-          fileBlobId: null
-        }),
-        links: fb.group({
-          websiteUrl: null,
-          termsAndConditionsUrl: null,
-          privacyPolicyUrl: null
-        }),
-        payment: fb.group({
-          freeOfCharge: null,
-          regularPrice: null,
-          currency: null,
-          vatPercentage: null,
-          vatIncluded: null,
-          paymentProxies: fb.group({})
-        }),
-        tickets: fb.group({
-          availableSeats: null
-        })
+        eventInfo: this.eventInfoFormGroup,
+        links: this.linksFormGroup,
+        payment: this.paymentFormGroup,
+        tickets: this.ticketsFormGroup
       });
 
       eventSupportService.getTimeZones().subscribe(tzs => {
