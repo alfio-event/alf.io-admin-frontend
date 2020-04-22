@@ -4,6 +4,7 @@ import { User, RoleDescriptor, UserType, Role, UserInfo, RoleTarget } from '../m
 import { Observable } from 'rxjs';
 import { map, flatMap } from 'rxjs/operators';
 import { OrganizationService } from './organization.service';
+import { ValidationResult } from '../model/validation-result';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -91,8 +92,12 @@ export class UserService {
         return this.http.get<UserInfo>('/admin/api/users/current');
     }
 
-    updateCurrentUser(update: {firstName, lastName, emailAddress}): Observable<void> {
+    updateCurrentUser(update: {firstName: string, lastName: string, emailAddress: string}): Observable<void> {
         return this.http.post<void>('/admin/api/users/current/edit', update);
+    }
+
+    updatePasswordForCurrentUser(update: {oldPassword: string, newPassword: string, newPasswordConfirm: string}): Observable<ValidationResult> {
+        return this.http.post<ValidationResult>('/admin/api/users/current/update-password', update);
     }
 
     logout(): Observable<any> {

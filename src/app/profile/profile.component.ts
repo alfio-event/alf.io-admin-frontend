@@ -5,8 +5,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  templateUrl: './profile.component.html'
 })
 export class ProfileComponent implements OnInit {
 
@@ -36,6 +35,18 @@ export class ProfileComponent implements OnInit {
     this.userService.updateCurrentUser(this.userInfoForm.value).subscribe(res => {
       this.loadUser();
     })
+  }
+
+  updatePassword(): void {
+    this.userService.updatePasswordForCurrentUser(this.changePasswordForm.value).subscribe(res => {
+      if (res.errorCount === 0) {
+        this.changePasswordForm.reset();
+        this.changePasswordForm.markAsPristine();
+        this.changePasswordForm.markAsUntouched();
+      } else {
+        //TODO message
+      }
+    });
   }
 
   private loadUser() {

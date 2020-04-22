@@ -2,7 +2,7 @@
     <h2>Edit your account: {{userInfo.username}}</h2>
     <p>Review and edit your account details</p>
     <h3>Personal information</h3>
-    <form [formGroup]="userInfoForm" fxLayout="column">
+    <form [formGroup]="userInfoForm" fxLayout="column" (submit)="update()">
         <mat-form-field>
             <input formControlName="firstName" matInput placeholder="First Name" required type="text">
         </mat-form-field>
@@ -13,21 +13,24 @@
             <input formControlName="emailAddress" matInput placeholder="Email Address" required type="email">
         </mat-form-field>
         <p fxLayoutAlign="end center">
-            <button mat-button color="primary" (click)="update()">Update</button>
+            <button mat-button color="primary" type="submit">Update</button>
         </p>
     </form>
 
     <h3>Change Password</h3>
     <p> With great power comes great responsibility: you are the administrator, therefore nobody could reset your password if you lose it. Be careful!</p>
-    <form [formGroup]="changePasswordForm" fxLayout="column">
+    <form [formGroup]="changePasswordForm" fxLayout="column" (submit)="updatePassword()">
         <mat-form-field>
-            <input formControlName="oldPassword" matInput placeholder="Current Password" required type="password">
+            <input formControlName="oldPassword" matInput placeholder="Current Password" type="password">
         </mat-form-field>
         <mat-form-field>
-            <input formControlName="newPassword" matInput placeholder="New Password" required type="password">
+            <input formControlName="newPassword" matInput placeholder="New Password" type="password" autocomplete="new-password">
         </mat-form-field>
         <mat-form-field>
-            <input formControlName="newPasswordConfirm" matInput placeholder="Confirm new Password" required type="password">
+            <input formControlName="newPasswordConfirm" matInput placeholder="Confirm new Password" type="password" autocomplete="new-password">
         </mat-form-field>
+        <p fxLayoutAlign="end center">
+            <button mat-button color="primary" type="submit">Update</button>
+        </p>
     </form>
 </div>
