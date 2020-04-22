@@ -1,4 +1,30 @@
-<p>profile works!</p>
 <div *ngIf="userInfo">
-    <pre>{{userInfo|json}}</pre>
+    <h2>Edit your account: {{userInfo.username}}</h2>
+    <p>Review and edit your account details</p>
+    <h3>Personal information</h3>
+    <form [formGroup]="userInfoForm" fxLayout="column">
+        <mat-form-field>
+            <input formControlName="firstName" matInput placeholder="First Name" required type="text">
+        </mat-form-field>
+        <mat-form-field>
+            <input formControlName="lastName" matInput placeholder="Last Name" required type="text">
+        </mat-form-field>
+        <mat-form-field>
+            <input formControlName="emailAddress" matInput placeholder="Email Address" required type="email">
+        </mat-form-field>
+    </form>
+
+    <h3>Change Password</h3>
+    <p> With great power comes great responsibility: you are the administrator, therefore nobody could reset your password if you lose it. Be careful!</p>
+    <form [formGroup]="changePasswordForm" fxLayout="column">
+        <mat-form-field>
+            <input formControlName="oldPassword" matInput placeholder="Current Password" required type="password">
+        </mat-form-field>
+        <mat-form-field>
+            <input formControlName="newPassword" matInput placeholder="New Password" required type="password">
+        </mat-form-field>
+        <mat-form-field>
+            <input formControlName="newPasswordConfirm" matInput placeholder="Confirm new Password" required type="password">
+        </mat-form-field>
+    </form>
 </div>
