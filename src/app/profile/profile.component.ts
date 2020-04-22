@@ -32,9 +32,16 @@ export class ProfileComponent implements OnInit {
     this.loadUser();
   }
 
+  update(): void {
+    this.userService.updateCurrentUser(this.userInfoForm.value).subscribe(res => {
+      this.loadUser();
+    })
+  }
+
   private loadUser() {
     this.userService.getCurrent().subscribe(userInfo => {
       this.userInfo = userInfo;
+      this.userInfoForm.patchValue({firstName: userInfo.firstName, lastName: userInfo.lastName, emailAddress: userInfo.emailAddress});
     });
   }
 

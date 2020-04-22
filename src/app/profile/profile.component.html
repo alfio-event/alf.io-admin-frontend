@@ -12,6 +12,9 @@
         <mat-form-field>
             <input formControlName="emailAddress" matInput placeholder="Email Address" required type="email">
         </mat-form-field>
+        <p fxLayoutAlign="end center">
+            <button mat-button color="primary" (click)="update()">Update</button>
+        </p>
     </form>
 
     <h3>Change Password</h3>

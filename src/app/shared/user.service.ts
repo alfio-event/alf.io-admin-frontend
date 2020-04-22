@@ -91,6 +91,10 @@ export class UserService {
         return this.http.get<UserInfo>('/admin/api/users/current');
     }
 
+    updateCurrentUser(update: {firstName, lastName, emailAddress}): Observable<void> {
+        return this.http.post<void>('/admin/api/users/current/edit', update);
+    }
+
     logout(): Observable<any> {
         return this.http.post('/logout', {});
     }
