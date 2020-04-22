@@ -70,7 +70,7 @@ export class AppComponent implements OnInit, OnDestroy {
           this.selected = orgs[0];
         }
 
-        if (currentUrl.match(/^\/admin\/.*$/)) {
+        if (currentUrl.match(/^\/admin\/.*$/) || currentUrl.match(/^\/profile/)) {
           return;
         } else if (!matched) {
           this.router.navigate(['/organization', this.selected.name]);
