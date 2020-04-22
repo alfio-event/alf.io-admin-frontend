@@ -13,6 +13,7 @@ import { ConfigurationComponent as AdminConfigurationComponent } from './admin/c
 import { NewEventComponent } from './organization/new-event/new-event.component';
 import { ManageEventComponent } from './organization/manage-event/manage-event.component';
 import { ExtensionLogComponent } from './admin/extension/extension-log/extension-log.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 const routes: Routes = [
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'organization/:org/configuration', component: ConfigurationComponent },
   { path: 'organization/:org/new-event', component: NewEventComponent },
   { path: 'organization/:org/event/:eventShortName', component: ManageEventComponent },
+  { path: 'profile', component: ProfileComponent },
   { path: 'admin/organization', component: OrganizationComponent },
   { path: 'admin/configuration', component: AdminConfigurationComponent },
   { path: 'admin/users', component: AdminUsersComponent },

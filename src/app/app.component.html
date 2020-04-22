@@ -15,7 +15,7 @@
                 <mat-icon svgIcon="person"></mat-icon><span *ngIf="userInfo">{{userInfo.username}}</span>
             </button>
             <mat-menu #menu="matMenu">
-                <button mat-menu-item>Edit account</button>
+                <a mat-menu-item [routerLink]="['/profile']">Edit account</a>
                 <button mat-menu-item (click)="logout()">Logout</button>
             </mat-menu>
         </mat-toolbar-row>
