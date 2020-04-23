@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../shared/user.service';
 import { UserInfo } from '../model/user';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-profile',
@@ -13,7 +14,10 @@ export class ProfileComponent implements OnInit {
   userInfoForm: FormGroup;
   changePasswordForm: FormGroup;
 
-  constructor(private userService: UserService, fb: FormBuilder) {
+  constructor(
+    private snackBar: MatSnackBar,
+    private userService: UserService, 
+    fb: FormBuilder) {
     this.userInfoForm = fb.group({
       firstName: null,
       lastName: null,
@@ -33,6 +37,7 @@ export class ProfileComponent implements OnInit {
 
   update(): void {
     this.userService.updateCurrentUser(this.userInfoForm.value).subscribe(res => {
+      this.snackBar.open('User profile updated', null, {duration: 2000});
       this.loadUser();
     })
   }
@@ -43,6 +48,7 @@ export class ProfileComponent implements OnInit {
         this.changePasswordForm.reset();
         this.changePasswordForm.markAsPristine();
         this.changePasswordForm.markAsUntouched();
+        this.snackBar.open('Password changed', null, {duration: 2000});
       } else {
         //TODO message
       }
