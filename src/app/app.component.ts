@@ -33,7 +33,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private organizationService: OrganizationService,
     private userService: UserService,
     private configurationService: ConfigurationService,
-    private router: Router,
+    public router: Router,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     iconRegistry: MatIconRegistry,
@@ -52,7 +52,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    
     this.organizationService.getOrganizations().subscribe(orgs => {
       const currentUrl = this.router.url;
       this.organizations = orgs;
