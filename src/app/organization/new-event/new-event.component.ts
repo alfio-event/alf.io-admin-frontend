@@ -53,6 +53,7 @@ export class NewEventComponent implements OnInit {
 
       this.eventInfoFormGroup = fb.group({
         displayName: null,
+        format: null,
         location: null,
         geolocation: null,
         timeZone: null,
@@ -230,6 +231,7 @@ export class NewEventComponent implements OnInit {
     this.organizationService.getOrganizationId(this.orgName).pipe(map(orgId => {
       let r = {
         type: 'INTERNAL',
+        format: eventInfo.format,
         freeOfCharge: eventFormValue.payment.freeOfCharge,
         begin: this.eventSupportService.fromDateAndTime(eventInfo.startDate, eventInfo.startTime),
         end: this.eventSupportService.fromDateAndTime(eventInfo.endDate, eventInfo.endTime),

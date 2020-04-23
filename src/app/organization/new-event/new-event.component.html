@@ -17,13 +17,22 @@
                 <input formControlName="shortName" matInput placeholder="Event url" required>
                 <span matSuffix>/</span>
             </mat-form-field>
-            <mat-form-field [fxFlex]="mapUrl ? '75%' : '100%'">
-                <textarea cdkTextareaAutosize formControlName="location" matInput placeholder="Event Location" required #locationTextarea (blur)="updateLocation(locationTextarea.value)"></textarea>
-                <mat-hint align="start">Please enter the address of the Location. This will be used for displaying the map on the event page.</mat-hint>
+            <mat-form-field>
+                <mat-label>Event will be held</mat-label>
+                <mat-select required formControlName="format">
+                    <mat-option value="IN_PERSON">In person</mat-option>
+                    <mat-option value="ONLINE">Online</mat-option>
+                </mat-select>
             </mat-form-field>
-            <div *ngIf="mapUrl">
-                <img class="img-responsive" [src]="mapUrl">
-            </div>
+            <ng-container *ngIf="eventInfoFormGroup.value.format !== 'ONLINE'">
+                <mat-form-field [fxFlex]="mapUrl ? '75%' : '100%'">
+                    <textarea cdkTextareaAutosize formControlName="location" matInput placeholder="Event Location" required #locationTextarea (blur)="updateLocation(locationTextarea.value)"></textarea>
+                    <mat-hint align="start">Please enter the address of the Location. This will be used for displaying the map on the event page.</mat-hint>
+                </mat-form-field>
+                <div *ngIf="mapUrl">
+                    <img class="img-responsive" [src]="mapUrl">
+                </div>
+            </ng-container>
             <mat-form-field>
                 <mat-label>Timezone</mat-label>
                 <mat-select required formControlName="timeZone">
