@@ -12,8 +12,8 @@
         <mat-form-field>
             <mat-label>Status</mat-label>
             <mat-select multiple formControlName="status" (selectionChange)="loadEvents()">
-                <mat-option value="PUBLIC">Published</mat-option>
-                <mat-option value="DRAFT">Draft</mat-option>
+                <mat-option value="PUBLIC">Listed</mat-option>
+                <mat-option value="DRAFT">Not Listed</mat-option>
                 <mat-option value="PAST">Past</mat-option>
             </mat-select>
         </mat-form-field>
@@ -23,7 +23,7 @@
 <mat-list *ngIf="events != null">
     <mat-list-item *ngFor="let event of events">
         <img matListAvatar [src]="'/file/'+event.fileBlobId" alt="logo">
-        <h3 matLine><a [routerLink]="['event', event.shortName]">{{event.displayName}} <span *ngIf="event.status === 'DRAFT'">(draft)</span></a></h3>
+        <h3 matLine><a [routerLink]="['event', event.shortName]">{{event.displayName}} <span *ngIf="event.status === 'DRAFT'">(not listed)</span></a></h3>
         <p matLine>
             {{event.formattedBegin}} / {{event.formattedEnd}}
         </p>
