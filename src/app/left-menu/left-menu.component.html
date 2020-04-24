@@ -1,20 +1,33 @@
 <div class="sidenav-content">
-    <mat-nav-list *ngIf="organization">
-        <a mat-list-item [routerLink]="['/organization', organization.name]">Events</a>
-        <div *ngIf="router.isActive(router.createUrlTree(['/organization', organization.name, 'event']), false)">
-            event is selected!
-        </div>
-        <a mat-list-item [routerLink]="['/organization', organization.name, 'organization']">My organization</a>
-        <a mat-list-item [routerLink]="['/organization', organization.name, 'users']">Users</a>
-        <a mat-list-item [routerLink]="['/organization', organization.name, 'api-keys']">Api Keys</a>
-        <a mat-list-item [routerLink]="['/organization', organization.name, 'groups']">Groups</a>
-        <a mat-list-item [routerLink]="['/organization', organization.name, 'configuration']">Configuration</a>
-    </mat-nav-list>
-    <mat-nav-list *ngIf="userInfo && userInfo.role === 'ADMIN'">
-        <mat-divider *ngIf="organization"></mat-divider>
-        <a mat-list-item [routerLink]="['/admin/organization']">Organizations</a>
-        <a mat-list-item [routerLink]="['/admin/configuration']">System configuration</a>
-        <a mat-list-item [routerLink]="['/admin/users']">All users</a>
-        <a mat-list-item [routerLink]="['/admin/extension']">Extensions</a>
-    </mat-nav-list>
+    <div *ngIf="router.isActive(router.createUrlTree(['/organization', organization.name, 'event']), false); else fullMenu">
+        <mat-nav-list>
+            <a mat-list-item>Reservations</a>
+            <a mat-list-item>Check in</a>
+            <a mat-list-item>Attendees' data to collect</a>
+            <a mat-list-item>Email/Compose messages</a>
+            <a mat-list-item>Promo codes</a>
+            <a mat-list-item>Additional options</a>
+            <a mat-list-item>Donation options</a>
+            <mat-divider></mat-divider>
+            <a mat-list-item>Waiting list</a>
+            <a mat-list-item>Pending Payments</a>
+        </mat-nav-list>
+    </div>
+    <ng-template #fullMenu>
+        <mat-nav-list *ngIf="organization">
+            <a mat-list-item [routerLink]="['/organization', organization.name]">Events</a>
+            <a mat-list-item [routerLink]="['/organization', organization.name, 'organization']">My organization</a>
+            <a mat-list-item [routerLink]="['/organization', organization.name, 'users']">Users</a>
+            <a mat-list-item [routerLink]="['/organization', organization.name, 'api-keys']">Api Keys</a>
+            <a mat-list-item [routerLink]="['/organization', organization.name, 'groups']">Groups</a>
+            <a mat-list-item [routerLink]="['/organization', organization.name, 'configuration']">Configuration</a>
+        </mat-nav-list>
+        <mat-nav-list *ngIf="userInfo && userInfo.role === 'ADMIN'">
+            <mat-divider *ngIf="organization"></mat-divider>
+            <a mat-list-item [routerLink]="['/admin/organization']">Organizations</a>
+            <a mat-list-item [routerLink]="['/admin/configuration']">System configuration</a>
+            <a mat-list-item [routerLink]="['/admin/users']">All users</a>
+            <a mat-list-item [routerLink]="['/admin/extension']">Extensions</a>
+        </mat-nav-list>
+    </ng-template>
 </div>
