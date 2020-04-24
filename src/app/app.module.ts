@@ -57,6 +57,7 @@ import { NewEditExtensionDialogComponent } from './admin/extension/new-edit-exte
 import { ToNumberPipe } from './shared/to-number.pipe';
 import { ExtensionLogComponent } from './admin/extension/extension-log/extension-log.component';
 import { ProfileComponent } from './profile/profile.component';
+import { LeftMenuComponent } from './left-menu/left-menu.component';
 
 
 // AoT requires an exported function for factories
@@ -93,7 +94,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ToNumberPipe,
     ExtensionLogComponent,
     ExtensionPathPipe,
-    ProfileComponent
+    ProfileComponent,
+    LeftMenuComponent
   ],
   imports: [
     BrowserModule,

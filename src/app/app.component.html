@@ -22,26 +22,7 @@
     </mat-toolbar>
     <mat-sidenav-container fxFlex="auto">
         <mat-sidenav opened mode="side" [disableClose]="true">
-            <div class="sidenav-content">
-                <mat-nav-list *ngIf="selected">
-                    <a mat-list-item [routerLink]="['/organization', this.selected.name]">Events</a>
-                    <div *ngIf="router.isActive(router.createUrlTree(['/organization', this.selected.name, 'event']), false)">
-                        event is selected!
-                    </div>
-                    <a mat-list-item [routerLink]="['/organization', this.selected.name, 'organization']">My organization</a>
-                    <a mat-list-item [routerLink]="['/organization', this.selected.name, 'users']">Users</a>
-                    <a mat-list-item [routerLink]="['/organization', this.selected.name, 'api-keys']">Api Keys</a>
-                    <a mat-list-item [routerLink]="['/organization', this.selected.name, 'groups']">Groups</a>
-                    <a mat-list-item [routerLink]="['/organization', this.selected.name, 'configuration']">Configuration</a>
-                </mat-nav-list>
-                <mat-nav-list *ngIf="userInfo && userInfo.role === 'ADMIN'">
-                    <mat-divider *ngIf="selected"></mat-divider>
-                    <a mat-list-item [routerLink]="['/admin/organization']">Organizations</a>
-                    <a mat-list-item [routerLink]="['/admin/configuration']">System configuration</a>
-                    <a mat-list-item [routerLink]="['/admin/users']">All users</a>
-                    <a mat-list-item [routerLink]="['/admin/extension']">Extensions</a>
-                </mat-nav-list>
-            </div>
+            <app-left-menu [organization]="selected" [userInfo]="userInfo"></app-left-menu>
         </mat-sidenav>
         <mat-sidenav-content>
             <div class="main-content">
