@@ -1,6 +1,8 @@
 <div class="sidenav-content">
-    <div *ngIf="router.isActive(router.createUrlTree(['/organization', organization.name, 'event']), false); else fullMenu">
+    <div *ngIf="organization && router.isActive(router.createUrlTree(['/organization', organization.name, 'event']), false); else fullMenu">
         <mat-nav-list>
+            <a mat-list-item [routerLink]="['/organization', organization.name]"><mat-icon svgIcon="arrow_back"></mat-icon> All events</a>
+            <mat-divider></mat-divider>
             <a mat-list-item>Reservations</a>
             <a mat-list-item>Check in</a>
             <a mat-list-item>Attendees' data to collect</a>
