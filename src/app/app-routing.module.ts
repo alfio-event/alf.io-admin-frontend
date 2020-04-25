@@ -14,6 +14,8 @@ import { NewEventComponent } from './organization/new-event/new-event.component'
 import { ManageEventComponent } from './organization/manage-event/manage-event.component';
 import { ExtensionLogComponent } from './admin/extension/extension-log/extension-log.component';
 import { ProfileComponent } from './profile/profile.component';
+import { DashboardComponent } from './organization/manage-event/dashboard/dashboard.component';
+import { EmailLogComponent } from './organization/manage-event/email-log/email-log.component';
 
 
 const routes: Routes = [
@@ -24,7 +26,10 @@ const routes: Routes = [
   { path: 'organization/:org/groups', component: GroupsComponent },
   { path: 'organization/:org/configuration', component: ConfigurationComponent },
   { path: 'organization/:org/new-event', component: NewEventComponent },
-  { path: 'organization/:org/event/:eventShortName', component: ManageEventComponent },
+  { path: 'organization/:org/event/:eventShortName', component: ManageEventComponent, children: [
+    { path: '', component: DashboardComponent },
+    { path: 'email-log', component: EmailLogComponent }
+  ]},
   { path: 'profile', component: ProfileComponent },
   { path: 'admin/organization', component: OrganizationComponent },
   { path: 'admin/configuration', component: AdminConfigurationComponent },
