@@ -237,6 +237,7 @@ export class NewEventComponent implements OnInit {
         end: this.eventSupportService.fromDateAndTime(eventInfo.endDate, eventInfo.endTime),
         ticketCategories: this.buildTicketCategory(),
         additionalServices: [],
+        metadata: {},
         locales: this.getSelectedLanguagesValue(),
         organizationId: orgId,
         displayName: eventInfo.displayName,
