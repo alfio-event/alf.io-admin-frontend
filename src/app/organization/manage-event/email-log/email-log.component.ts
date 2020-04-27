@@ -27,6 +27,7 @@ export class EmailLogComponent implements OnInit {
     this.eventShortName = this.route.parent.snapshot.params['eventShortName'];
     this.emailLogDataSource = new EmailLogDataSource(this.eventService, this.eventShortName);
     this.emailLogDataSource.loadEmailLog(this.page, this.searchTerm);
+    //FIXME: add debounce for search filter
   }
 }
 
