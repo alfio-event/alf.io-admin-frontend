@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Organization } from '../model/organization';
 import { Router, ActivationEnd } from '@angular/router';
 import { UserInfo } from '../model/user';
-import { DashboardComponent } from '../organization/manage-event/dashboard/dashboard.component';
+import { ManageEventComponent } from '../organization/manage-event/manage-event.component';
 
 @Component({
   selector: 'app-left-menu',
@@ -21,7 +21,7 @@ export class LeftMenuComponent {
 
   constructor(public router: Router) {
     router.events.subscribe((routeEvent:any) => {
-      if (routeEvent instanceof ActivationEnd && routeEvent.snapshot.component === DashboardComponent) {
+      if (routeEvent instanceof ActivationEnd && routeEvent.snapshot.component === ManageEventComponent) {
         this.eventShortName = routeEvent.snapshot.params['eventShortName'];
       }
     });
