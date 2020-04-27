@@ -4,6 +4,8 @@ import { Observable, forkJoin } from 'rxjs';
 import { EventStatistic } from '../model/event-statistic';
 import { OrganizationService } from './organization.service';
 import { map } from 'rxjs/operators';
+import { PageAndContent } from '../model/page-and-content';
+import { EmailLog } from '../model/email';
 
 @Injectable({ providedIn: 'root' })
 export class EventService {
@@ -43,4 +45,12 @@ export class EventService {
         return this.http.get<{[key: number]: string}>(`/admin/api/events/names-in-organization/${orgId}`);
     }
 
+
+    getEmailLog(eventShortName: string, page: number, searchTerm: string = null): Observable<PageAndContent<EmailLog>> {
+        let params = {page: page.toString(10)};
+        if (searchTerm) {
+            params['search'] = searchTerm;
+        }
+        return this.http.get<PageAndContent<EmailLog>>(`/admin/api/events/${encodeURI(eventShortName)}/email/`, {params: params});
+    }
 }
