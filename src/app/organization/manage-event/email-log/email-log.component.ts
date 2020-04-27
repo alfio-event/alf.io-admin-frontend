@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EventService } from 'src/app/shared/event.service';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-email-log',
