@@ -16,6 +16,7 @@ export class EmailLogComponent implements OnInit {
   page = 0;
   searchTerm: string = null;
   emailLogDataSource: EmailLogDataSource;
+  emailLogDisplayColumns = ['recipient', 'subject', 'message', 'status', /*'checksum',*/ 'requested', 'sent'];
 
   constructor(
     private eventService: EventService,

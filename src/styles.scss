@@ -84,3 +84,8 @@ mat-sidenav-content h2 {
     color: black;
     text-decoration: none;
 }
+
+td.cell-wrap {
+    width: 200px;
+    overflow-wrap: normal;
+}
