@@ -46,11 +46,11 @@ export class EventService {
     }
 
 
-    getEmailLog(eventShortName: string, page: number, searchTerm: string = null): Observable<PageAndContent<EmailLog>> {
+    getEmailLog(eventShortName: string, page: number, searchTerm: string = null): Observable<PageAndContent<EmailLog[]>> {
         let params = {page: page.toString(10)};
         if (searchTerm) {
             params['search'] = searchTerm;
         }
-        return this.http.get<PageAndContent<EmailLog>>(`/admin/api/events/${encodeURI(eventShortName)}/email/`, {params: params});
+        return this.http.get<PageAndContent<EmailLog[]>>(`/admin/api/events/${encodeURI(eventShortName)}/email/`, {params: params});
     }
 }
