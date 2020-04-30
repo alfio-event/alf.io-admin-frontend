@@ -16,6 +16,7 @@ import { ExtensionLogComponent } from './admin/extension/extension-log/extension
 import { ProfileComponent } from './profile/profile.component';
 import { DashboardComponent } from './organization/manage-event/dashboard/dashboard.component';
 import { EmailLogComponent } from './organization/manage-event/email-log/email-log.component';
+import { ComposeMessageComponent } from './organization/manage-event/compose-message/compose-message.component';
 
 
 const routes: Routes = [
@@ -28,7 +29,8 @@ const routes: Routes = [
   { path: 'organization/:org/new-event', component: NewEventComponent },
   { path: 'organization/:org/event/:eventShortName', component: ManageEventComponent, children: [
     { path: '', component: DashboardComponent },
-    { path: 'email-log', component: EmailLogComponent }
+    { path: 'email-log', component: EmailLogComponent },
+    { path: 'compose-message', component: ComposeMessageComponent }
   ]},
   { path: 'profile', component: ProfileComponent },
   { path: 'admin/organization', component: OrganizationComponent },

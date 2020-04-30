@@ -60,6 +60,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { LeftMenuComponent } from './left-menu/left-menu.component';
 import { DashboardComponent } from './organization/manage-event/dashboard/dashboard.component';
 import { EmailLogComponent } from './organization/manage-event/email-log/email-log.component';
+import { ComposeMessageComponent } from './organization/manage-event/compose-message/compose-message.component';
 
 
 // AoT requires an exported function for factories
@@ -99,7 +100,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ProfileComponent,
     LeftMenuComponent,
     DashboardComponent,
-    EmailLogComponent
+    EmailLogComponent,
+    ComposeMessageComponent
   ],
   imports: [
     BrowserModule,
