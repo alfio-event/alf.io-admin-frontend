@@ -6,6 +6,7 @@ import { OrganizationService } from './organization.service';
 import { map } from 'rxjs/operators';
 import { PageAndContent } from '../model/page-and-content';
 import { EmailLog } from '../model/email';
+import { Language } from '../model/language';
 
 @Injectable({ providedIn: 'root' })
 export class EventService {
@@ -52,5 +53,9 @@ export class EventService {
             params['search'] = searchTerm;
         }
         return this.http.get<PageAndContent<EmailLog[]>>(`/admin/api/events/${encodeURI(eventShortName)}/email/`, {params: params});
+    }
+
+    getSelectedLanguages(eventShortName: string): Observable<Language[]> {
+        return this.http.get<Language[]>(`/admin/api/events/${encodeURI(eventShortName)}/languages`);
     }
 }
