@@ -12,20 +12,22 @@ export class ComposeMessageComponent implements OnInit {
 
   eventShortName: string;
 
-  composeMessageForm: FormArray
+  composeMessageForm: FormGroup;
+  composeMessageFormArray: FormArray;
   languages: Language[] = [];
 
   constructor(private eventService: EventService, private route: ActivatedRoute, private fb: FormBuilder) { }
 
   ngOnInit(): void {
 
-    this.composeMessageForm = this.fb.array([]);
+    this.composeMessageFormArray = this.fb.array([]);
+    this.composeMessageForm = this.fb.group(this.composeMessageFormArray);
 
     this.eventShortName = this.route.parent.snapshot.params['eventShortName'];
     this.eventService.getSelectedLanguages(this.eventShortName).subscribe(res => {
       this.languages = res;
       res.forEach((v, idx) => {
-        this.composeMessageForm.insert(idx, this.fb.group({
+        this.composeMessageFormArray.insert(idx, this.fb.group({
           attachTicket: false,
           locale: v.locale,
           subject: null,
