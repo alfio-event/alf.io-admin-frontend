@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EventService } from 'src/app/shared/event.service';
 import { ActivatedRoute } from '@angular/router';
+import { EventOrganization } from 'src/app/model/event-organization';
 
 @Component({
   selector: 'app-manage-event',
@@ -9,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ManageEventComponent implements OnInit {
 
-  event: any;
+  event: EventOrganization;
 
   constructor(private eventService: EventService, private route: ActivatedRoute) { }
 

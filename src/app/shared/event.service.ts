@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 import { PageAndContent } from '../model/page-and-content';
 import { EmailLog } from '../model/email';
 import { Language } from '../model/language';
+import { EventOrganization } from '../model/event-organization';
 
 @Injectable({ providedIn: 'root' })
 export class EventService {
@@ -34,8 +35,8 @@ export class EventService {
         return this.http.post<string>('/admin/api/events/new', eventDescriptor);
     }
 
-    getEvent(eventShortName: string): Observable<any> {
-        return this.http.get<any>('/admin/api/events/' + encodeURI(eventShortName));
+    getEvent(eventShortName: string): Observable<EventOrganization> {
+        return this.http.get<EventOrganization>('/admin/api/events/' + encodeURI(eventShortName));
     }
 
     getEventNamesByIds(ids: number[]): Observable<{[key: number]: string}> {

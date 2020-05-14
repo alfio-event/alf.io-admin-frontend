@@ -3,5 +3,12 @@
 
 <form [formGroup]="composeMessageForm" (submit)="sendMessage()" fxLayout="column">
 
+    <mat-form-field floatLabel="always">
+        <mat-label>Send it to a specific category</mat-label>
+        <mat-select formControlName="categoryId">
+            <mat-option [value]="''">All</mat-option>
+            <mat-option *ngFor="let category of ticketCategories" [value]="category.id">{{category.name}}</mat-option>
+        </mat-select>
+    </mat-form-field>
     <button mat-button type="submit">Preview</button>
 </form>
