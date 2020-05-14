@@ -55,6 +55,10 @@ export class EventService {
         return this.http.get<PageAndContent<EmailLog[]>>(`/admin/api/events/${encodeURI(eventShortName)}/email/`, {params: params});
     }
 
+    getEmail(eventShortName: string, emailId: number): Observable<EmailLog> {
+        return this.http.get<EmailLog>(`/admin/api/events/${encodeURI(eventShortName)}/email/${emailId}`);
+    }
+
     getSelectedLanguages(eventShortName: string): Observable<Language[]> {
         return this.http.get<Language[]>(`/admin/api/events/${encodeURI(eventShortName)}/languages`);
     }
