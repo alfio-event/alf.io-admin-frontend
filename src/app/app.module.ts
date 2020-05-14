@@ -31,6 +31,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatTabsModule } from '@angular/material/tabs';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { EventsComponent } from './organization/events/events.component';
@@ -118,7 +119,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatChipsModule, MatFormFieldModule, MatSnackBarModule, MatDialogModule,
     MatCheckboxModule, MatPaginatorModule, MatRadioModule, MatSlideToggleModule,
     MatMenuModule, MatStepperModule, MatDatepickerModule, MatNativeDateModule,
-    MatAutocompleteModule, MatCardModule, MatTooltipModule,
+    MatAutocompleteModule, MatCardModule, MatTooltipModule, MatTabsModule,
     //
     FlexLayoutModule,
     FormsModule,

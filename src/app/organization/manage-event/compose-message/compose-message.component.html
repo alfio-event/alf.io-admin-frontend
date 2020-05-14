@@ -10,5 +10,24 @@
             <mat-option *ngFor="let category of ticketCategories" [value]="category.id">{{category.name}}</mat-option>
         </mat-select>
     </mat-form-field>
+        
+    <mat-tab-group animationDuration="0ms" formArrayName="messages" dynamicHeight>
+        <mat-tab *ngFor="let lang of languages;index as i" [label]="lang.displayLanguage">
+            <ng-template matTabContent>
+                <div [formGroupName]="i" fxLayout="column">
+                    <mat-form-field>
+                        <mat-label>Subject</mat-label>
+                        <input matInput formControlName="subject">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Message</mat-label>
+                        <textarea matInput formControlName="text" cdkTextareaAutosize></textarea>
+                    </mat-form-field>
+                </div>
+            </ng-template>
+        </mat-tab>
+    </mat-tab-group>
+
     <button mat-button type="submit">Preview</button>
+    
 </form>
